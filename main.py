@@ -19,13 +19,15 @@ def get_connection_data(input_file):
     return connection_data_df
 
 def create_connection(connection_data_df):
+    connections_list = []
     for row in connection_data_df.iterrows():
-        connection.Connection(row['station1'], row['station2'], row['distance'])
+       connections_list.append(connection.Connection(row['station1'], row['station2'], row['distance']))
 
 def create_station(station_data_df):
+    stations_list = []
     for row in station_data_df.iterrows():
-        station.Station(row['station'], row['x'], row['y'])
-        
+        stations_list.append(station.Station(row['station'], row['x'], row['y']))
+
 def output(input):
     for traject in
     trajects = trajectMain.traject.connections_traject()
