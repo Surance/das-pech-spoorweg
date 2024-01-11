@@ -3,3 +3,6 @@ class Connection:
         self.departure_station = departure_station
         self.arrival_station = arrival_station
         self.travel_time = travel_time
+    
+    def StationInfo(self):
+        print(f'{self.name} at {self.x}/{self.y}')
