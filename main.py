@@ -58,22 +58,27 @@ def create_schedule(stations, connections, max_trajects, max_time):
             connection = random.choice(connections)
             departure_station = connection.departure_station
             arrival_station = connection.arrival_station
-            
+    
             # Only add new connection to traject if connection is possible with previous station
-            # if departure_station == previous_connection.arrival_station or arrival_station == previous_connection.arrival_station or departure_station == previous_connection.departure_station or arrival_station == previous_connection.departure_station:
-            traject.connections_list.append(connection)
-            # BUG: will now add both departure and arrival station names to list of stations, meaning some stations will be 2x in a row
-            traject.stations_names_list.extend([connection.departure_station, connection.arrival_station])
-            current_time += connection.travel_time
+            # BUG: Arrival and departure stations should switch if they align other way around
+            if departure_station == previous_connection.arrival_station or arrival_station == previous_connection.arrival_station or departure_station == previous_connection.departure_station or arrival_station == previous_connection.departure_station:
+                if departure_station not in traject.connections_list:
+                    traject.connections_list.append(connection)
+                    # BUG: Now the stations are inserted twice, once bug above is fixed we should only add the arrival station in list
+                    traject.stations_names_list.extend([connection.departure_station, connection.arrival_station])
+                    current_time += connection.travel_time
 
-            previous_connection = connection
-            ridden_connections.append(connection)
+                    previous_connection = connection
+                    if connection not in ridden_connections:
+                        ridden_connections.append(connection)
 
         traject.total_time += current_time
         trajects.append(traject)
         
         if len(trajects) >= max_trajects:
             break
+
+        # BUG: doesnt have a objective to visit all connections, only focuses on limiting factors now
 
     return trajects, ridden_connections
 
@@ -88,6 +93,9 @@ def display_schedule(trajects, ridden, total_connections):
         print(f"{traject_connections.traject_name},\"{stations}\"")
     score = calculate_quality(ridden, trajects, total_connections)
     print(f"score,{score}")
+
+    # To see if all connections have been passed:
+    print(f"rode {len(ridden)} out of {len(total_connections)} connections")
 
     return stations_per_traject
 
