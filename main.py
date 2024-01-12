@@ -18,18 +18,27 @@ def get_connection_data(input_file):
     connection_data_df = pd.read_csv(input_file)
     return connection_data_df
 
+def create_connection(connection_data_df):
+    connections_list = []
+    for row in connection_data_df.iterrows():
+       connections_list.append(connection.Connection(row['station1'], row['station2'], row['distance']))
+
+def create_station(station_data_df):
+    stations_list = []
+    for row in station_data_df.iterrows():
+        stations_list.append(station.Station(row['station'], row['x'], row['y']))
+
+
+
 def output(input):
-    pass
-
-
-
+    for traject in
+    trajects = trajectMain.traject.connections_traject()
+    time = trajectMain.traject.track_traject_time()
 
 
 
 station_data = get_station_data("StationsHolland.csv")
 connection_data = get_connection_data("ConnectionsHolland.csv")
 
-for station in station_data:
-    
 
 
