@@ -21,8 +21,15 @@ def get_connection_data(input_file):
 def output(input):
     pass
 
+
+
+
+
+
 station_data = get_station_data("StationsHolland.csv")
 connection_data = get_connection_data("ConnectionsHolland.csv")
 
+for station in station_data:
+    
 
 
