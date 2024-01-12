@@ -1,30 +1,47 @@
 import matplotlib.pyplot as plt
-
+from main import stations_trajects
 
 def get_coordinates(station_data, station_list):
-    """
-    Extracts coordinates for station names from station data.
-
-    Parameters:
-        station_data (str): A string containing station data in the format "station,y,x".
-        station_list (list): A list of station names for which coordinates need to be extracted.
-
-    Returns:
-        list: A list of tuples containing (y, x) coordinates corresponding to the station names.
-    """
     coordinates = []
 
     for station_name in station_list:
-
-        # Iterate through each line in the station data (without the header)
         for line in station_data.split('\n')[1:]:
             parts = line.split(',')
 
-            if station_name== parts[0]:
-                # Append coordinates to the result list
+            if station_name == parts[0]:
                 coordinates.append((float(parts[1]), float(parts[2])))
 
     return coordinates
+
+def process_input(input_list):
+    train_data = []
+
+    for i, route in enumerate(input_list, start=1):
+        train_name = f"Train {i}"
+        cleaned_route = [station.strip() for station in route]  # Remove leading/trailing whitespaces
+
+        train_data.append((train_name, cleaned_route))
+
+    return train_data
+
+def plot_trains(station_data, train_data, figure_size=(10, 8)):
+    plt.figure(figsize=figure_size)
+
+    for train_name, station_list in train_data:
+        result = get_coordinates(station_data, station_list)
+        y_coords, x_coords = zip(*result)
+
+        plt.plot(x_coords, y_coords, label=f"{train_name} Route")
+        plt.scatter(x_coords, y_coords)
+
+        for i, station_name in enumerate(station_list):
+            plt.text(x_coords[i], y_coords[i], station_name, rotation=20, rotation_mode='anchor', fontsize=8, ha='left', va='bottom')
+
+    plt.title("Train Rails and Stations")
+    plt.xlabel("Longitude")
+    plt.ylabel("Latitude")
+    plt.legend()
+    plt.show()
 
 coords_data = """station,y,x
 Alkmaar,52.63777924,4.739722252
@@ -50,45 +67,8 @@ Schiedam Centrum,51.92124381,4.408993721
 Schiphol Airport,52.30944443,4.761944294
 Zaandam,52.43888855,4.813611031"""
 
-def plot_trains(station_data, train_data, figure_size=(10, 8)):
-    """
-    Plots rails and stations for multiple trains.
+input_list = stations_trajects
 
-    Parameters:
-        station_data (str): A string containing station data in the format "station,y,x".
-        train_data (list): A list of tuples where each tuple contains a train name and a list of station names.
-
-    Returns:
-        A plot
-    """
-    # Create a new figure with the specified size
-    plt.figure(figsize=figure_size)
-
-    # Plot the rails and stations for each train
-    for train_name, station_list in train_data:
-        result = get_coordinates(station_data, station_list)
-        y_coords, x_coords = zip(*result)
-
-        # Plot the rails
-        plt.plot(x_coords, y_coords, label=f"{train_name} Route")
-
-        # Plot the train stations
-        plt.scatter(x_coords, y_coords)
-
-        # Plot station names
-        for i, station_name in enumerate(station_list):
-            plt.text(x_coords[i], y_coords[i], station_name, rotation = 20, rotation_mode='anchor', fontsize=8, ha='right', va='bottom')
-
-    plt.title("Train Rails and Stations")
-    plt.xlabel("Longitude")
-    plt.ylabel("Latitude")
-    plt.legend()
-    plt.show()
-
-train_data = [
-    ("Train 1", ["Beverwijk", "Castricum", "Alkmaar", "Hoorn", "Zaandam"]),
-    ("Train 2", ["Amsterdam Sloterdijk", "Amsterdam Centraal", "Amsterdam Amstel", "Amsterdam Zuid", "Schiphol Airport"]),
-    ("Train_3", ["Rotterdam Alexander", "Gouda", "Alphen a/d Rijn", "Leiden Centraal", "Schiphol Airport", "Amsterdam Zuid"])
-]
+train_data = process_input(input_list)
 
 plot_trains(coords_data, train_data)
