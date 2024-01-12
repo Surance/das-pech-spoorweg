@@ -92,7 +92,7 @@ max_time = 120  # 2 hours
 schedule = create_schedule(stations, connections, max_trajects, max_time)
 
 # Output schedule
-output_schedule(schedule)
+display_schedule(schedule)
 
 
 station_data = get_station_data("StationsHolland.csv")
