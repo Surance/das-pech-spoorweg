@@ -1,8 +1,8 @@
-# Das Pech, Spoorweg
-import station
-import connection
-import pandas as pd
+from station import Station
+from connection import Connection
 from schedule import Schedule 
+
+import pandas as pd
 
 def get_station_data(input_file):
     """
@@ -19,19 +19,24 @@ def get_connection_data(input_file):
     return connection_data_df
 
 def create_connection(connection_data_df):
+    """
+    Function takes dataframe and creates list of connections
+    """
     connections_list = []
     for _, row in connection_data_df.iterrows():
-       connections_list.append(connection.Connection(row['station1'], row['station2'], row['distance']))
+       connections_list.append(Connection(row['station1'], row['station2'], row['distance']))
     return connections_list
 
 def create_station(station_data_df):
+    """
+    Function takes dataframe and creates list of stations 
+    """
     stations_list = []
     for _, row in station_data_df.iterrows():
-        stations_list.append(station.Station(row['station'], row['x'], row['y']))
+        stations_list.append(Station(row['station'], row['x'], row['y']))
     return stations_list
 
 if __name__ == "__main__":
-    
     # Input csv's
     station_data = get_station_data("StationsHolland.csv")
     connection_data = get_connection_data("ConnectionsHolland.csv")
@@ -40,16 +45,10 @@ if __name__ == "__main__":
     all_stations = create_station(station_data)
     all_connections = create_connection(connection_data)
 
-    # Create schedule
+    # Create schedule & display in output
     max_trajects = 7
     max_time = 120  # 2 hours
     schedule = Schedule(max_trajects, max_time, all_connections)
 
     schedule.create_schedule()
     schedule.display_schedule()
-
-
-    # schedule, ridden_connections = Schedule.create_schedule(all_connections, max_trajects, max_time)
-
-    # # Output schedule
-    # stations_trajects = Schedule.display_schedule(schedule, ridden_connections, all_connections)
