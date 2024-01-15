@@ -1,9 +1,8 @@
 # Das Pech, Spoorweg
 import station
 import connection
-import random
-import trajectMain
 import pandas as pd
+from schedule import Schedule 
 
 def get_station_data(input_file):
     """
@@ -31,89 +30,26 @@ def create_station(station_data_df):
         stations_list.append(station.Station(row['station'], row['x'], row['y']))
     return stations_list
 
-def calculate_quality(ridden, trajects, all_connections):
-    # TODO: make into behaviour class? so you dont loop over same list 3484583838 times 
-    p = len(ridden) / len(all_connections)
-    T = len(trajects)
-    Min = sum([traject.total_time for traject in trajects])
-    K = p * 10000 - (T * 100 + Min)
-    return K
-
-def create_schedule(stations, connections, max_trajects, max_time):
-    """
-    Function that creates a schedule of trains, taking in account the connections and the max time
-    """
-    trajects = []
-    # Keep track of ridden connections for all trajects
-    ridden_connections = []
-
-    while len(ridden_connections) < len(connections):
-        # Start traject somewhere randomly 
-        previous_connection = random.choice(connections)
-        traject_name = f"train_{len(trajects) + 1}"
-        traject = trajectMain.Traject(traject_name)
-        current_time = 0
-
-        while current_time < max_time and len(ridden_connections) < len(connections):
-            connection = random.choice(connections)
-            departure_station = connection.departure_station
-            arrival_station = connection.arrival_station
+if __name__ == "__main__":
     
-            # Only add new connection to traject if connection is possible with previous station
-            # BUG: Arrival and departure stations should switch if they align other way around
-            if departure_station == previous_connection.arrival_station or arrival_station == previous_connection.arrival_station or departure_station == previous_connection.departure_station or arrival_station == previous_connection.departure_station:
-                if departure_station not in traject.connections_list:
-                    traject.connections_list.append(connection)
-                    # BUG: Now the stations are inserted twice, once bug above is fixed we should only add the arrival station in list
-                    traject.stations_names_list.extend([connection.departure_station, connection.arrival_station])
-                    current_time += connection.travel_time
+    # Input csv's
+    station_data = get_station_data("StationsHolland.csv")
+    connection_data = get_connection_data("ConnectionsHolland.csv")
 
-                    previous_connection = connection
-                    if connection not in ridden_connections:
-                        ridden_connections.append(connection)
+    # Create objects
+    all_stations = create_station(station_data)
+    all_connections = create_connection(connection_data)
 
-        traject.total_time += current_time
-        trajects.append(traject)
-        
-        if len(trajects) >= max_trajects:
-            break
+    # Create schedule
+    max_trajects = 7
+    max_time = 120  # 2 hours
+    schedule = Schedule(max_trajects, max_time, all_connections)
 
-        # BUG: doesnt have a objective to visit all connections, only focuses on limiting factors now
+    schedule.create_schedule()
+    schedule.display_schedule()
 
-    return trajects, ridden_connections
 
-def display_schedule(trajects, ridden, total_connections):
-    """
-    Displays the schedule and score in the format as provided on ah.proglab.nl
-    """
-    stations_per_traject = []
-    for traject_connections in trajects:
-        stations = traject_connections.stations_names_list
-        stations_per_traject.append(stations)
-        print(f"{traject_connections.traject_name},\"{stations}\"")
-    score = calculate_quality(ridden, trajects, total_connections)
-    print(f"score,{score}")
+    # schedule, ridden_connections = Schedule.create_schedule(all_connections, max_trajects, max_time)
 
-    # To see if all connections have been passed:
-    print(f"rode {len(ridden)} out of {len(total_connections)} connections")
-
-    return stations_per_traject
-
-# Input csv's
-station_data = get_station_data("StationsHolland.csv")
-connection_data = get_connection_data("ConnectionsHolland.csv")
-
-# Create objects
-all_stations = create_station(station_data)
-all_connections = create_connection(connection_data)
-
-# Create schedule
-max_trajects = 7
-max_time = 120  # 2 hours
-schedule, ridden_connections = create_schedule(all_stations, all_connections, max_trajects, max_time)
-
-# Output schedule
-stations_trajects = display_schedule(schedule, ridden_connections, all_connections)
-
-station_data = get_station_data("StationsHolland.csv")
-connection_data = get_connection_data("ConnectionsHolland.csv")
+    # # Output schedule
+    # stations_trajects = Schedule.display_schedule(schedule, ridden_connections, all_connections)
