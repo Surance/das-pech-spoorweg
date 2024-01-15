@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from code.main import stations_trajects
+from .main import stations_trajects
 
 def get_coordinates(station_data, station_list):
     """

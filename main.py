@@ -1,7 +1,7 @@
 from code.classes.station import Station
 from code.classes.connection import Connection
-from code.classes.schedule import Schedule 
-
+from code.classes.schedule import Schedule
+import os
 import pandas as pd
 
 def get_station_data(input_file):
@@ -38,8 +38,8 @@ def create_station(station_data_df):
 
 if __name__ == "__main__":
     # Input csv's
-    station_data = get_station_data("StationsHolland.csv")
-    connection_data = get_connection_data("ConnectionsHolland.csv")
+    station_data = get_station_data("data/StationsHolland.csv")
+    connection_data = get_connection_data("data/ConnectionsHolland.csv")
 
     # Create objects
     all_stations = create_station(station_data)
@@ -50,5 +50,5 @@ if __name__ == "__main__":
     max_time = 120  # 2 hours
     schedule = Schedule(max_trajects, max_time, all_connections)
 
-    schedule.create_schedule()
+    stations_trajects = schedule.create_schedule()
     schedule.display_schedule()

@@ -1,6 +1,3 @@
-import code.classes.station as station 
-import code.classes.connection as connection
-
 class Traject():
     def __init__(self, traject_name):
         self.stations_names_list = []
