@@ -2,38 +2,82 @@ import matplotlib.pyplot as plt
 from main import stations_trajects
 
 def get_coordinates(station_data, station_list):
+    """
+    Extracts coordinates for station names from station data.
+
+    Parameters:
+        station_data (str): A string containing station data in the format "station,y,x".
+        station_list (list): A list of station names for which coordinates need to be extracted.
+
+    Returns:
+        list: A list of tuples containing (y, x) coordinates corresponding to the station names.
+    """
     coordinates = []
 
     for station_name in station_list:
+        
+        # Iterate through each line in the station data (without the header)
         for line in station_data.split('\n')[1:]:
             parts = line.split(',')
 
+            # Append coordinates to the result list
             if station_name == parts[0]:
                 coordinates.append((float(parts[1]), float(parts[2])))
 
     return coordinates
 
 def process_input(input_list):
-    train_data = []
+    """
+    Process a list of train routes and clean the data.
 
+    Args:
+        input_list (list): A list of train routes, where each route is represented
+        as a list of stations.
+
+    Returns:
+        list: A list of tuples containing cleaned train data, where each tuple
+        consists of a train name and a list of cleaned stations.
+    """
+    train_data = []
+    
+     # Iterate over the input_list with enumeration to get index and route
     for i, route in enumerate(input_list, start=1):
         train_name = f"Train {i}"
-        cleaned_route = [station.strip() for station in route]  # Remove leading/trailing whitespaces
+        
+        # Remove leading/trailing whitespaces from each station in the route
+        cleaned_route = [station.strip() for station in route]  
 
+        # Append a tuple containing train name and cleaned route to train_data
         train_data.append((train_name, cleaned_route))
 
     return train_data
 
 def plot_trains(station_data, train_data, figure_size=(10, 8)):
+    """
+    Plots rails and stations for multiple trains.
+
+    Parameters:
+        station_data (str): A string containing station data in the format "station,y,x".
+        train_data (list): A list of tuples where each tuple contains a train name and a list of station names.
+
+    Returns:
+        A plot
+    """
+
+    # Create a new figure with the specified size
     plt.figure(figsize=figure_size)
 
     for train_name, station_list in train_data:
         result = get_coordinates(station_data, station_list)
         y_coords, x_coords = zip(*result)
 
+        # Plot the rails
         plt.plot(x_coords, y_coords, label=f"{train_name} Route")
+
+        # Plot the train stations
         plt.scatter(x_coords, y_coords)
 
+        # Plot station names
         for i, station_name in enumerate(station_list):
             plt.text(x_coords[i], y_coords[i], station_name, rotation=20, rotation_mode='anchor', fontsize=8, ha='left', va='bottom')
 
