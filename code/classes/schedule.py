@@ -1,5 +1,5 @@
-from trajectMain import Traject
-from quality import Quality
+from code.classes.traject import Traject
+from code.classes.quality import Quality
 import random
 
 

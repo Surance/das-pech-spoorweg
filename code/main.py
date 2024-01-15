@@ -1,6 +1,6 @@
-from station import Station
-from connection import Connection
-from schedule import Schedule 
+from code.classes.station import Station
+from code.classes.connection import Connection
+from code.classes.schedule import Schedule 
 
 import pandas as pd
 
