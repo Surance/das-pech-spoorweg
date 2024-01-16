@@ -2,7 +2,6 @@ from .traject import Traject
 from .quality import Quality
 import random
 
-
 class Schedule:
     def __init__(self, max_trajects, max_time, total_connections):
         self.max_trajects = max_trajects 
@@ -20,31 +19,43 @@ class Schedule:
         Function  creates a schedule of trains, taking in account the connections and the max time
         """
 
+        # Create a new traject every iteration until all connections are passed 
         while len(self.ridden) < len(self.total_connections):
             # Start traject somewhere randomly 
-            previous_connection = random.choice(self.total_connections)
+            first_connection = random.choice(self.total_connections)
             traject_name = f"train_{len(self.trajects) + 1}"
             traject = Traject(traject_name)
+            traject.stations_names_list.append(first_connection.departure_station)
+            traject.stations_names_list.append(first_connection.arrival_station)
             current_time = 0
 
+            # Add stations to traject if it connects to previous station until all connections are passed and max time is met
             while current_time < self.max_time and len(self.ridden) < len(self.total_connections):
                 connection = random.choice(self.total_connections)
                 departure_station = connection.departure_station
                 arrival_station = connection.arrival_station
-        
+
+                # BUG: sorry ff heel lelijk maar anders blijft ie hangen
+                if traject.stations_names_list[-1] == "Den Helder":
+                    break
+
                 # Only add new connection to traject if connection is possible with previous station
-                # BUG: Arrival and departure stations should switch if they align other way around
-                if departure_station == previous_connection.arrival_station or arrival_station == previous_connection.arrival_station or departure_station == previous_connection.departure_station or arrival_station == previous_connection.departure_station:
-                    if departure_station not in traject.connections_list:
-                        traject.connections_list.append(connection)
-                        # BUG: Now the stations are inserted twice, once bug above is fixed we should only add the arrival station in list
-                        traject.stations_names_list.extend([connection.departure_station, connection.arrival_station])
-                        current_time += connection.travel_time
-
-                        previous_connection = connection
-                        
-                        self.ridden.add(connection)
-
+                if traject.stations_names_list[-1] == arrival_station and traject.stations_names_list[-2] != departure_station: 
+                    traject.connections_list.append(connection)
+                    traject.stations_names_list.append(departure_station)
+                    current_time += connection.travel_time
+                    
+                    self.ridden.add(connection)
+                
+                # Only add new connection to traject if connection is possible with previous station
+                elif traject.stations_names_list[-1] == departure_station: 
+                    traject.connections_list.append(connection)
+                    traject.stations_names_list.append(arrival_station)
+                    current_time += connection.travel_time
+                    
+                    self.ridden.add(connection)
+                
+                
             traject.total_time += current_time
             self.trajects.append(traject)
             
