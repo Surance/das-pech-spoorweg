@@ -13,10 +13,24 @@ class Schedule:
 
         # Keep track of ridden connections for all trains
         self.ridden = set()
-
+    
+    def check_possible_connections(self):
+        """
+        Function checks which connections are possible and returns list of valid connecctions
+        """
+        possible_connections = {}
+        for connection_to_check in self.total_connections:
+            if self.train.stations_names_list[-1] == connection_to_check.arrival_station and self.train.stations_names_list[-2] != connection_to_check.departure_station: 
+                possible_connections[connection_to_check] = connection_to_check.departure_station
+        
+            elif self.train.stations_names_list[-1] == connection_to_check.departure_station:
+                possible_connections[connection_to_check] = connection_to_check.arrival_station
+        
+        return possible_connections
+                         
     def valid_connection(self, connection, station_to_add):
         """
-        Function adds connections and stations to list if it is a valid next connection
+        Function adds connections and stations to list
         """
         self.train.connections_list.append(connection)
         self.train.stations_names_list.append(station_to_add)
@@ -37,7 +51,6 @@ class Schedule:
 
     def create_schedule(self):
         # TODO: put create schedule as seperate class --> its an algorithm
-        # TODO: put create schedule into different seperate functions not one big 
         """
         Function  creates a schedule of trains, taking in account the connections and the max time
         """
@@ -47,25 +60,17 @@ class Schedule:
             # Start self.train somewhere randomly
             self.add_train()
 
-            # Add stations to train if it connects to previous station until all connections are passed and max time is met
-            # BUG: Change to: look at possible connections and choose a random one
+            # Add new stations to train if it connects to previous station until all connections are passed or max time is met
             while self.current_time < self.max_time and len(self.ridden) < len(self.total_connections):
-                connection = random.choice(self.total_connections)
-                departure_station = connection.departure_station
-                arrival_station = connection.arrival_station
+        
+                possible_connections = self.check_possible_connections()
 
-                # BUG: sorry ff heel lelijk maar anders blijft ie hangen
-                if self.train.stations_names_list[-1] == "Den Helder":
+                if len(possible_connections.keys()) == 0:
                     break
 
-                # Only add new connection to train if connection is possible with previous station
-                if self.train.stations_names_list[-1] == arrival_station and self.train.stations_names_list[-2] != departure_station: 
-                    # TODO: create into function
-                    self.valid_connection(connection, departure_station)
-                
-                # Only add new connection to train if connection is possible with previous station
-                elif self.train.stations_names_list[-1] == departure_station: 
-                    self.valid_connection(connection, arrival_station)
+                connection = random.choice(list(possible_connections.keys()))
+
+                self.valid_connection(connection, possible_connections[connection])
 
             self.train.total_time += self.current_time
             self.trains.append(self.train)
@@ -85,6 +90,7 @@ class Schedule:
             stations = train_connections.stations_names_list
             stations_per_train.append(stations)
             print(f"{train_connections.train_name},\"{stations}\"")
+        
         score = Quality(self.ridden, self.trains, self.total_connections).calculate_quality()
         print(f"score,{score}")
 
