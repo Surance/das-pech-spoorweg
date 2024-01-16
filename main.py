@@ -46,9 +46,9 @@ if __name__ == "__main__":
     all_connections = create_connection(connection_data)
 
     # Create schedule & display in output
-    max_trajects = 7
+    max_trains = 7
     max_time = 120  # 2 hours
-    schedule = Schedule(max_trajects, max_time, all_connections)
+    schedule = Schedule(max_trains, max_time, all_connections)
 
-    stations_trajects = schedule.create_schedule()
+    stations_trains = schedule.create_schedule()
     schedule.display_schedule()
