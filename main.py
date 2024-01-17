@@ -1,6 +1,12 @@
 from code.classes.station import Station
 from code.classes.connection import Connection
 from code.classes.schedule import Schedule
+
+from code.visualisation.visualise import process_input
+from code.visualisation.visualise import plot_trains
+from code.visualisation.visualise import get_coordinates
+from code.visualisation.visualise import coords_data
+
 import pandas as pd
 import csv
 
@@ -66,7 +72,11 @@ if __name__ == "__main__":
         # Add score and number of ridden connections of trial to count
         score_count += trial_score
         ridden_count += trial_ridden
-    
+
+    # Calling and running visualise
+    train_data = process_input(stations_trains)
+    plot_trains(coords_data, train_data)
+
     # Save file with summary of the trials in the experiment 
     file_name = f"experiment/{algorithm}/EXPERIMENT_SUMMARY"
 
@@ -80,6 +90,9 @@ if __name__ == "__main__":
         csv_writer.writerow(["Average Score", score_count/iterations])
 
         csv_writer.writerow(["Average Connections Ridden", ridden_count/iterations])
+
+
+
 
 
     
