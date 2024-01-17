@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from .main import stations_trains
+from .main import stations_trajects
 
 def get_coordinates(station_data, station_list):
     """
@@ -111,7 +111,7 @@ Schiedam Centrum,51.92124381,4.408993721
 Schiphol Airport,52.30944443,4.761944294
 Zaandam,52.43888855,4.813611031"""
 
-input_list = stations_trains
+input_list = stations_trajects
 
 train_data = process_input(input_list)
 
