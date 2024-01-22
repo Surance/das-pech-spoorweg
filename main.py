@@ -56,7 +56,7 @@ if __name__ == "__main__":
         score_count += trial_score
         ridden_count += trial_ridden
 
-    # Calling and running visualise
+    # Calling and running visualiser
     train_data = process_input(stations_trains)
     plot_trains(coords_data, train_data)
 
