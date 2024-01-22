@@ -6,13 +6,13 @@ import csv
 
 
 class AStarScheduler:
-    def __init__(self, max_trains, max_time, total_connections):
-        self.max_trains = max_trains
-        self.max_time = max_time
-        self.total_connections = total_connections
+    def __init__(self, schedule):
+        self.schedule = schedule
+        self.total_connections = schedule.total_connections  # Initialize total_connections
 
         self.initial_state = ([], set())  # (stations, ridden_connections)
         self.goal_state = None  # Will be set during initialization
+
 
     def heuristic(self, state):
         # Estimate the cost to reach the goal from a given state
@@ -80,32 +80,3 @@ class AStarScheduler:
 
         return None
 
-
-max_trains = 7
-max_time = 120
-file_path = 'data/ConnectionsHolland.csv'
-connections = []
-
-with open(file_path, newline='', encoding='utf-8') as csvfile:
-        reader = csv.DictReader(csvfile)
-        for row in reader:
-            connection = Connection(
-                row['station1'],
-                row['station2'],
-                int(row['distance'])  # Assuming 'distance' is the travel time
-            )
-            connections.append(connection)
-
-
-# Example usage:
-file_path = 'data/ConnectionsHolland.csv'
-connections_list = connections
-
-total_connections = connections_list
-astar_scheduler = AStarScheduler(max_trains, max_time, total_connections)
-optimal_schedule = astar_scheduler.create_optimal_schedule()
-
-if optimal_schedule:
-    optimal_schedule.display_schedule("A*", 1, save_each_output_as_csv=True)
-else:
-    print("Optimal schedule not found.")
