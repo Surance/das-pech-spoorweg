@@ -52,28 +52,11 @@ class Schedule:
         self.train.stations_names_list.append(first_connection.arrival_station)
         self.current_time = 0
 
-    def display_schedule(self, algorithm_type, experiment_number, save_each_output_as_csv=False):
+    def save_outputs_csv(self, file_name, score):
         """
-        Displays the schedule and score in the format as provided on ah.proglab.nl
+        Function saves each output per trial as a csv in the experiment folder
         """
-        file_name = f"experiment/{algorithm_type}/experiment_{experiment_number + 1}"
-
-        stations_per_train = []
-        for train in self.trains:
-            stations = train.stations_names_list
-            stations_per_train.append(stations)
-                    
-        # Compute score for created train schedule
-        score = Quality(self.ridden, self.trains, self.total_connections).calculate_quality()
-
-        # Create folder if it doesn't exist
-        os.makedirs(os.path.dirname(file_name), exist_ok=True)
-
-        # Save each result of each trial in a CSV file if asked for
-        # TODO: put the following section in seperate function
-        if save_each_output_as_csv == True:
-
-            with open(file_name, 'w', newline='') as csvfile:
+        with open(file_name, 'w', newline='') as csvfile:
                 csv_writer = csv.writer(csvfile)
                 
                 # Write headers
@@ -89,5 +72,26 @@ class Schedule:
                 # Write connection information
                 csv_writer.writerow(["Connections Ridden", len(self.ridden)])
                 csv_writer.writerow(["Total Connections", len(self.total_connections)])
+
+    def display_schedule(self, algorithm_type, trial_number, save_each_output_as_csv=False):
+        """
+        Displays the schedule and score in the format as provided on ah.proglab.nl
+        """
+        file_name = f"experiment/{algorithm_type}/experiment_{trial_number + 1}"
+
+        stations_per_train = []
+        for train in self.trains:
+            stations = train.stations_names_list
+            stations_per_train.append(stations)
+                    
+        # Compute score for created train schedule
+        score = Quality(self.ridden, self.trains, self.total_connections).calculate_quality()
+
+        # Create folder if it doesn't exist
+        os.makedirs(os.path.dirname(file_name), exist_ok=True)
+
+        # Save each result of each trial in a CSV file if asked for
+        if save_each_output_as_csv == True:
+            self.save_outputs_csv(self, file_name, score)
 
         return stations_per_train, score, len(self.ridden)
