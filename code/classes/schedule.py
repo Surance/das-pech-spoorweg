@@ -1,5 +1,6 @@
 from .train import Train
 from .quality import Quality
+
 import random
 import os
 import csv
@@ -50,40 +51,6 @@ class Schedule:
         self.train.stations_names_list.append(first_connection.departure_station)
         self.train.stations_names_list.append(first_connection.arrival_station)
         self.current_time = 0
-
-    def create_schedule(self):
-        # TODO: put create schedule as seperate class --> its a random algorithm
-        """
-        Function  creates a schedule of trains, taking in account the connections and the max time
-        """
-
-        # Create a new train every iteration until all connections are passed 
-        while len(self.ridden) < len(self.total_connections):
-            # Start self.train somewhere randomly
-            self.add_train()
-
-            # Add new stations to train if it connects to previous station until all connections are passed or max time is met
-            while self.current_time < self.max_time and len(self.ridden) < len(self.total_connections):
-                
-                # Check which connections are possible with the previous arrival station
-                possible_connections = self.check_possible_connections()
-
-                if len(possible_connections.keys()) == 0:
-                    break
-                
-                # Pick a random connection from those that are possible
-                connection = random.choice(list(possible_connections.keys()))
-
-                self.valid_connection(connection, possible_connections[connection])
-
-            self.train.total_time += self.current_time
-            self.trains.append(self.train)
-            
-            # Break out of loop once the max number of trains has been met
-            if len(self.trains) >= self.max_trains:
-                break
-
-        return self.trains, self.ridden
 
     def display_schedule(self, algorithm_type, experiment_number, save_each_output_as_csv=False):
         """

@@ -1,6 +1,6 @@
-from code.classes.station import Station
-from code.classes.connection import Connection
+from code.classes.information import Information
 from code.classes.schedule import Schedule
+from code.algorithms.random import Random_schedule
 
 from code.visualisation.visualise import process_input
 from code.visualisation.visualise import plot_trains
@@ -10,42 +10,9 @@ from code.visualisation.visualise import coords_data
 import pandas as pd
 import csv
 
-def get_station_data(input_file):
-    """
-    Function that creates a pd dataframe from csv file with station info and coordinates
-    """
-    station_data_df = pd.read_csv(input_file)
-    return station_data_df
-
-def get_connection_data(input_file):
-    """
-    Function that creates a pd dataframe from csv file with connection info and time
-    """
-    connection_data_df = pd.read_csv(input_file)
-    return connection_data_df
-
-def create_connection(connection_data_df):
-    """
-    Function takes dataframe and creates list of connections
-    """
-    connections_list = []
-    for _, row in connection_data_df.iterrows():
-       connections_list.append(Connection(row['station1'], row['station2'], row['distance']))
-    return connections_list
-
-def create_station(station_data_df):
-    """
-    Function takes dataframe and creates list of stations 
-    """
-    stations_list = []
-    for _, row in station_data_df.iterrows():
-        stations_list.append(Station(row['station'], row['x'], row['y']))
-    return stations_list
-
 if __name__ == "__main__":
     # Input csv's
-    station_data = get_station_data("data/StationsHolland.csv")
-    connection_data = get_connection_data("data/ConnectionsHolland.csv")
+    data = Information("data/StationsHolland.csv", "data/ConnectionsHolland.csv")
 
     # Count scores and connections ridden per experiment
     score_count = 0
@@ -53,7 +20,8 @@ if __name__ == "__main__":
 
     iterations = 1000
     # TODO: find a way so it automatically calls it: algorithm_existing N + 1 
-    algorithm = "random_2"
+    algorithm = "random_3"
+    algorithm_type = "random"
     max_trains = 7
     max_time = 120  # 2 hours
 
@@ -61,12 +29,18 @@ if __name__ == "__main__":
     for trial in range(iterations):
 
         # Create objects
-        all_stations = create_station(station_data)
-        all_connections = create_connection(connection_data)
+        all_stations = Information.create_station(data)
+        all_connections = Information.create_connection(data)
 
         schedule = Schedule(max_trains, max_time, all_connections)
 
-        schedule.create_schedule()
+        if algorithm_type == "random":
+            Random_schedule.create_random_schedule(schedule)
+        
+        # TODO: add if statement for dijkstra
+        # elif algorithm_type == "dijkstra":
+        
+
         stations_trains, trial_score, trial_ridden = schedule.display_schedule(algorithm, trial)
 
         # Add score and number of ridden connections of trial to count
