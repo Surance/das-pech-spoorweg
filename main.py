@@ -50,11 +50,8 @@ if __name__ == "__main__":
     # Example usage running only matplotlib
     visualize_data(stations_trains, coords_data, visualise_plot=True, visualise_map=False)
 
-    # Save file with summary of the trials in the experiment
-    schedule_instance = Schedule(max_trains, max_time, 1000)
+    pathname = Experiment.path_name(algorithm)
 
-    pathname = schedule_instance.path_name(algorithm)
-
-    Information.summary_experiment(algorithm, algorithm, pathname, iterations, score_count, ridden_count)
+    Information.summary_experiment(algorithm, pathname, iterations, score_count, ridden_count)
 
     
