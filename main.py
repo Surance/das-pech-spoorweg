@@ -1,5 +1,6 @@
 from code.classes.information import Information
 from code.classes.schedule import Schedule
+from code.classes.experiment import Experiment
 from code.algorithms.random import Random_schedule
 from code.algorithms.Astar import AStarScheduler
 from code.algorithms.greedy import GreedySchedule
@@ -16,13 +17,9 @@ if __name__ == "__main__":
     # Input csv's
     data = Information("data/StationsHolland.csv", "data/ConnectionsHolland.csv")
 
-    # Count scores and connections ridden per experiment
-    score_count = 0
-    ridden_count = 0
-
     iterations = 1000
     # TODO: find a way so it automatically calls it: algorithm_existing N + 1 
-    algorithm = "random"
+    algorithm = "random_5"
     algorithm_type = "greedy"
     max_trains = 7
     max_time = 120  # 2 hours
@@ -54,7 +51,7 @@ if __name__ == "__main__":
             greedy_schedule.create_greedy_schedule()
 
             if greedy_schedule:
-                print('Greedy schedule found.')
+                continue
             else:
                 print("Greedy schedule not found.")
         
@@ -69,22 +66,6 @@ if __name__ == "__main__":
     train_data = process_input(stations_trains)
     plot_trains(coords_data, train_data)
 
-    # Save file with summary of the trials in the experiment 
-    file_name = f"experiment/{algorithm}/EXPERIMENT_SUMMARY"
-
-    with open(file_name, 'w', newline='') as csvfile:
-        csv_writer = csv.writer(csvfile)
-
-        csv_writer.writerow(["Algorithm type", algorithm])
-        
-        csv_writer.writerow(["Number of Trials", iterations])
-
-        csv_writer.writerow(["Average Score", score_count/iterations])
-
-        csv_writer.writerow(["Average Connections Ridden", ridden_count/iterations])
-
-
-
-
-
-    
+    # Save file with summary of the trials in the experiment
+    pathname = Schedule.path_name(algorithm) 
+    Information.summary_experiment(algorithm, algorithm, pathname, iterations, score_count, ridden_count)

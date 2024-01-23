@@ -11,7 +11,7 @@ class Schedule:
         self.max_time = max_time
         self.total_connections = total_connections
         
-        # Store self.train classes in list
+        # Store train classes in list
         self.trains = []
 
         # Keep track of ridden connections for all trains
@@ -73,11 +73,28 @@ class Schedule:
                 csv_writer.writerow(["Connections Ridden", len(self.ridden)])
                 csv_writer.writerow(["Total Connections", len(self.total_connections)])
 
-    def display_schedule(self, algorithm_type, trial_number, save_each_output_as_csv=False):
+    def path_name(self, algorithm_type):
+        """
+        Function creates a file name according to the algorithm and the 
+        """
+        # Get a list of existing directories in the parent directory
+        existing_directories = [d for d in os.listdir(f"experiment/{algorithm_type}") if os.path.isdir(os.path.join(f"experiment/{algorithm_type}", d))]
+        max_number = 0
+
+        # Find the directory with the largest number
+        for directory in existing_directories:
+            number = int(directory.split('_')[-1])
+            max_number = max(max_number, number)
+
+        # New experiment number is one more than largest number in directory
+        experiment_number = max_number + 1
+
+        return f"experiment/{algorithm_type}/{algorithm_type}_{experiment_number}/"
+
+    def display_schedule(self, file_name, save_each_output_as_csv=False):
         """
         Displays the schedule and score in the format as provided on ah.proglab.nl
         """
-        file_name = f"experiment/{algorithm_type}/experiment_{trial_number + 1}"
 
         stations_per_train = []
         for train in self.trains:
@@ -92,6 +109,6 @@ class Schedule:
 
         # Save each result of each trial in a CSV file if asked for
         if save_each_output_as_csv == True:
-            self.save_outputs_csv(self, file_name, score)
+            self.save_outputs_csv(file_name, score)
 
         return stations_per_train, score, len(self.ridden)
