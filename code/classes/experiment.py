@@ -1,7 +1,8 @@
 from .information import Information
 from .schedule import Schedule
 from code.algorithms.random import Random_schedule
-from code.algorithms.Astar import AStarScheduler
+from code.algorithms.greedy import GreedySchedule
+from code.algorithms.HillClimb import HillClimbingScheduler
 
 class Experiment:
     def __init__(self, data, iterations, algorithm, max_trains, max_time):
@@ -30,6 +31,12 @@ class Experiment:
             # Create a schedule depending on which algorithm is called
             if self.algorithm == "random":
                 Random_schedule.create_random_schedule(schedule)
+
+            elif self.algoritm == "greedy":
+                GreedySchedule.create_greedy_schedule(schedule)
+
+            elif self.algorithm == "hillclimb":
+                HillClimbingScheduler.hill_climbing_schedule(schedule)
 
             stations_trains, trial_score, trial_ridden = schedule.display_schedule(file_name)
 
