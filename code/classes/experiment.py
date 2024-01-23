@@ -52,7 +52,7 @@ class Experiment:
             if self.algorithm == "random":
                 Random_schedule.create_random_schedule(schedule)
 
-            elif self.algoritm == "greedy":
+            elif self.algorithm == "greedy":
                 GreedySchedule.create_greedy_schedule(schedule)
 
             elif self.algorithm == "hillclimb":
