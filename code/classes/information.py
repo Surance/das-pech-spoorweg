@@ -2,6 +2,7 @@ from .station import Station
 from .connection import Connection
 
 import pandas as pd
+import csv
 
 class Information:
     def __init__(self, station_data, connection_data):
@@ -28,3 +29,17 @@ class Information:
             stations_list.append(Station(row['station'], row['x'], row['y']))
 
         return stations_list
+    
+    def summary_experiment(self, algorithm, path, iterations, score, N_ridden):
+        file_name = f"{path}/EXPERIMENT_SUMMARY"
+
+        with open(file_name, 'w', newline='') as csvfile:
+            csv_writer = csv.writer(csvfile)
+
+            csv_writer.writerow(["Algorithm type", algorithm])
+            
+            csv_writer.writerow(["Number of Trials", iterations])
+
+            csv_writer.writerow(["Average Score", score/iterations])
+
+            csv_writer.writerow(["Average Connections Ridden", N_ridden/iterations])
