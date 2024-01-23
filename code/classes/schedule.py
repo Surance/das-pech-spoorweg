@@ -16,6 +16,16 @@ class Schedule:
 
         # Keep track of ridden connections for all trains
         self.ridden = set()
+
+    def copy_schedule(self):
+        """
+        Create a copy of the current schedule.
+        """
+        new_schedule = Schedule(self.max_trains, self.max_time, self.total_connections)
+        new_schedule.trains = [train.copy_train() for train in self.trains]
+        new_schedule.ridden = self.ridden.copy()
+        new_schedule.current_time = self.current_time
+        return new_schedule
     
     def check_possible_connections(self):
         """

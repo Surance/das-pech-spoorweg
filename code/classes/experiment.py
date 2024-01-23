@@ -43,7 +43,6 @@ class Experiment:
         pathname = self.path_name()
         
         for trial in range(self.iterations):
-
             file_name = f"{pathname}experiment_{trial + 1}"
 
             schedule = Schedule(self.max_trains, self.max_time, all_connections)
@@ -56,7 +55,8 @@ class Experiment:
                 GreedySchedule.create_greedy_schedule(schedule)
 
             elif self.algorithm == "hillclimb":
-                HillClimbingScheduler.hill_climbing_schedule(schedule)
+                hillclimbing_scheduler = HillClimbingScheduler(schedule)
+                best_trains, best_ridden = hillclimbing_scheduler.hill_climbing_schedule()
 
             stations_trains, trial_score, trial_ridden = schedule.display_schedule(file_name)
 
