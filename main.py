@@ -2,7 +2,7 @@ from code.classes.information import Information
 from code.classes.schedule import Schedule
 from code.algorithms.random import Random_schedule
 from code.algorithms.Astar import AStarScheduler
-from code.algorithms.greedy import Greedyschedule
+from code.algorithms.greedy import GreedySchedule
 
 from code.visualisation.visualise import process_input
 from code.visualisation.visualise import plot_trains
@@ -50,7 +50,7 @@ if __name__ == "__main__":
                 print("Optimal schedule not found.")
 
         elif algorithm_type == "greedy":
-            greedy_schedule = Greedyschedule(schedule)
+            greedy_schedule = GreedySchedule(schedule)
             greedy_schedule.create_greedy_schedule()
 
             if greedy_schedule:
