@@ -20,12 +20,13 @@ if __name__ == "__main__":
     data = Information("data/StationsHolland.csv", "data/ConnectionsHolland.csv")
 
     iterations = 1000
-    algorithm = "hillclimb"
+    algorithm = "random"
     max_trains = 7
     max_time = 120  # 2 hours
 
     # Run an experiment with specified algorithm and specified number of iterations
-    stations_trains, score_count, ridden_count = Experiment(data, iterations, algorithm, max_trains, max_time).run_experiment()
+    current_experiment = Experiment(data, iterations, algorithm, max_trains, max_time)
+    stations_trains, score_count, ridden_count = current_experiment.run_experiment()
 
     #Calling and running visualise
     def visualize_data(stations_trains, coords_data, visualise_plot=True, visualise_map=True):
@@ -50,8 +51,8 @@ if __name__ == "__main__":
     # Example usage running only matplotlib
     visualize_data(stations_trains, coords_data, visualise_plot=True, visualise_map=False)
 
-    pathname = Experiment.path_name(algorithm)
+    pathname = current_experiment.path_name()
 
-    Information.summary_experiment(algorithm, pathname, iterations, score_count, ridden_count)
+    data.summary_experiment(algorithm, pathname, iterations, score_count, ridden_count)
 
     

@@ -3,6 +3,7 @@ from .connection import Connection
 
 import pandas as pd
 import csv
+import os
 
 class Information:
     def __init__(self, station_data, connection_data):
@@ -34,7 +35,10 @@ class Information:
         """
         Add file inside directory with all trials of experiment that shows information with summary of the experiment
         """
-        file_name = f"{path}/EXPERIMENT_SUMMARY"
+        file_name = f"{path}EXPERIMENT_SUMMARY"
+        
+        # Create folder if it doesn't exist
+        os.makedirs(os.path.dirname(file_name), exist_ok=True)
 
         with open(file_name, 'w', newline='') as csvfile:
             csv_writer = csv.writer(csvfile)
