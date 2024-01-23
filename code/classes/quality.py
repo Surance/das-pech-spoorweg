@@ -8,7 +8,6 @@ class Quality:
         """
         Function calculates the quality of the created schedule using RailNL formula and returns value
         """
-        # TODO: make into behaviour class? so you dont loop over same list 3484583838 times 
         p = len(self.ridden) / len(self.all_connections)
         T = len(self.trains)
         Min = sum([train.total_time for train in self.trains])

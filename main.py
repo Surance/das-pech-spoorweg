@@ -31,4 +31,4 @@ if __name__ == "__main__":
 
     # Save file with summary of the trials in the experiment
     pathname = Schedule.path_name(algorithm) 
-    Information.summary_experiment(algorithm, algorithm, pathname, iterations, score_count, ridden_count)
+    Information.summary_experiment(algorithm, pathname, iterations, score_count, ridden_count)

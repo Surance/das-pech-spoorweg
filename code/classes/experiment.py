@@ -31,7 +31,7 @@ class Experiment:
             if self.algorithm == "random":
                 Random_schedule.create_random_schedule(schedule)
 
-            stations_trains, trial_score, trial_ridden = schedule.display_schedule(file_name, save_each_output_as_csv=True)
+            stations_trains, trial_score, trial_ridden = schedule.display_schedule(file_name)
 
             # Add score and number of ridden connections of trial to count
             self.score_count += trial_score
