@@ -66,18 +66,25 @@ def plot_trains(station_data, train_data, figure_size=(10, 8)):
     # Create a new figure with the specified size
     plt.figure(figsize=figure_size)
 
-    line_styles = ['-', '--', ':', '-.', '-=', '.:']
+    colors = ['yellow', 'pink', 'yellowgreen', 'lightblue', 'purple', 'darkgreen', 'darkblue']
+    linewidths = [10, 8.5, 7, 5.5, 4, 2.5, 1]
 
-
-    for train_name, station_list in train_data:
+    for i, (train_name, station_list) in enumerate (train_data):
         result = get_coordinates(station_data, station_list)
         y_coords, x_coords = zip(*result)
 
+        # Get the corresponding color, linewidth and zorder
+        color = colors[i % len(colors)]
+        linewidth = linewidths [i % len(linewidths)]
+
+        # Using zorder to create a plotting order and plotting the thicker lines first
+        zorder = i
+
         # Plot the rails
-        plt.plot(x_coords, y_coords, label=f"{train_name} Route", alpha=0.7)
+        plt.plot(x_coords, y_coords, label=f"{train_name} Route", color = color, zorder = zorder, linewidth= linewidth)
 
         # Plot the train stations
-        plt.scatter(x_coords, y_coords)
+        plt.scatter(x_coords, y_coords, s=50)
 
         # Plot station names
         for i, station_name in enumerate(station_list):
