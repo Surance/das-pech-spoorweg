@@ -9,6 +9,8 @@ from code.visualisation.visualise import process_input
 from code.visualisation.visualise import plot_trains
 from code.visualisation.visualise import get_coordinates
 from code.visualisation.visualise import coords_data
+from code.visualisation.visualise2 import create_map_plot
+from code.visualisation.visualise2 import format_coordinates
 
 import pandas as pd
 import csv
@@ -25,9 +27,28 @@ if __name__ == "__main__":
     # Run an experiment with specified algorithm and specified number of iterations
     stations_trains, score_count, ridden_count = Experiment(data, iterations, algorithm, max_trains, max_time).run_experiment()
 
-    # Calling and running visualiser
-    train_data = process_input(stations_trains)
-    plot_trains(coords_data, train_data)
+    #Calling and running visualise
+    def visualize_data(stations_trains, coords_data, visualise_plot=True, visualise_map=True):
+        """
+        Visualize train data using specified options.
+
+        Parameters:
+            - station_data (str): A string containing station data in the format "station,y,x".
+            - train_data (list): A list of tuples where each tuple contains a train name and a list of station names.
+            - visualise_plot (bool, optional): If True, plot the train data. Default is True.
+            - visualise_map (bool, optional): If True, create a map plot. Default is True.
+        """
+        train_data = process_input(stations_trains)
+
+        if visualise_plot:
+            plot_trains(coords_data, train_data)
+
+        if visualise_map:
+            coords_dict = format_coordinates(train_data, coords_data)
+            map_plot = create_map_plot(coords_dict)
+
+    # Example usage running only matplotlib
+    visualize_data(stations_trains, coords_data, visualise_plot=True, visualise_map=False)
 
     # Save file with summary of the trials in the experiment
     schedule_instance = Schedule(max_trains, max_time, 1000)
