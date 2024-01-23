@@ -1,37 +1,35 @@
+from code.classes.connection import Connection
+
 class GreedySchedule:
     def __init__(self, schedule):
         self.schedule = schedule
 
-    def create_greedy_schedule(self):
-        self.schedule.add_train()  # Add the first train
+    def create_greedy_schedule(self, max_iterations=1000):
+        i = 1
+        all_stations = set(connection.departure_station for connection in self.schedule.total_connections) | set(connection.arrival_station for connection in self.schedule.total_connections)
 
-        while len(self.schedule.trains) < self.schedule.max_trains:
-            if not self.schedule.trains:
-                # No trains have been added yet, add a new train
-                self.schedule.add_train()
-                continue
+        while len(self.schedule.ridden) < len(self.schedule.total_connections) and i <= max_iterations:
+            # Add random first train
+            self.schedule.add_train()
 
-            train = self.schedule.trains[-1]  # Get the last added train
-            possible_connections = self.schedule.check_possible_connections()
+            while self.schedule.current_time < self.schedule.max_time and len(self.schedule.ridden) < len(self.schedule.total_connections):
+                # Check which connections are possible with the previous arrival station
+                possible_connections = self.schedule.check_possible_connections()
 
-            if not possible_connections:
-                # No more possible connections for the current train, add a new train
-                self.schedule.add_train()
-                continue
+                if len(possible_connections.keys()) == 0:
+                    break
 
-            # Sort connections by distance in ascending order (greedy choice)
-            sorted_connections = sorted(possible_connections.keys(), key=lambda x: x.distance)
+                # Sort connections by distance in ascending order (greedy choice)
+                sorted_connections = sorted(possible_connections.keys(), key=lambda x: x.travel_time)
 
-            # Select the first (shortest) connection
-            selected_connection = sorted_connections[0]
-            next_station = possible_connections[selected_connection]
+                # Select the first (shortest) connection
+                connection = sorted_connections[0]
 
-            # Check if adding the connection violates the time constraint
-            if train.total_time + selected_connection.travel_time <= self.schedule.max_time:
-                # Add the connection and station to the train's schedule
-                self.schedule.valid_connection(selected_connection, next_station)
-            else:
-                # Adding the connection would exceed the time constraint, add a new train
-                self.schedule.add_train()
+                self.schedule.valid_connection(connection, possible_connections[connection])
+            
+            self.schedule.train.total_time += self.schedule.current_time
+            self.schedule.trains.append(self.schedule.train)
 
-        return self.schedule
+            i += 1
+
+        return self.schedule.trains, self.schedule.ridden

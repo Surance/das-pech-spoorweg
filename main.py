@@ -22,7 +22,7 @@ if __name__ == "__main__":
 
     iterations = 1000
     # TODO: find a way so it automatically calls it: algorithm_existing N + 1 
-    algorithm = "random_4"
+    algorithm = "random_5"
     algorithm_type = "greedy"
     max_trains = 7
     max_time = 120  # 2 hours
@@ -54,7 +54,7 @@ if __name__ == "__main__":
             greedy_schedule.create_greedy_schedule()
 
             if greedy_schedule:
-                print('Greedy schedule found.')
+                continue
             else:
                 print("Greedy schedule not found.")
         
