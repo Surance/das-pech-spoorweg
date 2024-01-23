@@ -30,5 +30,10 @@ if __name__ == "__main__":
     plot_trains(coords_data, train_data)
 
     # Save file with summary of the trials in the experiment
-    pathname = Schedule.path_name(algorithm) 
+    schedule_instance = Schedule(max_trains, max_time, 1000)
+
+    pathname = schedule_instance.path_name(algorithm)
+
     Information.summary_experiment(algorithm, algorithm, pathname, iterations, score_count, ridden_count)
+
+    
