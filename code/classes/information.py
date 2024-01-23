@@ -31,6 +31,9 @@ class Information:
         return stations_list
     
     def summary_experiment(self, algorithm, path, iterations, score, N_ridden):
+        """
+        Add file inside directory with all trials of experiment that shows information with summary of the experiment
+        """
         file_name = f"{path}/EXPERIMENT_SUMMARY"
 
         with open(file_name, 'w', newline='') as csvfile:

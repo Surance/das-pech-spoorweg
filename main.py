@@ -22,7 +22,7 @@ if __name__ == "__main__":
     max_trains = 7
     max_time = 120  # 2 hours
 
-    # TODO: put the following in seperate file & function
+    # Run an experiment with specified algorithm and specified number of iterations
     stations_trains, score_count, ridden_count = Experiment(data, iterations, algorithm, max_trains, max_time).run_experiment()
 
     # Calling and running visualiser
