@@ -18,49 +18,12 @@ if __name__ == "__main__":
     data = Information("data/StationsHolland.csv", "data/ConnectionsHolland.csv")
 
     iterations = 1000
-    # TODO: find a way so it automatically calls it: algorithm_existing N + 1 
-    algorithm = "random_5"
-    algorithm_type = "greedy"
+    algorithm = "random"
     max_trains = 7
     max_time = 120  # 2 hours
 
-    # TODO: put the following in seperate file & function
-    for trial in range(iterations):
-
-        # Create objects
-        all_stations = Information.create_station(data)
-        all_connections = Information.create_connection(data)
-
-        schedule = Schedule(max_trains, max_time, all_connections)
-
-        if algorithm_type == "random":
-            Random_schedule.create_random_schedule(schedule)
-        
-        elif algorithm_type == "Astar":
-            astar_scheduler = AStarScheduler(schedule)
-            optimal_schedule = astar_scheduler.create_optimal_schedule()
-
-
-            if optimal_schedule:
-                print('Optimal schedule found.')
-            else:
-                print("Optimal schedule not found.")
-
-        elif algorithm_type == "greedy":
-            greedy_schedule = GreedySchedule(schedule)
-            greedy_schedule.create_greedy_schedule()
-
-            if greedy_schedule:
-                continue
-            else:
-                print("Greedy schedule not found.")
-        
-
-        stations_trains, trial_score, trial_ridden = schedule.display_schedule(algorithm, trial)
-
-        # Add score and number of ridden connections of trial to count
-        score_count += trial_score
-        ridden_count += trial_ridden
+    # Run an experiment with specified algorithm and specified number of iterations
+    stations_trains, score_count, ridden_count = Experiment(data, iterations, algorithm, max_trains, max_time).run_experiment()
 
     # Calling and running visualiser
     train_data = process_input(stations_trains)
@@ -68,4 +31,4 @@ if __name__ == "__main__":
 
     # Save file with summary of the trials in the experiment
     pathname = Schedule.path_name(algorithm) 
-    Information.summary_experiment(algorithm, pathname, iterations, score_count, ridden_count)
+    Information.summary_experiment(algorithm, algorithm, pathname, iterations, score_count, ridden_count)
