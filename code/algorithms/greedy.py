@@ -1,8 +1,4 @@
-from code.classes.train import Train
-from code.classes.schedule import Schedule
-from code.classes.connection import Connection
-
-class Greedyschedule:
+class GreedySchedule:
     def __init__(self, schedule):
         self.schedule = schedule
 
@@ -10,6 +6,11 @@ class Greedyschedule:
         self.schedule.add_train()  # Add the first train
 
         while len(self.schedule.trains) < self.schedule.max_trains:
+            if not self.schedule.trains:
+                # No trains have been added yet, add a new train
+                self.schedule.add_train()
+                continue
+
             train = self.schedule.trains[-1]  # Get the last added train
             possible_connections = self.schedule.check_possible_connections()
 
