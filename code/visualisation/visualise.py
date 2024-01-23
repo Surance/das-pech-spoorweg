@@ -66,12 +66,15 @@ def plot_trains(station_data, train_data, figure_size=(10, 8)):
     # Create a new figure with the specified size
     plt.figure(figsize=figure_size)
 
+    line_styles = ['-', '--', ':', '-.', '-=', '.:']
+
+
     for train_name, station_list in train_data:
         result = get_coordinates(station_data, station_list)
         y_coords, x_coords = zip(*result)
 
         # Plot the rails
-        plt.plot(x_coords, y_coords, label=f"{train_name} Route")
+        plt.plot(x_coords, y_coords, label=f"{train_name} Route", alpha=0.7)
 
         # Plot the train stations
         plt.scatter(x_coords, y_coords)

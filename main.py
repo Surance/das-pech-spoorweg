@@ -3,6 +3,7 @@ from code.classes.schedule import Schedule
 from code.classes.experiment import Experiment
 from code.algorithms.random import Random_schedule
 from code.algorithms.Astar import AStarScheduler
+from code.algorithms.greedy import GreedySchedule
 
 from code.visualisation.visualise import process_input
 from code.visualisation.visualise import plot_trains
