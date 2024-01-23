@@ -18,12 +18,19 @@ class Experiment:
         self.score_count = 0
         self.ridden_count = 0
 
-    def path_name(self):
+    def path_name(self, summary=False):
         """
-        Function creates a file name according to the algorithm and the 
+        Function creates a file name according to the algorithm and the nth experiment it is  
         """
+        directory_path = f"experiment/{self.algorithm}"
+
+        # Create folder if it doesn't exist
+        if not os.path.exists(directory_path):
+            os.makedirs(directory_path)
+
         # Get a list of existing directories in the parent directory
-        existing_directories = [d for d in os.listdir(f"experiment/{self.algorithm}") if os.path.isdir(os.path.join(f"experiment/{self.algorithm}", d))]
+        parent_directory = os.path.dirname(directory_path)
+        existing_directories = [d for d in os.listdir(directory_path) if os.path.isdir(os.path.join(directory_path, d))]
         max_number = 0
 
         # Find the directory with the largest number
@@ -31,8 +38,11 @@ class Experiment:
             number = int(directory.split('_')[-1])
             max_number = max(max_number, number)
 
-        # New experiment number is one more than largest number in directory
-        experiment_number = max_number + 1
+        if summary == False:
+            # New experiment number is one more than largest number in directory
+            experiment_number = max_number + 1
+        else: 
+            experiment_number = max_number
 
         return f"experiment/{self.algorithm}/{self.algorithm}_{experiment_number}/"
 
@@ -58,7 +68,7 @@ class Experiment:
             elif self.algorithm == "hillclimb":
                 HillClimbingScheduler.hill_climbing_schedule(schedule)
 
-            stations_trains, trial_score, trial_ridden = schedule.display_schedule(file_name)
+            stations_trains, trial_score, trial_ridden = schedule.display_schedule(file_name, save_each_output_as_csv=True)
 
             # Add score and number of ridden connections of trial to count
             self.score_count += trial_score
