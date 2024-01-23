@@ -1,46 +1,67 @@
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
+import re
+
+from .visualise import get_coordinates
 
 
-# Create dataset
-# For now this is a simple dataset created for the function
-data = {
-    'y_1': [4.46888876, 4.900277615, 4.638333321, 4.481666565],
-    'x_1': [51.92499924, 52.37888718, 52.38777924, 52.16611099],
-    'y_2': [4.761111259, 4.66833353, 4.704444408, 4.761944294],
-    'x_2': [52.95527649, 51.80722046, 52.01750183, 52.30944443]
-}
+def format_coordinates(train_data, station_data):
 
-# Create dataframe
-stations_df = pd.DataFrame(data)
+    result_list = []
 
-# Create scatter plot on Mapbox
-# mapbox_style="open-street-map", for color
-fig = px.scatter_mapbox(stations_df, lat='x_1', lon='y_1',
-                        mapbox_style="carto-positron", title='Train Rails and Stations')
+    for train_name, station_list in train_data:
+        result = get_coordinates(station_data, station_list)
+        x_coordinates, y_coordinates = zip(*result)
 
-# Add another scatter plot on Mapbox
-fig.add_trace(go.Scattermapbox(
-    lat=stations_df['x_2'],
-    lon=stations_df['y_2'],
-    mode='markers',
-    name='Train 2'
-))
+        # Convert coordinates to floats
+        x_coordinates = [float(x) for x in x_coordinates]
+        y_coordinates = [float(y) for y in y_coordinates]
 
-fig.add_trace(go.Scattermapbox(
-    lat=stations_df['x_2'],
-    lon=stations_df['y_2'],
-    mode='lines'
-))
+        # Group x and y coordinates into a dictionary
+        result_list.append({'x': x_coordinates, 'y': y_coordinates})
 
-# Create Line plot
-fig.add_trace(go.Scattermapbox(
-    lat=stations_df['x_1'],
-    lon=stations_df['y_1'],
-    mode='lines',
-    name='Train 1'
-))
+    return result_list
 
-# Display the plot
-fig.show()
+def create_map_plot(train_data, mapbox_style="carto-positron"):
+    """
+    Create a scatter plot on Mapbox for train rails and stations.
+
+    Args:
+        train_data (list): List of dictionaries, each containing keys 'x' and 'y' for coordinates.
+        mapbox_style (str): Style of the Mapbox map. Default is "carto-positron".
+
+    Returns:
+        A plot
+    """
+    # Create a list to store all the dataframes for each train
+    train_dfs = []
+
+    # Create a dataframe for each train and add it to the list
+    for i, train in enumerate(train_data, start=1):
+        train_df = pd.DataFrame(train, columns=['x', 'y'])
+
+         # Adding a column to identify the train
+        train_df['train'] = f'Train {i}'
+        train_dfs.append(train_df)
+
+    # Concatenate all dataframes into a single dataframe
+    stations_df = pd.concat(train_dfs, ignore_index=True)
+
+    # Create scatter plot on Mapbox
+    fig = px.scatter_mapbox(stations_df, lat='x', lon='y', color='train',
+                            mapbox_style=mapbox_style, title='Train Rails and Stations')
+
+    # Create separate Line plots for each train
+    for train_df in train_dfs:
+        fig.add_trace(go.Scattermapbox(
+            lat=train_df['x'],
+            lon=train_df['y'],
+            mode='lines',
+
+            # Use the train name as the trace name
+            name=train_df['train'].iloc[0]
+        ))
+
+    # Display the plot
+    fig.show()
