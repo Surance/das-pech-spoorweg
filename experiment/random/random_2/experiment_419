@@ -1,0 +1,11 @@
+train,stations
+train_1,"['Castricum', 'Alkmaar', 'Hoorn', 'Zaandam', 'Hoorn', 'Alkmaar', 'Den Helder']"
+train_2,"['Beverwijk', 'Castricum', 'Alkmaar', 'Den Helder']"
+train_3,"['Delft', 'Den Haag Centraal', 'Leiden Centraal', 'Heemstede-Aerdenhout', 'Haarlem', 'Amsterdam Sloterdijk', 'Zaandam', 'Castricum', 'Beverwijk', 'Zaandam', 'Hoorn']"
+train_4,"['Gouda', 'Alphen a/d Rijn', 'Leiden Centraal', 'Heemstede-Aerdenhout', 'Haarlem', 'Beverwijk', 'Zaandam', 'Castricum', 'Alkmaar', 'Hoorn', 'Zaandam']"
+train_5,"['Amsterdam Centraal', 'Amsterdam Sloterdijk', 'Zaandam', 'Hoorn', 'Alkmaar', 'Hoorn', 'Zaandam', 'Castricum', 'Beverwijk']"
+train_6,"['Rotterdam Alexander', 'Gouda', 'Den Haag Centraal', 'Gouda', 'Alphen a/d Rijn', 'Leiden Centraal', 'Alphen a/d Rijn', 'Gouda', 'Alphen a/d Rijn']"
+train_7,"['Beverwijk', 'Castricum', 'Alkmaar', 'Den Helder']"
+Score,4267.285714285714
+Connections Ridden,16
+Total Connections,28

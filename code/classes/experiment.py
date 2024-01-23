@@ -30,17 +30,7 @@ class Experiment:
             # Create a schedule depending on which algorithm is called
             if self.algorithm == "random":
                 Random_schedule.create_random_schedule(schedule)
-            
-            elif self.algorithm == "Astar":
-                astar_scheduler = AStarScheduler(schedule)
-                optimal_schedule = astar_scheduler.create_optimal_schedule()
 
-                # TODO: put outside of elif once A Star works
-                if optimal_schedule:
-                    optimal_schedule.display_schedule("A*", 1, save_each_output_as_csv=True)
-                else:
-                    print("Optimal schedule not found.")
-            
             stations_trains, trial_score, trial_ridden = schedule.display_schedule(file_name, save_each_output_as_csv=True)
 
             # Add score and number of ridden connections of trial to count
