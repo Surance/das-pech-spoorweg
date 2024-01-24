@@ -3,6 +3,7 @@ from .schedule import Schedule
 from code.algorithms.random import Random_schedule
 from code.algorithms.greedy import GreedySchedule
 from code.algorithms.HillClimb import HillClimbingScheduler
+from code.algorithms.HillClimber import HillClimber
 
 import os
 
@@ -91,8 +92,10 @@ class Experiment:
                 GreedySchedule.create_greedy_schedule(schedule)
 
             elif self.algorithm == "hillclimb":
-                hillclimbing_scheduler = HillClimbingScheduler(schedule)
-                best_trains, best_ridden = hillclimbing_scheduler.hill_climbing_schedule()
+                hillclimber = HillClimber(schedule)
+                best_trains, best_ridden = hillclimber.get_best_connection() 
+                schedule.trains = best_trains
+                schedule.ridden = best_ridden
 
             trial_stations_trains, trial_score, trial_ridden = schedule.display_schedule(file_name, save_each_output_as_csv=True)
 
