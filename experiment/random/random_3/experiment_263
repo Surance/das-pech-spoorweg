@@ -1,0 +1,11 @@
+train,stations
+train_1,"['Amsterdam Amstel', 'Amsterdam Zuid', 'Amsterdam Sloterdijk', 'Zaandam', 'Hoorn', 'Alkmaar', 'Castricum', 'Zaandam', 'Beverwijk', 'Haarlem']"
+train_2,"['Amsterdam Zuid', 'Amsterdam Sloterdijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Leiden Centraal', 'Den Haag Centraal', 'Delft', 'Schiedam Centrum', 'Delft', 'Den Haag Centraal', 'Gouda', 'Alphen a/d Rijn', 'Leiden Centraal']"
+train_3,"['Leiden Centraal', 'Heemstede-Aerdenhout', 'Haarlem', 'Amsterdam Sloterdijk', 'Haarlem', 'Beverwijk', 'Castricum', 'Zaandam', 'Castricum', 'Beverwijk', 'Castricum', 'Alkmaar', 'Den Helder']"
+train_4,"['Amsterdam Zuid', 'Amsterdam Sloterdijk', 'Haarlem', 'Beverwijk', 'Zaandam', 'Beverwijk', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Zaandam', 'Castricum']"
+train_5,"['Alkmaar', 'Hoorn', 'Zaandam', 'Amsterdam Sloterdijk', 'Amsterdam Centraal', 'Amsterdam Amstel', 'Amsterdam Zuid', 'Schiphol Airport', 'Leiden Centraal', 'Den Haag Centraal', 'Gouda', 'Alphen a/d Rijn']"
+train_6,"['Alkmaar', 'Den Helder']"
+train_7,"['Gouda', 'Alphen a/d Rijn', 'Leiden Centraal', 'Schiphol Airport', 'Amsterdam Zuid', 'Amsterdam Amstel', 'Amsterdam Centraal', 'Amsterdam Sloterdijk', 'Haarlem', 'Beverwijk', 'Castricum', 'Zaandam', 'Beverwijk']"
+Score,7064.428571428571
+Connections Ridden,24
+Total Connections,28

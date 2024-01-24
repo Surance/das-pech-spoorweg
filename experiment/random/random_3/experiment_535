@@ -1,0 +1,11 @@
+train,stations
+train_1,"['Castricum', 'Alkmaar', 'Hoorn', 'Zaandam', 'Hoorn', 'Alkmaar', 'Hoorn']"
+train_2,"['Leiden Centraal', 'Heemstede-Aerdenhout', 'Haarlem', 'Beverwijk', 'Castricum', 'Alkmaar', 'Hoorn', 'Zaandam', 'Castricum', 'Alkmaar', 'Den Helder']"
+train_3,"['Zaandam', 'Castricum', 'Alkmaar', 'Hoorn', 'Zaandam', 'Castricum', 'Beverwijk', 'Castricum', 'Zaandam', 'Castricum']"
+train_4,"['Amsterdam Sloterdijk', 'Haarlem', 'Beverwijk', 'Zaandam', 'Castricum', 'Beverwijk', 'Castricum', 'Alkmaar', 'Hoorn', 'Zaandam']"
+train_5,"['Rotterdam Centraal', 'Schiedam Centrum', 'Delft', 'Den Haag Centraal', 'Leiden Centraal', 'Schiphol Airport', 'Amsterdam Zuid', 'Schiphol Airport', 'Leiden Centraal', 'Den Haag Centraal', 'Delft', 'Den Haag Centraal', 'Leiden Centraal']"
+train_6,"['Rotterdam Alexander', 'Gouda', 'Alphen a/d Rijn', 'Leiden Centraal', 'Schiphol Airport', 'Amsterdam Zuid', 'Schiphol Airport', 'Leiden Centraal', 'Den Haag Centraal', 'Leiden Centraal', 'Schiphol Airport', 'Amsterdam Zuid']"
+train_7,"['Zaandam', 'Castricum', 'Beverwijk', 'Zaandam', 'Hoorn', 'Alkmaar', 'Hoorn', 'Zaandam']"
+Score,4098.285714285714
+Connections Ridden,16
+Total Connections,28

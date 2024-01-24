@@ -14,9 +14,10 @@ class Experiment:
         self.max_trains = max_trains
         self.max_time = max_time
         
-        # Count scores and connections ridden per experiment
-        self.score_count = 0
-        self.ridden_count = 0
+        # Keep track of scores and connections ridden per experiment
+        self.all_scores = []
+        self.all_ridden = []
+        self.all_stations_trains = []
 
     def path_name(self, summary=False):
         """
@@ -45,10 +46,35 @@ class Experiment:
             experiment_number = max_number
 
         return f"experiment/{self.algorithm}/{self.algorithm}_{experiment_number}/"
+    
+    def get_best_trial(self):
+        """
+        Function finds trial that rode all connections with best score and returns its train schedule
+        """
+
+        # Add all indexes of schedules that rode all connections to list
+        all_ridden = []
+        for index, trial_ridden in enumerate(self.all_ridden):
+            if trial_ridden == 28:
+                all_ridden.append(index)
+        
+        # If none of the schedules were able to ride all connections get the best score of all trials
+        if len(all_ridden) == 0:
+            index_best_score = self.all_scores.index(max(self.all_scores))
+            return self.all_stations_trains[index_best_score]
+
+        # Find the scores and indexes of the schedules that rode all connections
+        all_ridden_scores = {}
+        for index, score in enumerate(self.all_scores):
+            if index in all_ridden:
+                all_ridden_scores[score] = index
+
+        # Take index with max score and return its train schedule 
+        index_best_score = all_ridden_scores[max(all_ridden_scores)]
+        return self.all_stations_trains[index_best_score]
 
     def run_experiment(self):
         # Create objects
-        all_stations = Information.create_station(self.data)
         all_connections = Information.create_connection(self.data)
         pathname = self.path_name()
         
@@ -68,10 +94,13 @@ class Experiment:
                 hillclimbing_scheduler = HillClimbingScheduler(schedule)
                 best_trains, best_ridden = hillclimbing_scheduler.hill_climbing_schedule()
 
-            stations_trains, trial_score, trial_ridden = schedule.display_schedule(file_name, save_each_output_as_csv=True)
+            trial_stations_trains, trial_score, trial_ridden = schedule.display_schedule(file_name, save_each_output_as_csv=True)
 
-            # Add score and number of ridden connections of trial to count
-            self.score_count += trial_score
-            self.ridden_count += trial_ridden
+            # Add score and number of ridden connections of trial to lists
+            self.all_scores.append(trial_score)
+            self.all_ridden.append(trial_ridden)
+            self.all_stations_trains.append(trial_stations_trains)
 
-        return stations_trains, self.score_count, self.ridden_count
+        best_stations_trains = self.get_best_trial()
+
+        return best_stations_trains, self.all_scores, self.all_ridden
