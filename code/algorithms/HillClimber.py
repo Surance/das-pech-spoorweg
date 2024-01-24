@@ -8,19 +8,6 @@ class HillClimber:
         self.best_score = float('-inf')
         self.best_schedule = None
 
-    def set_initial_schedule(self, initial_schedule):
-        """
-        Set the initial schedule for the HillClimber.
-        """
-        self.schedule = initial_schedule
-
-    def generate_random_schedule(self):
-        """
-        Use the Random_schedule algorithm to generate a random initial schedule.
-        """
-        random_schedule_generator = Random_schedule(self.schedule.max_trains, self.schedule.max_time, self.schedule.total_connections)
-        self.schedule.trains, self.schedule.ridden = random_schedule_generator.create_random_schedule()
-
     def delete_connection(self):
         """
         Delete a random connection from the schedule. Update time and used connections.
@@ -51,10 +38,9 @@ class HillClimber:
         Try deleting and replacing a deleted connection if the quality is higher with the new trajectory.
         """
         # Set the initial schedule before starting iterations
-        initial_schedule = self.schedule.copy_schedule()
+        initial_schedule = self.schedule
 
         for i in range(1000):
-            self.set_initial_schedule(initial_schedule)  # Reset the schedule to the initial one
             self.delete_connection()
             self.add_connection()
             current_score = self.calculate_schedule_score()
