@@ -55,8 +55,7 @@ class Experiment:
                 GreedySchedule.create_greedy_schedule(schedule)
 
             elif self.algorithm == "hillclimb":
-                hillclimbing_scheduler = HillClimbingScheduler(schedule)
-                best_trains, best_ridden = hillclimbing_scheduler.hill_climbing_schedule()
+                HillClimbingScheduler.hill_climbing_schedule(schedule)
 
             stations_trains, trial_score, trial_ridden = schedule.display_schedule(file_name)
 
