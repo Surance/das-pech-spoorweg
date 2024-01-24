@@ -31,7 +31,7 @@ class Information:
 
         return stations_list
     
-    def summary_experiment(self, algorithm, path, iterations, score, N_ridden):
+    def summary_experiment(self, algorithm, path, iterations, score, ridden):
         """
         Add file inside directory with all trials of experiment that shows information with summary of the experiment
         """
@@ -47,6 +47,10 @@ class Information:
             
             csv_writer.writerow(["Number of Trials", iterations])
 
-            csv_writer.writerow(["Average Score", score/iterations])
+            csv_writer.writerow(["Average Score", sum(score)/iterations])
 
-            csv_writer.writerow(["Average Connections Ridden", N_ridden/iterations])
+            csv_writer.writerow(["Average Connections Ridden", sum(ridden)/iterations])
+
+            csv_writer.writerow(["Maximum Score", max(score)])
+
+

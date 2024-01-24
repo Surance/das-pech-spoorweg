@@ -19,7 +19,7 @@ if __name__ == "__main__":
     # Input csv's
     data = Information("data/StationsHolland.csv", "data/ConnectionsHolland.csv")
 
-    iterations = 1000
+    iterations = 10
     algorithm = "hillclimb"
     max_trains = 7
     max_time = 120  # 2 hours
@@ -51,8 +51,6 @@ if __name__ == "__main__":
     # Example usage running only matplotlib
     visualize_data(stations_trains, coords_data, visualise_plot=True, visualise_map=False)
 
-    pathname = current_experiment.path_name()
+    pathname = current_experiment.path_name(summary=True)
 
     data.summary_experiment(algorithm, pathname, iterations, score_count, ridden_count)
-
-    

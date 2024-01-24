@@ -51,11 +51,13 @@ class Schedule:
                     
         self.ridden.add(connection)
 
-    def add_train(self):
+    def add_train(self, first_connection=None):
         """
         Adds a new train to the list of trains
         """
-        first_connection = random.choice(self.total_connections)
+        if first_connection == None:
+            first_connection = random.choice(self.total_connections)
+        
         train_name = f"train_{len(self.trains) + 1}"
         self.train = Train(train_name)
         self.train.stations_names_list.append(first_connection.departure_station)
