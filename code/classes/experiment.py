@@ -97,7 +97,8 @@ class Experiment:
                 GreedySchedule.create_greedy_schedule(schedule)
 
             elif self.algorithm == "hillclimb":
-                hillclimber = HillClimber(schedule)
+                arbitrary_solution = Random_schedule.create_random_schedule(schedule) 
+                hillclimber = HillClimber(arbitrary_solution)
                 best_trains, best_ridden = hillclimber.get_best_connection() 
                 schedule.trains = best_trains
                 schedule.ridden = best_ridden
