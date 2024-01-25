@@ -6,7 +6,7 @@ import os
 import csv
 
 class Schedule:
-    def __init__(self, max_trains, max_time, total_connections):
+    def __init__(self, max_trains: int, max_time: int, total_connections: list) -> None:
         self.max_trains = max_trains 
         self.max_time = max_time
         self.total_connections = total_connections
@@ -17,7 +17,7 @@ class Schedule:
         # Keep track of ridden connections for all trains
         self.ridden = set()
 
-    def copy_schedule(self):
+    def copy_schedule(self) -> classmethod:
         """
         Create a copy of the current schedule.
         """
@@ -25,13 +25,15 @@ class Schedule:
         new_schedule.trains = [train.copy_train() for train in self.trains]
         new_schedule.ridden = self.ridden.copy()
         new_schedule.current_time = self.current_time
+        
         return new_schedule
     
-    def check_possible_connections(self):
+    def check_possible_connections(self) -> dict:
         """
         Function checks which connections are possible and returns list of valid connecctions
         """
         possible_connections = {}
+    
         for connection_to_check in self.total_connections:
             if self.train.stations_names_list[-1] == connection_to_check.arrival_station and self.train.stations_names_list[-2] != connection_to_check.departure_station: 
                 possible_connections[connection_to_check] = connection_to_check.departure_station
@@ -41,7 +43,7 @@ class Schedule:
         
         return possible_connections
                          
-    def valid_connection(self, connection, station_to_add):
+    def valid_connection(self, connection: classmethod, station_to_add: classmethod) -> None:
         """
         Function adds connections and stations to list
         """
@@ -51,7 +53,8 @@ class Schedule:
                     
         self.ridden.add(connection)
 
-    def add_train(self, first_connection=None):
+    # TODO: figure out how to type hint optional or union with class 
+    def add_train(self, first_connection=None) -> None:
         """
         Adds a new train to the list of trains
         """
@@ -64,7 +67,7 @@ class Schedule:
         self.train.stations_names_list.append(first_connection.arrival_station)
         self.current_time = 0
 
-    def save_outputs_csv(self, file_name, score):
+    def save_outputs_csv(self, file_name: str, score: float) -> None:
         """
         Function saves each output per trial as a csv in the experiment folder
         """
@@ -85,7 +88,7 @@ class Schedule:
                 csv_writer.writerow(["Connections Ridden", len(self.ridden)])
                 csv_writer.writerow(["Total Connections", len(self.total_connections)])
 
-    def display_schedule(self, file_name, save_each_output_as_csv=False):
+    def display_schedule(self, file_name: str, save_each_output_as_csv: bool=False) -> tuple(list, float, int):
         """
         Displays the schedule and score in the format as provided on ah.proglab.nl
         """

@@ -3,25 +3,25 @@ from code.classes.quality import Quality
 from code.algorithms.random import Random_schedule
 
 class HillClimber:
-    def __init__(self, schedule):
+    def __init__(self, schedule: classmethod) -> None:
         self.schedule = schedule
         self.best_score = float('-inf')
         self.best_schedule = None
 
-    def set_initial_schedule(self, initial_schedule):
+    def set_initial_schedule(self, initial_schedule: classmethod) -> None:
         """
         Set the initial schedule for the HillClimber.
         """
         self.schedule = initial_schedule
 
-    def generate_random_schedule(self):
+    def generate_random_schedule(self) -> None:
         """
         Use the Random_schedule algorithm to generate a random initial schedule.
         """
         random_schedule_generator = Random_schedule(self.schedule.max_trains, self.schedule.max_time, self.schedule.total_connections)
         self.schedule.trains, self.schedule.ridden = random_schedule_generator.create_random_schedule()
 
-    def delete_connection(self):
+    def delete_connection(self) -> classmethod:
         """
         Delete a random connection from the schedule. Update time and used connections.
         """
@@ -32,7 +32,7 @@ class HillClimber:
       
         return self.schedule
     
-    def add_connection(self):
+    def add_connection(self) -> classmethod:
         """
         Add a random connection to the schedule. Update time and used connections
         """
@@ -46,7 +46,7 @@ class HillClimber:
 
         return self.schedule
     
-    def get_best_connection(self):
+    def get_best_connection(self) -> tuple(list, set):
         """
         Try deleting and replacing a deleted connection if the quality is higher with the new trajectory.
         """
@@ -68,7 +68,7 @@ class HillClimber:
 
         return self.schedule.trains, self.schedule.ridden
 
-    def calculate_schedule_score(self):
+    def calculate_schedule_score(self) -> float:
         """
         Calculate the quality score for the current schedule.
         """

@@ -1,10 +1,10 @@
 import random 
 
 class Random_schedule:
-    def __init__(self, schedule):
+    def __init__(self, schedule: classmethod) -> None:
         self.schedule = schedule
 
-    def create_random_schedule(self):
+    def create_random_schedule(self) -> tuple(list, set):
         """
         Function  creates a schedule of trains, taking in account the connections and the max time
         """

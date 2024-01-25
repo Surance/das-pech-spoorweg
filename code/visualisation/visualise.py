@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-def get_coordinates(station_data, station_list):
+def get_coordinates(station_data: str, station_list: list) -> list:
     """
     Extracts coordinates for station names from station data.
 
@@ -25,7 +25,7 @@ def get_coordinates(station_data, station_list):
 
     return coordinates
 
-def process_input(input_list):
+def process_input(input_list: list) -> list:
     """
     Process a list of train routes and clean the data.
 
@@ -51,16 +51,13 @@ def process_input(input_list):
 
     return train_data
 
-def plot_trains(station_data, train_data, figure_size=(10, 8)):
+def plot_trains(station_data: str, train_data: list, figure_size: tuple(int, int)=(10, 8)) -> None:
     """
     Plots rails and stations for multiple trains.
 
     Parameters:
         station_data (str): A string containing station data in the format "station,y,x".
         train_data (list): A list of tuples where each tuple contains a train name and a list of station names.
-
-    Returns:
-        A plot
     """
 
     # Create a new figure with the specified size

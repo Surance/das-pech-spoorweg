@@ -8,7 +8,7 @@ from code.algorithms.HillClimber import HillClimber
 import os
 
 class Experiment:
-    def __init__(self, data, iterations, algorithm, max_trains, max_time):
+    def __init__(self, data: classmethod, iterations: int, algorithm: str, max_trains: int, max_time: int) -> None:
         self.data = data
         self.iterations = iterations
         self.algorithm = algorithm
@@ -20,10 +20,11 @@ class Experiment:
         self.all_ridden = []
         self.all_stations_trains = []
 
-    def path_name(self, summary=False):
+    def path_name(self, summary: bool = False) -> str:
         """
         Function creates a file name according to the algorithm and the nth experiment it is  
         """
+
         directory_path = f"experiment/{self.algorithm}"
 
         # Create folder if it doesn't exist
@@ -31,7 +32,6 @@ class Experiment:
             os.makedirs(directory_path)
 
         # Get a list of existing directories in the parent directory
-        parent_directory = os.path.dirname(directory_path)
         existing_directories = [d for d in os.listdir(directory_path) if os.path.isdir(os.path.join(directory_path, d))]
         max_number = 0
 
@@ -48,7 +48,7 @@ class Experiment:
 
         return f"experiment/{self.algorithm}/{self.algorithm}_{experiment_number}/"
     
-    def get_best_trial(self):
+    def get_best_trial(self) -> float:
         """
         Function finds trial that rode all connections with best score and returns its train schedule
         """
@@ -56,6 +56,7 @@ class Experiment:
         # Add all indexes of schedules that rode all connections to list
         all_ridden = []
         for index, trial_ridden in enumerate(self.all_ridden):
+            # TODO: currently hard coded 28 connections: update this when applying for all of NL
             if trial_ridden == 28:
                 all_ridden.append(index)
         
@@ -74,7 +75,11 @@ class Experiment:
         index_best_score = all_ridden_scores[max(all_ridden_scores)]
         return self.all_stations_trains[index_best_score]
 
-    def run_experiment(self):
+    def run_experiment(self) -> tuple(float, list, list):
+        """
+        Function runs an experiment of N trials that each create a schedule using the algorithm specified
+        """
+
         # Create objects
         all_connections = Information.create_connection(self.data)
         pathname = self.path_name()
@@ -104,6 +109,7 @@ class Experiment:
             self.all_ridden.append(trial_ridden)
             self.all_stations_trains.append(trial_stations_trains)
 
+        # Find which of the trials created the best schedule
         best_stations_trains = self.get_best_trial()
 
         return best_stations_trains, self.all_scores, self.all_ridden

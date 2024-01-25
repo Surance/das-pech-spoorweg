@@ -6,7 +6,7 @@ import re
 from .visualise import get_coordinates
 
 
-def format_coordinates(train_data, station_data):
+def format_coordinates(train_data: list, station_data: str) -> list:
 
     result_list = []
 
@@ -23,7 +23,7 @@ def format_coordinates(train_data, station_data):
 
     return result_list
 
-def create_map_plot(train_data, mapbox_style="carto-positron"):
+def create_map_plot(train_data: list, mapbox_style: str="carto-positron") -> None:
     """
     Create a scatter plot on Mapbox for train rails and stations.
 

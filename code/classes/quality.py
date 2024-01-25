@@ -1,10 +1,10 @@
 class Quality: 
-    def __init__(self, ridden, trains, all_connections):
+    def __init__(self, ridden: list, trains: list, all_connections: list) -> None:
         self.ridden = ridden
         self.trains = trains 
         self.all_connections = all_connections
 
-    def calculate_quality(self):
+    def calculate_quality(self) -> float:
         """
         Function calculates the quality of the created schedule using RailNL formula and returns value
         """
