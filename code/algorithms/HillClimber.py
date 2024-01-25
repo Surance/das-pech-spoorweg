@@ -8,7 +8,7 @@ class HillClimber:
         self.best_score = float('-inf')
         self.best_schedule = None
 
-    def delete_connection(self):
+    def delete_connection(self) -> None:
         """
         Delete a random connection from the schedule. Update time and used connections.
         """
