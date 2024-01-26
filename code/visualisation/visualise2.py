@@ -11,8 +11,8 @@ def format_coordinates(train_data: list, station_data:str)-> list:
     Formats coordinates from station data based on train data.
 
     Parameters:
-    train_data (Dict[str, List[str]]): A dictionary containing train names as keys and lists of station names as values.
-    station_data (Dict[str, Tuple[float, float]]): A dictionary containing station names as keys and tuples of (x, y) coordinates as values.
+    train_data (list): List of dictionaries, each containing keys 'x' and 'y' for coordinates.
+    station_data (str): A string containing station data in the format "station,y,x".
 
     Returns:
     List[Dict[str, List[float]]]: A list of dictionaries where each dictionary contains 'x' and 'y' keys corresponding to lists of x and y coordinates.
@@ -34,12 +34,13 @@ def format_coordinates(train_data: list, station_data:str)-> list:
 
     return result_list
 
-def create_map_plot(train_data: list, mapbox_style="carto-positron")-> None: 
+def create_map_plot(train_data: list, station_names: list, mapbox_style="carto-positron")-> None: 
     """
     Create a scatter plot on Mapbox for train rails and stations.
 
     Parameters:
         train_data (list): List of dictionaries, each containing keys 'x' and 'y' for coordinates.
+        station_names (list): List of station names corresponding to the coordinates in train_data.
         mapbox_style (str): Style of the Mapbox map. Default is "carto-positron".
 
     Returns:
@@ -63,11 +64,10 @@ def create_map_plot(train_data: list, mapbox_style="carto-positron")-> None:
     stations_df = pd.concat(train_dfs, ignore_index=True)
 
     # Create scatter plot on Mapbox
-    fig = px.scatter_mapbox(stations_df, lat='x', lon='y', color='train',
+    fig = px.scatter_mapbox(stations_df, lat='x', lon='y', color='train', hover_name=station_names,
                             mapbox_style=mapbox_style, title='Train Rails and Stations')
     
-    max_thickness= 20
-    
+
     # Create separate Line plots for each train
     for i, train_df in enumerate(train_dfs, start=1):
         # Get the corresponding color and linewidth

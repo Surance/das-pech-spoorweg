@@ -31,7 +31,7 @@ if __name__ == "__main__":
     #Calling and running visualise
     def visualize_data(stations_trains: str, coords_data: list, visualise_plot: bool=True, visualise_map: bool=True):
         """
-        Function vialises the train data using specified options.
+        Function to visualise the traiin stations and trajects using specified options.
         """
         train_data = process_input(stations_trains)
 
