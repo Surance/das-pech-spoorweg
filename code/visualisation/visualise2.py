@@ -34,7 +34,7 @@ def format_coordinates(train_data: list, station_data:str)-> list:
 
     return result_list
 
-def create_map_plot(train_data: list, station_names: list, mapbox_style="carto-positron")-> None: 
+def create_map_plot(train_data: list, mapbox_style="carto-positron")-> None: 
     """
     Create a scatter plot on Mapbox for train rails and stations.
 
@@ -64,7 +64,7 @@ def create_map_plot(train_data: list, station_names: list, mapbox_style="carto-p
     stations_df = pd.concat(train_dfs, ignore_index=True)
 
     # Create scatter plot on Mapbox
-    fig = px.scatter_mapbox(stations_df, lat='x', lon='y', color='train', hover_name=station_names,
+    fig = px.scatter_mapbox(stations_df, lat='x', lon='y', color='train', 
                             mapbox_style=mapbox_style, title='Train Rails and Stations')
     
 

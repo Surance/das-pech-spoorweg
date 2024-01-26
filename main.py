@@ -20,7 +20,7 @@ if __name__ == "__main__":
     data = Information("data/StationsHolland.csv", "data/ConnectionsHolland.csv")
 
     iterations = 10
-    algorithm = "hillclimb_train"
+    algorithm = "random"
     max_trains = 7
     max_time = 120  # 2 hours
 
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     #Calling and running visualise
     def visualize_data(stations_trains: str, coords_data: list, visualise_plot: bool=True, visualise_map: bool=True):
         """
-        Function to visualise the traiin stations and trajects using specified options.
+        Function to visualise the train stations and trajects using specified options.
         """
         train_data = process_input(stations_trains)
 
