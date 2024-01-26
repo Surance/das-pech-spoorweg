@@ -2,7 +2,8 @@ from code.classes.quality import Quality
 
 class HillClimbingScheduler:
     @staticmethod
-    def hill_climbing_schedule(schedule: classmethod, max_iterations: int=1000) -> tuple(list, set):
+    
+    def hill_climbing_schedule(schedule: classmethod, max_iterations: int=1000) -> tuple[list, set]:
         i = 1
         best_score = float('-inf')
         best_schedule = None  # Initialize best_schedule variable

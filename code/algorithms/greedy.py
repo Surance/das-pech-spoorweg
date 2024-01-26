@@ -6,7 +6,7 @@ class GreedySchedule:
         self.schedule = schedule
 
 
-    def create_greedy_schedule(self) -> tuple(list, set):
+    def create_greedy_schedule(self) -> tuple[list, set]:
         """
         Function creates a schedule using greedy choice
         Returns a list of the trains in the greedy schedule and a set of the connections the schedule rides 

@@ -1,5 +1,6 @@
 from .train import Train
 from .quality import Quality
+from typing import Union
 
 import random
 import os
@@ -53,8 +54,7 @@ class Schedule:
                     
         self.ridden.add(connection)
 
-    # TODO: figure out how to type hint optional or union with class 
-    def add_train(self, first_connection=None) -> None:
+    def add_train(self, first_connection: Union[None, classmethod]=None) -> None:
         """
         Adds a new train to the list of trains
         """
@@ -88,7 +88,7 @@ class Schedule:
                 csv_writer.writerow(["Connections Ridden", len(self.ridden)])
                 csv_writer.writerow(["Total Connections", len(self.total_connections)])
 
-    def display_schedule(self, file_name: str, save_each_output_as_csv: bool=False) -> tuple(list, float, int):
+    def display_schedule(self, file_name: str, save_each_output_as_csv: bool=False) -> tuple[list, float, int]:
         """
         Displays the schedule and score in the format as provided on ah.proglab.nl
         """

@@ -51,7 +51,7 @@ def process_input(input_list: list) -> list:
 
     return train_data
 
-def plot_trains(station_data: str, train_data: list, figure_size: tuple(int, int)=(10, 8)) -> None:
+def plot_trains(station_data: str, train_data: list, figure_size: tuple[int, int]=(10, 8)) -> None:
     """
     Plots rails and stations for multiple trains.
 

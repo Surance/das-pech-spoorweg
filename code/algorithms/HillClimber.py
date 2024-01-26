@@ -4,7 +4,7 @@ from code.algorithms.random import Random_schedule
 
 class HillClimber:
     def __init__(self, schedule: classmethod) -> None:
-        self.schedule = schedule
+        self.schedule = Random_schedule.create_random_schedule(schedule) 
         self.best_score = float('-inf')
         self.best_schedule = None
 
@@ -33,7 +33,7 @@ class HillClimber:
 
         return self.schedule
     
-    def get_best_connection(self) -> tuple(list, set):
+    def get_best_train(self) -> tuple[list, set]:
         """
         Try deleting and replacing a deleted connection if the quality is higher with the new trajectory.
         """

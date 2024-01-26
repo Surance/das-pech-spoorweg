@@ -54,7 +54,7 @@ class AStarScheduler:
 
         return None
 
-    def apply_action(self, state: tuple[list, set], connection: classmethod) -> tuple(list, set):
+    def apply_action(self, state: tuple[list, set], connection: classmethod) -> tuple[list, set]:
         new_stations = state[0] + [connection.departure_station, connection.arrival_station]
         new_ridden = state[1] | {connection}
         new_train = Train(f"train_{len(new_stations) // 2}")
