@@ -2,9 +2,8 @@ from .information import Information
 from .schedule import Schedule
 from code.algorithms.random import Random_schedule
 from code.algorithms.greedy import GreedySchedule
-from code.algorithms.HillClimb import HillClimbingScheduler
-from code.algorithms.HillClimber import HillClimber
 from code.algorithms.HillClimb_Train import HillClimber_train
+from code.algorithms.HillClimb_Connection import HillClimb_connection
 
 import os
 
@@ -107,18 +106,6 @@ class Experiment:
         # Take index with max score and return its train schedule 
         index_best_score = all_ridden_scores[max(all_ridden_scores)]
         return self.all_stations_trains[index_best_score]
-    
-    def run_hillclimb_trial(self, schedule: classmethod) -> classmethod:
-        """
-        Function runs the hillclimb algorithm to create a schedule
-        """
-        # arbitrary_solution = Random_schedule.create_random_schedule(schedule) 
-        hillclimber = HillClimber(schedule)
-        best_trains, best_ridden = hillclimber.get_best_connection() 
-        schedule.trains = best_trains
-        schedule.ridden = best_ridden
-
-        return schedule
 
     def run_experiment(self) -> tuple[float, list, list]:
         """
@@ -146,7 +133,7 @@ class Experiment:
                 schedule.ridden = greedy_schedule.ridden
 
             elif self.algorithm == "hillclimb":
-                hillclimber = HillClimber(schedule)
+                hillclimber = HillClimb_connection(schedule)
                 best_trains, best_ridden = hillclimber.get_best_train()
                 schedule.trains = best_trains
                 schedule.ridden = best_ridden

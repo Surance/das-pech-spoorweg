@@ -12,6 +12,7 @@ class GreedySchedule:
         Returns a list of the trains in the greedy schedule and a set of the connections the schedule rides 
         """
         first_stations = set()
+        
         # Create set of max train number of stops to be the randomly chosen first stop for each train
         while len(first_stations) < self.schedule.max_trains:
             first_stations.add(random.choice(self.schedule.total_connections))

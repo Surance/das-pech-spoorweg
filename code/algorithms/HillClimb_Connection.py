@@ -2,7 +2,7 @@ import random
 from code.classes.quality import Quality
 from code.algorithms.random import Random_schedule
 
-class HillClimber:
+class HillClimb_connection:
     def __init__(self, schedule: classmethod) -> None:
         random_scheduler = Random_schedule(schedule)
         self.schedule = random_scheduler.create_random_schedule()
