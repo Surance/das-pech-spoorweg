@@ -142,7 +142,10 @@ class Experiment:
                 GreedySchedule.create_greedy_schedule(schedule)
 
             elif self.algorithm == "hillclimb":
-                self.run_hillclimb_trial(schedule)
+                hillclimber = HillClimber(schedule)
+                best_trains, best_ridden = hillclimber.get_best_train()
+                schedule.trains = best_trains
+                schedule.ridden = best_ridden
 
             elif self.algorithm == "hillclimb_train":
                 train_climber = HillClimber_train(schedule)
