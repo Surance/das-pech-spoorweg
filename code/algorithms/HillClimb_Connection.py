@@ -15,15 +15,22 @@ class HillClimber:
         Delete a random connection from the schedule. Update time and used connections.
         """
         if len(self.schedule.trains) > 0:
-            train_to_edit = random.choice(self.current_solution.trains)
-            
-        connection = random.choice(list(self.schedule.ridden))
-        self.schedule.ridden.remove(connection)
-        self.schedule.trains[connection.train].connections.remove(connection)
-        self.schedule.current_time -= connection.travel_time
-      
-        return self.schedule
-    
+            train_to_edit = random.choice(self.schedule.trains)
+
+            if len(train_to_edit.connections_list) > 0:
+                # Copy the train before making changes
+                original_train = train_to_edit.copy_train()
+                
+                connection_to_remove = random.choice(train_to_edit.connections_list)
+                station_to_remove = train_to_edit.stations_names_list[-1]
+
+                # Remove the connection and station
+                train_to_edit.connections_list.remove(connection_to_remove)
+                train_to_edit.stations_names_list.remove(station_to_remove)
+                self.schedule.current_time -= connection_to_remove.travel_time
+                self.schedule.ridden.remove(connection_to_remove)
+
+
     def add_connection(self) -> classmethod:
         """
         Add a random connection to the schedule. Update time and used connections
@@ -31,11 +38,18 @@ class HillClimber:
         possible_connections = self.schedule.check_possible_connections()
         if len(possible_connections.keys()) == 0:
             return self.schedule
-        
+
         connection = random.choice(list(possible_connections.keys()))
-        self.schedule.ridden.append(connection)
-        self.schedule.trains[connection.train].connections.append(connection)
+        train_to_edit = random.choice(self.schedule.trains)
+
+        # Create a copy of the train before making changes
+        original_train = train_to_edit.copy_train()
+
+        # Make changes to the train
+        train_to_edit.connections_list.append(connection)
+        train_to_edit.stations_names_list.append(possible_connections[connection])
         self.schedule.current_time += connection.travel_time
+        self.schedule.ridden.add(connection)
 
         return self.schedule
     

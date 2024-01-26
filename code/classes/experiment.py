@@ -4,7 +4,7 @@ from code.algorithms.random import Random_schedule
 from code.algorithms.greedy import GreedySchedule
 from code.algorithms.HillClimb import HillClimbingScheduler
 from code.algorithms.HillClimber import HillClimber
-from code.algorithms.HillClimber_Train import HillClimber_train
+from code.algorithms.HillClimb_Train import HillClimber_train
 
 import os
 
