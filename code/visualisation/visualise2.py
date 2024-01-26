@@ -6,7 +6,18 @@ import re
 from .visualise import get_coordinates
 
 
-def format_coordinates(train_data, station_data):
+def format_coordinates(train_data: list, station_data:str)-> list: 
+    """
+    Formats coordinates from station data based on train data.
+
+    Parameters:
+    train_data (Dict[str, List[str]]): A dictionary containing train names as keys and lists of station names as values.
+    station_data (Dict[str, Tuple[float, float]]): A dictionary containing station names as keys and tuples of (x, y) coordinates as values.
+
+    Returns:
+    List[Dict[str, List[float]]]: A list of dictionaries where each dictionary contains 'x' and 'y' keys corresponding to lists of x and y coordinates.
+    """
+
 
     result_list = []
 
@@ -27,7 +38,7 @@ def create_map_plot(train_data: list, mapbox_style="carto-positron")-> None:
     """
     Create a scatter plot on Mapbox for train rails and stations.
 
-    Args:
+    Parameters:
         train_data (list): List of dictionaries, each containing keys 'x' and 'y' for coordinates.
         mapbox_style (str): Style of the Mapbox map. Default is "carto-positron".
 
