@@ -136,7 +136,7 @@ class Experiment:
 
             # Create a schedule depending on which algorithm is called
             if self.algorithm == "random":
-                Random_schedule.create_random_schedule(schedule)
+                random_schedule = Random_schedule(schedule).create_random_schedule()
 
             elif self.algorithm == "greedy":
                 GreedySchedule.create_greedy_schedule(schedule)
@@ -149,6 +149,9 @@ class Experiment:
                 best_trains, best_ridden = train_climber.get_best_train() 
                 schedule.trains = best_trains
                 schedule.ridden = best_ridden
+
+            else: 
+                print("No valid algorithm was called. Please call one of the following algorithms in main.py")
 
             trial_stations_trains, trial_score, trial_ridden = schedule.display_schedule(file_name, save_each_output_as_csv=True)
 

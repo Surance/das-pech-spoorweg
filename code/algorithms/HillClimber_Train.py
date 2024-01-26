@@ -1,9 +1,10 @@
 import random
 from code.classes.quality import Quality
 from code.algorithms.random import Random_schedule
+from code.classes.schedule import Schedule
 
 class HillClimber_train:
-    def __init__(self, schedule: classmethod) -> None:
+    def __init__(self, schedule: Schedule) -> None:
         self.schedule = Random_schedule.create_random_schedule(schedule) 
         self.best_score = float('-inf')
         self.best_schedule = None
