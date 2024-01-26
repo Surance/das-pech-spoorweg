@@ -4,9 +4,12 @@ from code.algorithms.random import Random_schedule
 
 class HillClimber:
     def __init__(self, schedule: classmethod) -> None:
-        self.schedule = Random_schedule.create_random_schedule(schedule) 
+        random_scheduler = Random_schedule(schedule)
+        self.schedule = random_scheduler.create_random_schedule()
+        # self.schedule = Random_schedule.create_random_schedule(schedule) 
         self.best_score = float('-inf')
         self.best_schedule = None
+        
 
     def delete_connection(self) -> None:
         """
