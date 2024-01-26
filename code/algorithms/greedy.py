@@ -6,7 +6,11 @@ class GreedySchedule:
         self.schedule = schedule
 
 
-    def create_greedy_schedule(self):
+    def create_greedy_schedule(self) -> tuple[list, set]:
+        """
+        Function creates a schedule using greedy choice
+        Returns a list of the trains in the greedy schedule and a set of the connections the schedule rides 
+        """
         first_stations = set()
         # Create set of max train number of stops to be the randomly chosen first stop for each train
         while len(first_stations) < self.max_trains:

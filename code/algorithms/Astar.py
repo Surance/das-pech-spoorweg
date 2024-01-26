@@ -1,29 +1,29 @@
 from code.classes.train import Train
 from code.classes.schedule import Schedule
 from code.classes.connection import Connection
+from typing import Union
 import csv
 
 
 
 class AStarScheduler:
-    def __init__(self, schedule):
+    def __init__(self, schedule: classmethod) -> None:
         self.schedule = schedule
         self.total_connections = schedule.total_connections  # Initialize total_connections
 
         self.initial_state = ([], set())  # (stations, ridden_connections)
         self.goal_state = None  # Will be set during initialization
 
-
-    def heuristic(self, state):
+    def heuristic(self, state: tuple[list, set]) -> int:
         # Estimate the cost to reach the goal from a given state
         remaining_connections = set(self.total_connections) - state[1]
         return len(remaining_connections)
 
-    def cost(self, state, connection):
+    def cost(self, state: tuple[list, set], connection: classmethod) -> classmethod:
         # Evaluate the quality of a state (considering the total time spent)
         return state[0][-1].total_time + connection.travel_time
 
-    def get_actions(self, state):
+    def get_actions(self, state: tuple[list, set]) -> set:
         # Get possible actions from a given state
         possible_connections = set()
 
@@ -33,7 +33,7 @@ class AStarScheduler:
 
         return possible_connections
 
-    def a_star(self):
+    def a_star(self) -> Union[None, tuple[list, set]]:
         self.goal_state = (None, set(self.total_connections))
 
         open_set = [(0, self.initial_state)]
@@ -54,7 +54,7 @@ class AStarScheduler:
 
         return None
 
-    def apply_action(self, state, connection):
+    def apply_action(self, state: tuple[list, set], connection: classmethod) -> tuple[list, set]:
         new_stations = state[0] + [connection.departure_station, connection.arrival_station]
         new_ridden = state[1] | {connection}
         new_train = Train(f"train_{len(new_stations) // 2}")
@@ -64,7 +64,7 @@ class AStarScheduler:
 
         return new_stations, new_ridden
 
-    def create_optimal_schedule(self):
+    def create_optimal_schedule(self) -> Union[classmethod, None]:
         result = self.a_star()
 
         if result:

@@ -20,7 +20,7 @@ if __name__ == "__main__":
     data = Information("data/StationsHolland.csv", "data/ConnectionsHolland.csv")
 
     iterations = 10
-    algorithm = "hillclimb"
+    algorithm = "hillclimb_train"
     max_trains = 7
     max_time = 120  # 2 hours
 
@@ -29,15 +29,9 @@ if __name__ == "__main__":
     stations_trains, score_count, ridden_count = current_experiment.run_experiment()
 
     #Calling and running visualise
-    def visualize_data(stations_trains, coords_data, visualise_plot=True, visualise_map=True):
+    def visualize_data(stations_trains: str, coords_data: list, visualise_plot: bool=True, visualise_map: bool=True):
         """
-        Visualize train data using specified options.
-
-        Parameters:
-            - station_data (str): A string containing station data in the format "station,y,x".
-            - train_data (list): A list of tuples where each tuple contains a train name and a list of station names.
-            - visualise_plot (bool, optional): If True, plot the train data. Default is True.
-            - visualise_map (bool, optional): If True, create a map plot. Default is True.
+        Function vialises the train data using specified options.
         """
         train_data = process_input(stations_trains)
 

@@ -6,12 +6,12 @@ import csv
 import os
 
 class Information:
-    def __init__(self, station_data, connection_data):
+    def __init__(self, station_data: csv, connection_data: csv) -> None:
         
         self.station_data_df = pd.read_csv(station_data)
         self.connection_data_df = pd.read_csv(connection_data)
 
-    def create_connection(self):
+    def create_connection(self) -> list:
         """
         Function takes dataframe and creates list of connections
         """
@@ -21,7 +21,7 @@ class Information:
 
         return connections_list
 
-    def create_station(self):
+    def create_station(self) -> list:
         """
         Function takes dataframe and creates list of stations 
         """
@@ -31,7 +31,7 @@ class Information:
 
         return stations_list
     
-    def summary_experiment(self, algorithm, path, iterations, score, ridden):
+    def summary_experiment(self, algorithm: str, path: str, iterations: int, score: list, ridden: list) -> None:
         """
         Add file inside directory with all trials of experiment that shows information with summary of the experiment
         """

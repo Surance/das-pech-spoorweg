@@ -3,12 +3,12 @@ from code.classes.quality import Quality
 from code.algorithms.random import Random_schedule
 
 class HillClimber:
-    def __init__(self, schedule):
-        self.schedule = schedule
+    def __init__(self, schedule: classmethod) -> None:
+        self.schedule = Random_schedule.create_random_schedule(schedule) 
         self.best_score = float('-inf')
         self.best_schedule = None
 
-    def delete_connection(self):
+    def delete_connection(self) -> None:
         """
         Delete a random connection from the schedule. Update time and used connections.
         """
@@ -19,7 +19,7 @@ class HillClimber:
       
         return self.schedule
     
-    def add_connection(self):
+    def add_connection(self) -> classmethod:
         """
         Add a random connection to the schedule. Update time and used connections
         """
@@ -33,7 +33,7 @@ class HillClimber:
 
         return self.schedule
     
-    def get_best_connection(self):
+    def get_best_train(self) -> tuple[list, set]:
         """
         Try deleting and replacing a deleted connection if the quality is higher with the new trajectory.
         """
@@ -54,7 +54,7 @@ class HillClimber:
 
         return self.schedule.trains, self.schedule.ridden
 
-    def calculate_schedule_score(self):
+    def calculate_schedule_score(self) -> float:
         """
         Calculate the quality score for the current schedule.
         """
