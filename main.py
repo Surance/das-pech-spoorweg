@@ -1,9 +1,5 @@
 from code.classes.information import Information
-from code.classes.schedule import Schedule
 from code.classes.experiment import Experiment
-from code.algorithms.random import Random_schedule
-from code.algorithms.Astar import AStarScheduler
-from code.algorithms.greedy import GreedySchedule
 
 from code.visualisation.visualise import process_input
 from code.visualisation.visualise import plot_trains
@@ -11,9 +7,6 @@ from code.visualisation.visualise import get_coordinates
 from code.visualisation.visualise import coords_data
 from code.visualisation.visualise2 import create_map_plot
 from code.visualisation.visualise2 import format_coordinates
-
-import pandas as pd
-import csv
 
 if __name__ == "__main__":
     # Input csv's
