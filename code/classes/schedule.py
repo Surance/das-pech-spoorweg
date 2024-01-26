@@ -1,6 +1,9 @@
+from code.classes.connection import Connection
+from code.classes.station import Station
 from .train import Train
 from .quality import Quality
 from typing import Union
+from typing_extensions import Self
 
 import random
 import os
@@ -19,7 +22,7 @@ class Schedule:
         # Keep track of ridden connections for all trains
         self.ridden = set()
 
-    def copy_schedule(self) -> classmethod:
+    def copy_schedule(self) -> Self:
         """
         Create a copy of the current schedule.
         """
@@ -45,7 +48,7 @@ class Schedule:
         
         return possible_connections
                          
-    def valid_connection(self, connection: classmethod, station_to_add: classmethod) -> None:
+    def valid_connection(self, connection: Connection, station_to_add: Station) -> None:
         """
         Function adds connections and stations to list
         """
@@ -55,10 +58,11 @@ class Schedule:
                     
         self.ridden.add(connection)
 
-    def add_train(self, first_connection: Union[None, classmethod]=None) -> None:
+    def add_train(self, first_connection: Union[None, Connection]=None) -> None:
         """
         Adds a new train to the list of trains
         """
+        # If there is no first connection given, pick a random connection 
         if first_connection == None:
             first_connection = random.choice(self.total_connections)
         

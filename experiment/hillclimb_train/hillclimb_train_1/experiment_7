@@ -1,0 +1,11 @@
+train,stations
+train_7,"['Haarlem', 'Beverwijk']"
+train_7,"['Leiden Centraal', 'Heemstede-Aerdenhout']"
+train_7,"['Zaandam', 'Hoorn']"
+train_7,"['Den Haag Centraal', 'Leiden Centraal']"
+train_7,"['Zaandam', 'Castricum']"
+train_7,"['Alkmaar', 'Hoorn']"
+train_7,"['Heemstede-Aerdenhout', 'Haarlem']"
+Score,9300.0
+Connections Ridden,28
+Total Connections,28

@@ -7,7 +7,7 @@ import csv
 
 
 class AStarScheduler:
-    def __init__(self, schedule: classmethod) -> None:
+    def __init__(self, schedule: Schedule) -> None:
         self.schedule = schedule
         self.total_connections = schedule.total_connections  # Initialize total_connections
 
@@ -19,7 +19,7 @@ class AStarScheduler:
         remaining_connections = set(self.total_connections) - state[1]
         return len(remaining_connections)
 
-    def cost(self, state: tuple[list, set], connection: classmethod) -> classmethod:
+    def cost(self, state: tuple[list, set], connection: Connection) -> set:
         # Evaluate the quality of a state (considering the total time spent)
         return state[0][-1].total_time + connection.travel_time
 
@@ -54,7 +54,7 @@ class AStarScheduler:
 
         return None
 
-    def apply_action(self, state: tuple[list, set], connection: classmethod) -> tuple[list, set]:
+    def apply_action(self, state: tuple[list, set], connection: Connection) -> tuple[list, set]:
         new_stations = state[0] + [connection.departure_station, connection.arrival_station]
         new_ridden = state[1] | {connection}
         new_train = Train(f"train_{len(new_stations) // 2}")
@@ -64,7 +64,7 @@ class AStarScheduler:
 
         return new_stations, new_ridden
 
-    def create_optimal_schedule(self) -> Union[classmethod, None]:
+    def create_optimal_schedule(self) -> Union[Schedule, None]:
         result = self.a_star()
 
         if result:

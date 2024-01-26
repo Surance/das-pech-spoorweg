@@ -1,0 +1,11 @@
+train,stations
+train_7,"['Rotterdam Centraal', 'Rotterdam Alexander']"
+train_7,"['Amsterdam Zuid', 'Schiphol Airport']"
+train_7,"['Alkmaar', 'Hoorn']"
+train_7,"['Castricum', 'Alkmaar']"
+train_7,"['Rotterdam Alexander', 'Gouda']"
+train_7,"['Alkmaar', 'Hoorn']"
+train_7,"['Rotterdam Alexander', 'Gouda']"
+Score,9300.0
+Connections Ridden,28
+Total Connections,28
