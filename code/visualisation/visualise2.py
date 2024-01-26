@@ -6,7 +6,18 @@ import re
 from .visualise import get_coordinates
 
 
-def format_coordinates(train_data: list, station_data: str) -> list:
+def format_coordinates(train_data: list, station_data:str)-> list: 
+    """
+    Formats coordinates from station data based on train data.
+
+    Parameters:
+    train_data (Dict[str, List[str]]): A dictionary containing train names as keys and lists of station names as values.
+    station_data (Dict[str, Tuple[float, float]]): A dictionary containing station names as keys and tuples of (x, y) coordinates as values.
+
+    Returns:
+    List[Dict[str, List[float]]]: A list of dictionaries where each dictionary contains 'x' and 'y' keys corresponding to lists of x and y coordinates.
+    """
+
 
     result_list = []
 
@@ -23,11 +34,11 @@ def format_coordinates(train_data: list, station_data: str) -> list:
 
     return result_list
 
-def create_map_plot(train_data: list, mapbox_style: str="carto-positron") -> None:
+def create_map_plot(train_data: list, mapbox_style="carto-positron")-> None: 
     """
     Create a scatter plot on Mapbox for train rails and stations.
 
-    Args:
+    Parameters:
         train_data (list): List of dictionaries, each containing keys 'x' and 'y' for coordinates.
         mapbox_style (str): Style of the Mapbox map. Default is "carto-positron".
 
@@ -36,6 +47,9 @@ def create_map_plot(train_data: list, mapbox_style: str="carto-positron") -> Non
     """
     # Create a list to store all the dataframes for each train
     train_dfs = []
+
+    colors = ['yellow', 'pink', 'yellowgreen', 'lightblue', 'purple', 'darkgreen', 'darkblue']
+    linewidths = [10, 8.5, 7, 5.5, 4, 2.5, 1]
 
     # Create a dataframe for each train and add it to the list
     for i, train in enumerate(train_data, start=1):
@@ -51,13 +65,21 @@ def create_map_plot(train_data: list, mapbox_style: str="carto-positron") -> Non
     # Create scatter plot on Mapbox
     fig = px.scatter_mapbox(stations_df, lat='x', lon='y', color='train',
                             mapbox_style=mapbox_style, title='Train Rails and Stations')
-
+    
+    max_thickness= 20
+    
     # Create separate Line plots for each train
-    for train_df in train_dfs:
+    for i, train_df in enumerate(train_dfs, start=1):
+        # Get the corresponding color and linewidth
+        color = colors[i- 1]
+        linewidth = linewidths [i - 1]
+
         fig.add_trace(go.Scattermapbox(
             lat=train_df['x'],
             lon=train_df['y'],
             mode='lines',
+            line=dict(width=linewidth),
+            line_color=color,
 
             # Use the train name as the trace name
             name=train_df['train'].iloc[0]
