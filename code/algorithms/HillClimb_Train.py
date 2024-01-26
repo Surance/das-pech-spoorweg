@@ -62,6 +62,9 @@ class HillClimber_train:
                 self.best_score = current_score
                 self.best_schedule = altered_schedule
 
+        # Because of removes and adds train names are no longer correct so we need to rename them in correct order 
+        self.best_schedule.rename_trains()
+
         # After the loop, set the schedule to the best_schedule
         self.schedule = self.best_schedule
 
