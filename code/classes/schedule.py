@@ -5,6 +5,7 @@ from typing import Union
 import random
 import os
 import csv
+from copy import deepcopy
 
 class Schedule:
     def __init__(self, max_trains: int, max_time: int, total_connections: list) -> None:
@@ -23,8 +24,9 @@ class Schedule:
         Create a copy of the current schedule.
         """
         new_schedule = Schedule(self.max_trains, self.max_time, self.total_connections)
-        new_schedule.trains = [train.copy_train() for train in self.trains]
-        new_schedule.ridden = self.ridden.copy()
+        # new_schedule.trains = [train.copy_train() for train in self.trains]
+        new_schedule.trains = self.trains.deepcopy()
+        new_schedule.ridden = self.ridden.deepcopy()
         new_schedule.current_time = self.current_time
         
         return new_schedule
