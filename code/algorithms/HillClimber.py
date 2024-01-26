@@ -37,9 +37,6 @@ class HillClimber:
         """
         Try deleting and replacing a deleted connection if the quality is higher with the new trajectory.
         """
-        # Set the initial schedule before starting iterations
-        initial_schedule = self.schedule
-
         for i in range(1000):
             self.delete_connection()
             self.add_connection()

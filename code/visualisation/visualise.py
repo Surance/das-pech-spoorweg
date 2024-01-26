@@ -29,7 +29,7 @@ def process_input(input_list: list) -> list:
     """
     Process a list of train routes and clean the data.
 
-    Args:
+    Parameters:
         input_list (list): A list of train routes, where each route is represented
         as a list of stations.
 
