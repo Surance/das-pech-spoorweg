@@ -5,7 +5,7 @@ from code.classes.schedule import Schedule
 
 class HillClimber_train:
     def __init__(self, schedule: Schedule) -> None:
-        self.schedule = Random_schedule.create_random_schedule(schedule) 
+        self.schedule = Random_schedule(schedule).create_random_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
 
@@ -25,10 +25,10 @@ class HillClimber_train:
         self.schedule.add_train()
 
         # Add new stations to train if it connects to previous station until all connections are passed or max time is met
-        while self.current_time < self.max_time and len(self.ridden) < len(self.total_connections):
+        while self.schedule.current_time < self.schedule.max_time and len(self.schedule.ridden) < len(self.schedule.total_connections):
             
             # Check which connections are possible with the previous arrival station
-            possible_connections = self.check_possible_connections()
+            possible_connections = self.schedule.check_possible_connections()
 
             if len(possible_connections.keys()) == 0:
                 break
@@ -38,8 +38,8 @@ class HillClimber_train:
 
             self.schedule.valid_connection(connection, possible_connections[connection])
 
-        self.train.total_time += self.current_time
-        self.trains.append(self.train)
+        self.schedule.train.total_time += self.schedule.current_time
+        self.schedule.trains.append(self.schedule.train)
         
         return self.schedule
     
@@ -66,6 +66,6 @@ class HillClimber_train:
 
     def calculate_schedule_score(self) -> float:
         """
-        Calculate the quality score for the current schedule.
+        Calculate the quality score for the current schedule
         """
         return Quality(self.schedule.ridden, self.schedule.trains, self.schedule.total_connections).calculate_quality()
