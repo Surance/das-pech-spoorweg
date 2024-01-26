@@ -6,7 +6,6 @@ class HillClimber:
     def __init__(self, schedule: classmethod) -> None:
         random_scheduler = Random_schedule(schedule)
         self.schedule = random_scheduler.create_random_schedule()
-        # self.schedule = Random_schedule.create_random_schedule(schedule) 
         self.best_score = float('-inf')
         self.best_schedule = None
         
@@ -15,7 +14,10 @@ class HillClimber:
         """
         Delete a random connection from the schedule. Update time and used connections.
         """
-        connection = random.choice(self.schedule.ridden)
+        if len(self.schedule.trains) > 0:
+            train_to_edit = random.choice(self.current_solution.trains)
+            
+        connection = random.choice(list(self.schedule.ridden))
         self.schedule.ridden.remove(connection)
         self.schedule.trains[connection.train].connections.remove(connection)
         self.schedule.current_time -= connection.travel_time
@@ -29,6 +31,7 @@ class HillClimber:
         possible_connections = self.schedule.check_possible_connections()
         if len(possible_connections.keys()) == 0:
             return self.schedule
+        
         connection = random.choice(list(possible_connections.keys()))
         self.schedule.ridden.append(connection)
         self.schedule.trains[connection.train].connections.append(connection)

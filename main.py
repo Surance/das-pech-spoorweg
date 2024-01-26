@@ -13,7 +13,7 @@ if __name__ == "__main__":
     data = Information("data/StationsHolland.csv", "data/ConnectionsHolland.csv")
 
     iterations = 10
-    algorithm = "random"
+    algorithm = "hillclimb"
     max_trains = 7
     max_time = 120  # 2 hours
 
