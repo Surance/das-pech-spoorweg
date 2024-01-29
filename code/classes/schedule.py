@@ -35,7 +35,7 @@ class Schedule:
     
     def check_possible_connections(self) -> dict:
         """
-        Function checks which connections are possible and returns dictionary of valid connections with the station to add to list as its value
+        Function checks which connections are possible and returns dict of valid connecctions
         """
         possible_connections = {}
     
@@ -71,6 +71,13 @@ class Schedule:
         self.train.stations_names_list.append(first_connection.departure_station)
         self.train.stations_names_list.append(first_connection.arrival_station)
         self.current_time = 0
+
+    def rename_trains(self):
+        """
+        Function renames trains so that they are in ascending order again
+        """
+        for count, train in enumerate(self.trains): 
+            train.train_name = f"train_{count + 1}"
 
     def save_outputs_csv(self, file_name: str, score: float) -> None:
         """

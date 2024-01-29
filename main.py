@@ -10,12 +10,12 @@ from code.visualisation.visualise2 import format_coordinates
 
 if __name__ == "__main__":
     # Input csv's
-    data = Information("data/StationsHolland.csv", "data/ConnectionsHolland.csv")
+    data = Information("data/StationsNationaal.csv", "data/ConnectiesNationaal.csv")
 
     iterations = 10
-    algorithm = "greedy"
-    max_trains = 7
-    max_time = 120  # 2 hours
+    algorithm = "hillclimb_train"
+    max_trains = 20
+    max_time = 180  # 3 hours
 
     # Run an experiment with specified algorithm and specified number of iterations
     current_experiment = Experiment(data, iterations, algorithm, max_trains, max_time)
@@ -36,7 +36,7 @@ if __name__ == "__main__":
             map_plot = create_map_plot(coords_dict)
 
     # Example usage running only matplotlib
-    visualize_data(stations_trains, coords_data, visualise_plot=False, visualise_map=True)
+    # visualize_data(stations_trains, coords_data, visualise_plot=False, visualise_map=True)
 
     pathname = current_experiment.path_name(summary=True)
 

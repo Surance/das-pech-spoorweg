@@ -15,6 +15,8 @@ class Experiment:
         self.algorithm = algorithm
         self.max_trains = max_trains
         self.max_time = max_time
+
+        self.all_connections = Information.create_connection(self.data)
         
         # Keep track of scores and connections ridden per experiment
         self.all_scores = []
@@ -69,13 +71,17 @@ class Experiment:
         """
         Function finds indeces of the schedules that rode all the connections and adds them to a list
         """
-        all_ridden = []
-        for index, trial_ridden in enumerate(self.all_ridden):
-            # TODO: currently hard coded 28 connections: update this when applying for all of NL
-            if trial_ridden == 28:
-                all_ridden.append(index)
+        all_ridden_list = []
 
-        return all_ridden
+        amount_total_connections = len(self.all_connections)
+
+        # Check in each trial whether all connections were ridden
+        for index, trial_ridden in enumerate(self.all_ridden):
+
+            if trial_ridden == amount_total_connections:
+                all_ridden_list.append(index)
+
+        return all_ridden_list
     
     def find_scores_schedules_all_connections(self, all_ridden) -> dict:
         """
@@ -113,14 +119,13 @@ class Experiment:
         Function runs an experiment of N trials that each create a schedule using the algorithm specified
         """
 
-        # Create objects
-        all_connections = Information.create_connection(self.data)
+        # Create pathname to save trial csv outputs in
         pathname = self.path_name()
         
         for trial in range(self.iterations):
             file_name = f"{pathname}experiment_{trial + 1}"
 
-            schedule = Schedule(self.max_trains, self.max_time, all_connections)
+            schedule = Schedule(self.max_trains, self.max_time, self.all_connections)
 
             # Create a schedule depending on which algorithm is called
             if self.algorithm == "random":
