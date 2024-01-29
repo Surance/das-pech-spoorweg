@@ -11,9 +11,10 @@ from code.visualisation.visualise2 import format_coordinates
 if __name__ == "__main__":
     # Input csv's
     data = Information("data/StationsNationaal.csv", "data/ConnectiesNationaal.csv")
+    # coords_data= get_station_data("data/StationsNationaal.csv")
 
     iterations = 10
-    algorithm = "hillclimb_train"
+    algorithm = "random"
     max_trains = 20
     max_time = 180  # 3 hours
 
@@ -33,10 +34,10 @@ if __name__ == "__main__":
 
         if visualise_map:
             coords_dict = format_coordinates(train_data, coords_data)
-            map_plot = create_map_plot(coords_dict)
+            map_plot = create_map_plot(coords_dict, train_data)
 
     # Example usage running only matplotlib
-    # visualize_data(stations_trains, coords_data, visualise_plot=False, visualise_map=True)
+    visualize_data(stations_trains, coords_data, visualise_plot=False, visualise_map=True)
 
     pathname = current_experiment.path_name(summary=True)
 
