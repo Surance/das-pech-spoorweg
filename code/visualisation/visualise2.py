@@ -34,7 +34,7 @@ def format_coordinates(train_data: list, station_data:str)-> list:
 
     return result_list
 
-def create_map_plot(train_data: list, mapbox_style="carto-positron")-> None: 
+def create_map_plot(train_data: list, station_name: list, mapbox_style="carto-positron")-> None: 
     """
     Create a scatter plot on Mapbox for train rails and stations.
 
@@ -52,24 +52,67 @@ def create_map_plot(train_data: list, mapbox_style="carto-positron")-> None:
     colors = ['yellow', 'pink', 'yellowgreen', 'lightblue', 'purple', 'darkgreen', 'darkblue']
     linewidths = [10, 8.5, 7, 5.5, 4, 2.5, 1]
 
+#     # Create a dataframe for each train and add it to the list
+#    for i, (train, station_names_list) in enumerate(train_data, station_name, start=1):
+#         train_df = pd.DataFrame(train, columns=['x', 'y'])
+
+#         # Adding a column to identify the train
+#         train_df['train'] = f'Train {i}'
+#         print(station_names_list)
+#         train_df['name'] = station_names_list
+#         # train_df['name'] = station_name
+#         train_dfs.append(train_df)
+    
+    # for i, (train, station_names_list) in enumerate(train_data, start=1):
+    #     # Assuming x and y values are not provided, you can create dummy values or use station names as x and y
+    #     train_df = pd.DataFrame({'name': station_names_list})
+    #     train_df['x'] = train_df['name']
+    #     train_df['y'] = train_df['name']
+    #     train_df['train'] = f'Train {i}'
+    #     train_dfs.append(train_df)
+
+    # for i, ((train, station_names_list), station) in enumerate(zip(train_data, station_name), start=1):
+    #     train_df = pd.DataFrame(train, columns=['x', 'y'])
+    #     train_df['train'] = f'Train {i}'
+    #     train_df['name'] = station_names_list
+
+
     # Create a dataframe for each train and add it to the list
     for i, train in enumerate(train_data, start=1):
         train_df = pd.DataFrame(train, columns=['x', 'y'])
-
-         # Adding a column to identify the train
+        
+        # Adding a column to identify the train
         train_df['train'] = f'Train {i}'
         train_dfs.append(train_df)
+
+    # for station_names_list in enumerate(station_name):
+    #         stations = station_names_list[1]
+    #          train_df['name'] = stations
+
+    # for (station_name, train), i in enumerate(zip(station_name, train_data), start=1):
+    #     stations = station_name[1]  # Extracting stations from station_name tuple
+
+    #     # Create DataFrame for each train
+    #     train_df = pd.DataFrame(train, columns=['x', 'y'])
+
+    #     # Adding columns to identify the train and stations
+    #     train_df['station'] = stations
+    #     train_df['train'] = f'Train {i}'
+
+    #     train_dfs.append(train_df)  # Adding DataFrame to the list
+
 
     # Concatenate all dataframes into a single dataframe
     stations_df = pd.concat(train_dfs, ignore_index=True)
 
     # Create scatter plot on Mapbox
-    fig = px.scatter_mapbox(stations_df, lat='x', lon='y', color='train', 
+    fig = px.scatter_mapbox(stations_df, lat='x', lon='y', color='train',
                             mapbox_style=mapbox_style, title='Train Rails and Stations')
     
 
     # Create separate Line plots for each train
     for i, train_df in enumerate(train_dfs, start=1):
+
         # Get the corresponding color and linewidth
         color = colors[i- 1]
         linewidth = linewidths [i - 1]
