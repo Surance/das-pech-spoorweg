@@ -35,7 +35,7 @@ class Schedule:
     
     def check_possible_connections(self) -> dict:
         """
-        Function checks which connections are possible and returns list of valid connecctions
+        Function checks which connections are possible and returns dictionary of valid connections with the station to add to list as its value
         """
         possible_connections = {}
     

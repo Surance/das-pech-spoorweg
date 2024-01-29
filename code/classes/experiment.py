@@ -2,6 +2,7 @@ from .information import Information
 from .schedule import Schedule
 from code.algorithms.random import Random_schedule
 from code.algorithms.greedy import GreedySchedule
+from code.algorithms.greedy2 import Greedy2Schedule
 from code.algorithms.HillClimb_Train import HillClimber_train
 from code.algorithms.HillClimb_Connection import HillClimb_connection
 
@@ -143,6 +144,11 @@ class Experiment:
                 best_trains, best_ridden = train_climber.get_best_train() 
                 schedule.trains = best_trains
                 schedule.ridden = best_ridden
+
+            elif self.algorithm == "greedy2":
+                greedy_schedule = Greedy2Schedule(schedule).create_greedy_schedule()
+                schedule.trains = greedy_schedule.trains
+                schedule.ridden = greedy_schedule.ridden
 
             else: 
                 print("No valid algorithm was called. Please call one of the following algorithms in main.py:")
