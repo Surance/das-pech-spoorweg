@@ -111,10 +111,10 @@ def create_map_plot(train_data: list, station_name: list, mapbox_style="carto-po
     stations_df = pd.concat(train_dfs, ignore_index=True)
 
     # Create scatter plot on Mapbox
-    fig = px.scatter_mapbox(stations_df, lat='x', lon='y', color='train',
+    fig = px.scatter_mapbox(stations_df, lat='x', lon='y',
                             mapbox_style=mapbox_style, title='Train Rails and Stations')
     
-
+   
     # Create separate Line plots for each train
     for i, train_df in enumerate(train_dfs, start=1):
 
@@ -132,6 +132,14 @@ def create_map_plot(train_data: list, station_name: list, mapbox_style="carto-po
             # Use the train name as the trace name
             name=train_df['train'].iloc[0]
         ))
+    # Plot the train stations
+    fig.add_trace(go.Scattermapbox(
+        lat=stations_df['x'],
+        lon=stations_df['y'],
+        mode='markers',
+        marker=dict(size=5, color='black'),  # Adjust marker size and color as needed
+        name='Train Stations'  # Name for the train stations trace
+    ))
 
     # Display the plot
     fig.show()
