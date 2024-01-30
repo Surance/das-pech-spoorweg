@@ -11,6 +11,9 @@ class Information:
         self.station_data_df = pd.read_csv(station_data)
         self.connection_data_df = pd.read_csv(connection_data)
 
+    def get_station_data(self):
+        return self.station_data_df
+
     def create_connection(self) -> list:
         """
         Function takes dataframe and creates list of connections
