@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
         if visualise_map:
             coords_dict = format_coordinates(train_data, coords_data)
-            map_plot = create_map_plot(coords_dict, train_data)
+            map_plot = create_map_plot(coords_dict)
 
     # Example usage running only matplotlib
     visualize_data(stations_trains, coords_data, visualise_plot=False, visualise_map=True)

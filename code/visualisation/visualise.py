@@ -61,8 +61,6 @@ def plot_trains(station_data: str, train_data: list, figure_size: tuple[int, int
     # Create a new figure with the specified size
     plt.figure(figsize=figure_size)
 
-    # colors = ['yellow', 'pink', 'yellowgreen', 'lightblue', 'purple', 'darkgreen', 'darkblue']
-    # linewidths = [10, 8.5, 7, 5.5, 4, 2.5, 1]
     colors = ['yellow', 'pink', 'yellowgreen', 'lightblue', 'purple', 'darkgreen', 'darkblue', 'red', 'orange', 'coral', 'blue', 'cyan', 'magenta', 'violet', 'indigo', 'olive', 'brown', 'wheat', 'gray', 'black']
     linewidths = [15.0, 14.25, 13.5, 12.75, 12.0, 11.25, 10.5, 9.75, 9.0, 8.25, 7.5, 6.75, 6.0, 5.25, 4.5, 3.75, 3.0, 2.25, 1.5, 0.75]
 
