@@ -52,8 +52,8 @@ class HillClimber_train:
         """
         Randomly choose to delete or add a train. If the quality is higher after the change, keep the schedule
         """
-
-        for _ in range(100000):
+        print("NEW TRIAL ------------------------")
+        for i in range(100000):
             copy_schedule = deepcopy(self.schedule)
             altered_schedule = random.choice([self.delete_train(copy_schedule), self.add_new_train(copy_schedule)])
             current_score = self.calculate_schedule_score(altered_schedule)
@@ -61,6 +61,10 @@ class HillClimber_train:
             if current_score > self.best_score:
                 self.best_score = current_score
                 self.best_schedule = altered_schedule
+                print(current_score)
+
+        # Because of removes and adds train names are no longer correct so we need to rename them in correct order 
+        self.best_schedule.rename_trains()
 
         # After the loop, set the schedule to the best_schedule
         self.schedule = self.best_schedule

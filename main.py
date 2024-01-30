@@ -10,18 +10,18 @@ from code.visualisation.visualise2 import format_coordinates
 
 if __name__ == "__main__":
     # Input csv's
-    data = Information("data/StationsHolland.csv", "data/ConnectionsHolland.csv")
+    data = Information("data/StationsNationaal.csv", "data/ConnectiesNationaal.csv")
 
-    iterations = 100
-    algorithm = "hillclimb"
-    max_trains = 7
-    max_time = 120  # 2 hours
+    iterations = 10
+    algorithm = "greedy2"
+    max_trains = 20
+    max_time = 180  # 3 hours
 
     # Run an experiment with specified algorithm and specified number of iterations
     current_experiment = Experiment(data, iterations, algorithm, max_trains, max_time)
     stations_trains, score_count, ridden_count = current_experiment.run_experiment()
 
-    #Calling and running visualise
+    #Calling both forms of visualise
     def visualize_data(stations_trains: str, coords_data: list, visualise_plot: bool=True, visualise_map: bool=True):
         """
         Function to visualise the train stations and trajects using specified options.
@@ -35,8 +35,8 @@ if __name__ == "__main__":
             coords_dict = format_coordinates(train_data, coords_data)
             map_plot = create_map_plot(coords_dict)
 
-    # Example usage running only matplotlib
-    visualize_data(stations_trains, coords_data, visualise_plot=False, visualise_map=True)
+    # Example usage running experiment
+    visualize_data(stations_trains, coords_data, visualise_plot=True, visualise_map=False)
 
     pathname = current_experiment.path_name(summary=True)
 
