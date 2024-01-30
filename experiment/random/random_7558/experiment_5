@@ -1,0 +1,24 @@
+train,stations
+train_1,"['Den Haag HS', 'Gouda']"
+train_2,"['Den Haag Laan v NOI', 'Leiden Centraal']"
+train_3,"['Haarlem', 'Beverwijk']"
+train_4,"['Heemstede-Aerdenhout', 'Haarlem']"
+train_5,"['Sittard', 'Roermond']"
+train_6,"['Utrecht Centraal', 'Alphen a/d Rijn']"
+train_7,"['Rotterdam Blaak', 'Rotterdam Alexander']"
+train_8,"['Eindhoven', 's-Hertogenbosch']"
+train_9,"['Zwolle', 'Amersfoort']"
+train_10,"['Alkmaar', 'Den Helder']"
+train_11,"['Breda', 'Etten-Leur']"
+train_12,"['Den Haag Laan v NOI', 'Leiden Centraal']"
+train_13,"['Amsterdam Sloterdijk', 'Zaandam']"
+train_14,"['Roosendaal', 'Vlissingen']"
+train_15,"['Eindhoven', 'Helmond']"
+train_16,"['Zaandam', 'Hoorn']"
+train_17,"['Delft', 'Den Haag Centraal']"
+train_18,"['Almelo', 'Hengelo']"
+train_19,"['Arnhem Centraal', 'Dieren']"
+train_20,"['Deventer', 'Almelo']"
+Score,-2000.0
+Connections Ridden,0
+Total Connections,89

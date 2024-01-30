@@ -1,0 +1,24 @@
+train,stations
+train_1,"['Leiden Centraal', 'Schiphol Airport']"
+train_2,"['Steenwijk', 'Zwolle']"
+train_3,"['Den Haag HS', 'Leiden Centraal']"
+train_4,"['Utrecht Centraal', 'Amersfoort']"
+train_5,"['Arnhem Centraal', 'Ede-Wageningen']"
+train_6,"['Assen', 'Zwolle']"
+train_7,"['Delft', 'Den Haag Centraal']"
+train_8,"['Haarlem', 'Beverwijk']"
+train_9,"['Zutphen', 'Dieren']"
+train_10,"['Utrecht Centraal', 'Schiphol Airport']"
+train_11,"['Deventer', 'Apeldoorn']"
+train_12,"['Dordrecht', 'Rotterdam Centraal']"
+train_13,"['Castricum', 'Alkmaar']"
+train_14,"['Hengelo', 'Enschede']"
+train_15,"['Groningen', 'Assen']"
+train_16,"['Leiden Centraal', 'Heemstede-Aerdenhout']"
+train_17,"['Rotterdam Centraal', 'Rotterdam Alexander']"
+train_18,"['Helmond', 'Venlo']"
+train_19,"['Weert', 'Eindhoven']"
+train_20,"['Den Haag Centraal', 'Leiden Centraal']"
+Score,-2000.0
+Connections Ridden,0
+Total Connections,89
