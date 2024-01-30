@@ -1,7 +1,6 @@
 import random
 import math
 from copy import deepcopy
-from code.classes.quality import Quality
 from code.algorithms.HillClimb_ConnectionList import HillClimber_connectionsUPDATE
 from code.algorithms.HillClimb_Train import HillClimber_train
 from code.algorithms.greedy import GreedySchedule

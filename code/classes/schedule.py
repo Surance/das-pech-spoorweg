@@ -80,26 +80,37 @@ class Schedule:
         for count, train in enumerate(self.trains): 
             train.train_name = f"train_{count + 1}"
 
+    def schedule_not_ridden(self):
+        not_ridden = []
+        for connection in self.total_connections:
+            if connection not in list(self.ridden):
+                not_ridden.append([connection.departure_station, connection.arrival_station])
+            
+        return not_ridden
+
     def save_outputs_csv(self, file_name: str, score: float) -> None:
         """
         Function saves each output per trial as a csv in the experiment folder
         """
+
         with open(file_name, 'w', newline='') as csvfile:
-                csv_writer = csv.writer(csvfile)
-                
-                # Write headers
-                csv_writer.writerow(["train", "stations"])
+            csv_writer = csv.writer(csvfile)
+            
+            # Write headers
+            csv_writer.writerow(["train", "stations"])
 
-                # Write data
-                for train in self.trains:
-                    csv_writer.writerow([train.train_name, train.stations_names_list])
+            # Write data
+            for train in self.trains:
+                csv_writer.writerow([train.train_name, train.stations_names_list])
 
-                # Write score
-                csv_writer.writerow(["Score", score])
+            # Write score
+            csv_writer.writerow(["Score", score])
 
-                # Write connection information
-                csv_writer.writerow(["Connections Ridden", len(self.ridden)])
-                csv_writer.writerow(["Total Connections", len(self.total_connections)])
+            # Write connection information
+            csv_writer.writerow(["Connections Ridden", len(self.ridden)])
+            csv_writer.writerow(["Total Connections", len(self.total_connections)])
+
+            csv_writer.writerow(["Connections not ridden", self.schedule_not_ridden()])
 
     def display_schedule(self, file_name: str, save_each_output_as_csv: bool=False) -> tuple[list, float, int]:
         """

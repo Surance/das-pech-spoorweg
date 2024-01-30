@@ -12,8 +12,8 @@ if __name__ == "__main__":
     # Input csv's
     data = Information("data/StationsNationaal.csv", "data/ConnectiesNationaal.csv")
 
-    iterations = 10
-    algorithm = "greedy"
+    iterations = 5
+    algorithm = "random"
     max_trains = 20
     max_time = 180  # 3 hours
 
@@ -36,7 +36,7 @@ if __name__ == "__main__":
             map_plot = create_map_plot(coords_dict)
 
     # Example usage running experiment
-    visualize_data(stations_trains, coords_data, visualise_plot=True, visualise_map=False)
+    visualize_data(stations_trains, coords_data, visualise_plot=False, visualise_map=True)
 
     pathname = current_experiment.path_name(summary=True)
 
