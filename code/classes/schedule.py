@@ -1,7 +1,7 @@
 from code.classes.connection import Connection
 from code.classes.station import Station
 from .train import Train
-from .quality import Quality
+from .quality import calculate_quality
 from typing import Union
 from typing_extensions import Self
 
@@ -112,7 +112,7 @@ class Schedule:
             stations_per_train.append(stations)
                     
         # Compute score for created train schedule
-        score = Quality(self.ridden, self.trains, self.total_connections).calculate_quality()
+        score = calculate_quality(self.ridden, self.trains, self.total_connections)
 
         # Create folder if it doesn't exist
         os.makedirs(os.path.dirname(file_name), exist_ok=True)

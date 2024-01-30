@@ -1,6 +1,6 @@
 import random
 from copy import deepcopy
-from code.classes.quality import Quality
+from code.classes.quality import calculate_quality
 from code.algorithms.random import Random_schedule
 from code.algorithms.greedy import GreedySchedule
 from code.classes.schedule import Schedule
@@ -76,4 +76,4 @@ class HillClimber_train:
         """
         Calculate the quality score for the current schedule
         """
-        return Quality(schedule.ridden, schedule.trains, schedule.total_connections).calculate_quality()
+        return calculate_quality(schedule.ridden, schedule.trains, schedule.total_connections)
