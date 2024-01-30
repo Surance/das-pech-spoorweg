@@ -1,25 +1,25 @@
 import random
+import math
 from copy import deepcopy
-from math import exp
 from code.classes.quality import Quality
 from code.algorithms.random import Random_schedule
+from code.algorithms.greedy import GreedySchedule
 from code.classes.schedule import Schedule
 
 class HillClimber_connectionsUPDATE:
-    def __init__(self, schedule: Schedule, initial_temperature=1000, cooling_rate=0.99, min_temperature=0.1, iterations_per_temperature=50, exploration_penalty_factor=0.1) -> None:
-        self.schedule = Random_schedule(schedule).create_random_schedule()
+    def __init__(self, schedule: Schedule, initial_temperature: float = 100.0, cooling_rate: float = 0.95, convergence_threshold: float = 0.001) -> None:
+        self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
-        self.initial_temperature = initial_temperature
+        self.temperature = initial_temperature
         self.cooling_rate = cooling_rate
-        self.min_temperature = min_temperature
-        self.iterations_per_temperature = iterations_per_temperature
-        self.exploration_penalty_factor = exploration_penalty_factor
-        self.explored_connections = set()
+        self.convergence_threshold = convergence_threshold
+        self.iteration_count = 0
+        self.scores_over_iterations = []
 
     def delete_connections(self, schedule: Schedule) -> Schedule:
         """
-        Delete connections from a random index to the end of the list.
+        Delete connections from a random index to the end of the list. 
         """
         train = random.choice(schedule.trains)
         if not train.connections_list:
@@ -37,7 +37,6 @@ class HillClimber_connectionsUPDATE:
         train.stations_names_list.remove(station)
 
         schedule.current_time -= sum(connection.travel_time for connection in connections_to_remove)
-        self.explored_connections.update(connections_to_remove)
 
         return schedule
 
@@ -58,47 +57,44 @@ class HillClimber_connectionsUPDATE:
         schedule.current_time += connection.travel_time
         schedule.ridden.add(connection)
 
-        self.explored_connections.add(connection)
-
         return schedule
 
     def get_best_connections(self) -> tuple[list, set]:
-        """
-        Randomly choose to delete or add connections. If the quality is higher after the change, keep the schedule
-        """
-        print("NEW TRIAL ------------------------")
-        temperature = self.initial_temperature
+            print("NEW TRIAL ------------------------")
+            while self.temperature > 1.0:
+                copy_schedule = deepcopy(self.schedule)
+                rand_int = random.randint(0, 1)
+                if rand_int == 0:
+                    altered_schedule = self.delete_connections(copy_schedule)
+                    move = "Deletion"
+                else:
+                    altered_schedule = self.add_connection(copy_schedule)
+                    move = "Addition"
 
-        for iteration in range(self.iterations_per_temperature):
-            copy_schedule = deepcopy(self.schedule)
-            rand_int = random.randint(0, 1)
-            if rand_int == 0:
-                altered_schedule = self.delete_connections(copy_schedule)
-                print(f"Iteration: {iteration + 1} | Move: Deletion")
-            else:
-                altered_schedule = self.add_connection(copy_schedule)
-                print(f"Iteration: {iteration + 1} | Move: Addition")
+                current_score = self.calculate_schedule_score(altered_schedule)
+                self.scores_over_iterations.append(current_score)
 
-            current_score = self.calculate_schedule_score(altered_schedule)
+                if current_score > self.best_score or random.uniform(0, 1) < math.exp((current_score - self.best_score) / self.temperature):
+                    self.best_score = current_score
+                    self.best_schedule = altered_schedule
 
-            # Add exploration penalty
-            exploration_penalty = self.exploration_penalty_factor * len(set(altered_schedule.trains[0].connections_list) - self.explored_connections)
-            current_score -= exploration_penalty
+                self.iteration_count += 1
 
-            if current_score > self.best_score or random.uniform(0, 1) < exp((current_score - self.best_score) / temperature):
-                self.best_score = current_score
-                self.best_schedule = altered_schedule
+                # Print key information about the current iteration
+                print(f"Iteration: {self.iteration_count} | Move: {move} | Current Score: {current_score} | Best Score: {self.best_score} | Temperature: {self.temperature}")
 
-            temperature *= self.cooling_rate
-            temperature = max(temperature, self.min_temperature)
+                # Update temperature
+                self.temperature *= self.cooling_rate
 
-        # After the loop, set the schedule to the best_schedule
-        self.schedule = self.best_schedule
+                # Check for convergence
+                if self.iteration_count > 1 and abs(current_score - self.scores_over_iterations[-2]) < self.convergence_threshold:
+                    print("Convergence achieved. Stopping the optimization.")
+                    break
 
-        return self.schedule.trains, self.schedule.ridden
+            # After the loop, set the schedule to the best_schedule
+            self.schedule = self.best_schedule
+
+            return self.schedule.trains, self.schedule.ridden
 
     def calculate_schedule_score(self, schedule: Schedule) -> float:
-        """
-        Calculate the quality score for the current schedule
-        """
         return Quality(schedule.ridden, schedule.trains, schedule.total_connections).calculate_quality()

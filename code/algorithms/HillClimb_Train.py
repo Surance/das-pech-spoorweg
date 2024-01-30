@@ -16,7 +16,6 @@ class HillClimber_train:
         Delete a random train from the schedule. 
         """
         train = random.choice(schedule.trains)
-        print(train.connections_list)
         schedule.trains.remove(train)
       
         return schedule
@@ -55,7 +54,7 @@ class HillClimber_train:
         Randomly choose to delete or add a train. If the quality is higher after the change, keep the schedule
         """
         print("NEW TRIAL ------------------------")
-        for i in range(100000):
+        for i in range(10000):
             copy_schedule = deepcopy(self.schedule)
             altered_schedule = random.choice([self.delete_train(copy_schedule), self.add_new_train(copy_schedule)])
             current_score = self.calculate_schedule_score(altered_schedule)

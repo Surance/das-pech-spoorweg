@@ -52,11 +52,11 @@ class GreedySchedule:
 
         
         # Take the stations with the least connections as starting stations
-        first_connections = list(self.connections_score.keys())[:self.schedule.max_trains]
+        first_connections = list(sorted_possible_connections.keys())[:self.schedule.max_trains]
         i = 0
 
         while len(self.schedule.ridden) < len(self.schedule.total_connections):
-            first_train_connection = first_connections[0]
+            first_train_connection = first_connections[i]
             
             # Add first stations from the set of randomly chosen stations
             self.schedule.add_train(first_connection=first_train_connection)
