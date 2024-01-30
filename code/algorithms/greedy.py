@@ -10,6 +10,8 @@ class GreedySchedule:
 
         self.connections_score = {}
 
+        self.ridden_score = 100
+
     def check_all_possible_connections(self):
         # TODO: check if there is a nicer way to do this cause this is hideous
         
@@ -42,24 +44,24 @@ class GreedySchedule:
         - number of possible next connections
         """
 
-        for connection in self.schedule.total_connections:
-            self.connections_score[connection] = connection.travel_time + len(self.possible_connections[connection])
+        for current_connection in self.schedule.total_connections:
+            self.connections_score[current_connection] = current_connection.travel_time + len(self.possible_connections[current_connection])
 
     def create_greedy_schedule(self):
-        sorted_possible_connections = self.check_all_possible_connections()
+
+        self.check_all_possible_connections()
 
         self.greedy_score()
 
-        
-        # Take the stations with the least connections as starting stations
-        first_connections = list(self.connections_score.keys())[:self.schedule.max_trains]
-        i = 0
-
         while len(self.schedule.ridden) < len(self.schedule.total_connections):
-            first_train_connection = first_connections[0]
+            # Take connection with least score as first station
+            first_train_connection = min(self.connections_score.items(), key=lambda x: x[1])[0]
             
-            # Add first stations from the set of randomly chosen stations
+            # Add first station to train
             self.schedule.add_train(first_connection=first_train_connection)
+            
+            # Add ridden score for first station
+            self.connections_score[first_train_connection] += self.ridden_score
 
             while self.schedule.current_time < self.schedule.max_time and len(self.schedule.ridden) < len(self.schedule.total_connections):
                 # Check which connections are possible with the previous arrival station
@@ -77,23 +79,12 @@ class GreedySchedule:
                         least_score = current_score
                         connection_with_least = possible_connection
                 
-                # print("current_possible_connections:", current_possible_connections)
-                # print("connection_with_least:", connection_with_least)
-
                 self.schedule.valid_connection(connection_with_least, current_possible_connections[connection_with_least])
-                
-                # Set double current score when already ridden
-                score = self.connections_score[connection_with_least]
-                # print("connection score:", score)
-                # print("")
 
-                self.connections_score[connection_with_least] = score + 40
+                self.connections_score[connection_with_least] += self.ridden_score
 
             self.schedule.train.total_time += self.schedule.current_time
             self.schedule.trains.append(self.schedule.train)
-
-            # For the next train, take the next one out of the list of first stations 
-            i+=1
 
             # Break out of loop once the max number of trains has been met
             if len(self.schedule.trains) >= self.schedule.max_trains:
