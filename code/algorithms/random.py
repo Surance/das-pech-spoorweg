@@ -16,7 +16,7 @@ class Random_schedule:
             self.schedule.add_train()
 
             # Add new stations to train if it connects to previous station until all connections are passed or max time is met
-            while self.schedule.current_time < self.schedule.max_time and len(self.schedule.ridden) < len(self.schedule.total_connections):
+            while len(self.schedule.ridden) < len(self.schedule.total_connections):
                 
                 # Check which connections are possible with the previous arrival station
                 possible_connections = self.schedule.check_possible_connections()
@@ -26,6 +26,10 @@ class Random_schedule:
                 
                 # Pick a random connection from those that are possible
                 connection = random.choice(list(possible_connections.keys()))
+
+                # Dont add connection to train if it overrides max time 
+                if self.schedule.current_time + connection.travel_time > self.schedule.max_time:
+                    break 
 
                 self.schedule.valid_connection(connection, possible_connections[connection])
 

@@ -1,0 +1,24 @@
+train,stations
+train_1,"['Castricum', 'Alkmaar']"
+train_2,"['Hengelo', 'Enschede']"
+train_3,"['Breda', 'Dordrecht']"
+train_4,"['Amsterdam Centraal', 'Amsterdam Sloterdijk']"
+train_5,"['Almelo', 'Hengelo']"
+train_6,"['Utrecht Centraal', 'Amsterdam Amstel']"
+train_7,"['Leeuwarden', 'Heerenveen']"
+train_8,"['Utrecht Centraal', 'Alphen a/d Rijn']"
+train_9,"['Eindhoven', 'Tilburg']"
+train_10,"['Apeldoorn', 'Zutphen']"
+train_11,"['Beverwijk', 'Castricum']"
+train_12,"['Deventer', 'Zutphen']"
+train_13,"['Roosendaal', 'Dordrecht']"
+train_14,"['Delft', 'Den Haag Laan v NOI']"
+train_15,"['Deventer', 'Apeldoorn']"
+train_16,"['Zaandam', 'Castricum']"
+train_17,"['Leeuwarden', 'Groningen']"
+train_18,"['Apeldoorn', 'Amersfoort']"
+train_19,"['Deventer', 'Apeldoorn']"
+train_20,"['Rotterdam Centraal', 'Schiedam Centrum']"
+Score,-2000.0
+Connections Ridden,0
+Total Connections,89
