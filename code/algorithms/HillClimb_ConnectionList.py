@@ -4,77 +4,85 @@ from code.classes.quality import Quality
 from code.algorithms.random import Random_schedule
 from code.classes.schedule import Schedule
 
-class HillClimber_connections:
-    """
-
-    NOTES
-    
-    """
-    def __init__(self, schedule: Schedule) -> None:
+class HillClimber_connectionsUPDATE:
+    def __init__(self, schedule: Schedule, convergence_threshold: float = 0.001) -> None:
         self.schedule = Random_schedule(schedule).create_random_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
+        self.convergence_threshold = convergence_threshold
+        self.iteration_count = 0
+        self.scores_over_iterations = []
 
-    def delete_connection(self, schedule: Schedule) -> Schedule:
+    def delete_connections(self, schedule: Schedule) -> Schedule:
         """
-        Delete a random connection from the schedule. 
+        Delete connections from a random index to the end of the list. 
         """
-         
         train = random.choice(schedule.trains)
         if not train.connections_list:
             return schedule
 
-        connection = random.choice(train.connections_list)
+        index = random.randint(0, len(train.connections_list) - 1)
+        connections_to_remove = train.connections_list[index:]
         station = train.stations_names_list[-1]
 
-        train.connections_list.remove(connection)
+        for connection in connections_to_remove:
+            train.connections_list.remove(connection)
+            if connection in schedule.ridden:
+                schedule.ridden.remove(connection)
+
         train.stations_names_list.remove(station)
 
-        schedule.current_time -= connection.travel_time
-        schedule.ridden.remove(connection)
-      
+        schedule.current_time -= sum(connection.travel_time for connection in connections_to_remove)
+
         return schedule
-    
+
     def add_connection(self, schedule) -> classmethod:
         """
         Add a random connection to the schedule. Update time and used connections
         """
-             
         possible_connections = schedule.check_possible_connections()
         if len(possible_connections.keys()) == 0:
             return schedule
-        
+
         train = random.choice(schedule.trains)
         connection = random.choice(list(possible_connections.keys()))
         schedule.valid_connection(connection, possible_connections[connection])
-        
+
         train.connections_list.append(connection)
         train.stations_names_list.append(possible_connections[connection])
         schedule.current_time += connection.travel_time
         schedule.ridden.add(connection)
 
         return schedule
-    
+
     def get_best_connections(self) -> tuple[list, set]:
-        """
-        Randomly choose to delete or add a connection. If the quality is higher after the change, keep the schedule
-        """
         print("NEW TRIAL ------------------------")
-        for _ in range(1000):
+        while True:
             copy_schedule = deepcopy(self.schedule)
             rand_int = random.randint(0, 1)
             if rand_int == 0:
-                altered_schedule = self.delete_connection(copy_schedule)
-                print(rand_int)
+                altered_schedule = self.delete_connections(copy_schedule)
+                move = "Deletion"
             else:
                 altered_schedule = self.add_connection(copy_schedule)
-                print(rand_int)
-            # altered_schedule = random.choice([self.delete_connection(copy_schedule), self.add_connection(copy_schedule)])
+                move = "Addition"
+
             current_score = self.calculate_schedule_score(altered_schedule)
+            self.scores_over_iterations.append(current_score)
 
             if current_score > self.best_score:
                 self.best_score = current_score
                 self.best_schedule = altered_schedule
+
+            self.iteration_count += 1
+
+            # Print key information about the current iteration
+            print(f"Iteration: {self.iteration_count} | Move: {move} | Current Score: {current_score} | Best Score: {self.best_score}")
+
+            # Check for convergence
+            if self.iteration_count > 1 and abs(current_score - self.scores_over_iterations[-2]) < self.convergence_threshold:
+                print("Convergence achieved. Stopping the optimization.")
+                break
 
         # After the loop, set the schedule to the best_schedule
         self.schedule = self.best_schedule
@@ -82,7 +90,4 @@ class HillClimber_connections:
         return self.schedule.trains, self.schedule.ridden
 
     def calculate_schedule_score(self, schedule: Schedule) -> float:
-        """
-        Calculate the quality score for the current schedule
-        """
         return Quality(schedule.ridden, schedule.trains, schedule.total_connections).calculate_quality()
