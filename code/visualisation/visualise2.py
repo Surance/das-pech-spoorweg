@@ -14,7 +14,7 @@ def format_coordinates(train_data: list, station_data:str)-> list:
     station_data (str): A string containing station data in the format "station,y,x".
 
     Returns:
-    List[Dict[str, List[float]]]: A list of dictionaries where each dictionary contains 'stations' 'x' and 'y' keys containing the station names and coordinaets.
+    List[Dict[name, x, y]]]: A list of dictionaries where each dictionary contains 'stations' 'x' and 'y' keys containing the station names and coordinaets.
     """
 
 
