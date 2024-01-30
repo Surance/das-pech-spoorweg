@@ -16,15 +16,6 @@ def get_coordinates(station_data: str, station_list: list) -> list:
     """
     coordinates = []
 
-    # for station_name in station_list:
-        
-    #     # Iterate through each line in the station data (without the header)
-    #     for line in station_data.split('\n')[1:]:
-    #         parts = line.split(',')
-
-    #         # Append coordinates to the result list
-    #         if station_name == parts[0]:
-    #             coordinates.append((float(parts[1]), float(parts[2])))
     for station_name in station_list:
             station_info = station_data[station_data['station'] == station_name]
             if not station_info.empty:
@@ -72,7 +63,7 @@ def plot_trains(station_data: str, train_data: list, figure_size: tuple[int, int
 
     # colors = ['yellow', 'pink', 'yellowgreen', 'lightblue', 'purple', 'darkgreen', 'darkblue']
     # linewidths = [10, 8.5, 7, 5.5, 4, 2.5, 1]
-    colors = ['yellow', 'pink', 'yellowgreen', 'lightblue', 'purple', 'darkgreen', 'darkblue', 'red', 'orange', 'green', 'blue', 'cyan', 'magenta', 'violet', 'indigo', 'turquoise', 'brown', 'wheat', 'gray', 'black']
+    colors = ['yellow', 'pink', 'yellowgreen', 'lightblue', 'purple', 'darkgreen', 'darkblue', 'red', 'orange', 'coral', 'blue', 'cyan', 'magenta', 'violet', 'indigo', 'olive', 'brown', 'wheat', 'gray', 'black']
     linewidths = [15.0, 14.25, 13.5, 12.75, 12.0, 11.25, 10.5, 9.75, 9.0, 8.25, 7.5, 6.75, 6.0, 5.25, 4.5, 3.75, 3.0, 2.25, 1.5, 0.75]
 
 

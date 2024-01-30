@@ -53,7 +53,7 @@ def create_map_plot(train_data: list, station_name: list, mapbox_style="carto-po
     # colors = ['yellow', 'pink', 'yellowgreen', 'lightblue', 'purple', 'darkgreen', 'darkblue']
     # linewidths = [10, 8.5, 7, 5.5, 4, 2.5, 1]
 
-    colors = ['yellow', 'pink', 'yellowgreen', 'lightblue', 'purple', 'darkgreen', 'darkblue', 'red', 'orange', 'green', 'blue', 'cyan', 'magenta', 'violet', 'indigo', 'turquoise', 'brown', 'wheat', 'gray', 'black']
+    colors = ['yellow', 'pink', 'yellowgreen', 'lightblue', 'purple', 'darkgreen', 'darkblue', 'red', 'orange', 'coral', 'blue', 'cyan', 'magenta', 'violet', 'indigo', 'olive', 'brown', 'wheat', 'gray', 'black']
     linewidths = [15.0, 14.25, 13.5, 12.75, 12.0, 11.25, 10.5, 9.75, 9.0, 8.25, 7.5, 6.75, 6.0, 5.25, 4.5, 3.75, 3.0, 2.25, 1.5, 0.75]
 
 
@@ -132,6 +132,7 @@ def create_map_plot(train_data: list, station_name: list, mapbox_style="carto-po
             # Use the train name as the trace name
             name=train_df['train'].iloc[0]
         ))
+
     # Plot the train stations
     fig.add_trace(go.Scattermapbox(
         lat=stations_df['x'],
@@ -140,6 +141,20 @@ def create_map_plot(train_data: list, station_name: list, mapbox_style="carto-po
         marker=dict(size=5, color='black'),  # Adjust marker size and color as needed
         name='Train Stations'  # Name for the train stations trace
     ))
+        
+    # for j, station_name in enumerate(train_df['station']):
+    #     fig.add_annotation(
+    #         go.layout.Annotation(
+    #             text=station_name,
+    #             x=train_df['y'].iloc[j],
+    #             y=train_df['x'].iloc[j],
+    #             xref="x",
+    #             yref="y",
+    #             showarrow=False,
+    #             font=dict(size=5, color='black'),
+    #         )
+    #     )
+
 
     # Display the plot
     fig.show()
