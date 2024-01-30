@@ -15,6 +15,7 @@ class Schedule:
         self.max_trains = max_trains 
         self.max_time = max_time
         self.total_connections = total_connections
+        self.current_time = 0
         
         # Store train classes in list
         self.trains = []

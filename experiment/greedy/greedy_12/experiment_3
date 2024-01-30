@@ -1,0 +1,6 @@
+train,stations
+train_1,"['Leiden Centraal', 'Heemstede-Aerdenhout', 'Haarlem']"
+train_2,"['Heemstede-Aerdenhout', 'Haarlem', 'Amsterdam Sloterdijk']"
+Score,497.2857142857142
+Connections Ridden,2
+Total Connections,28

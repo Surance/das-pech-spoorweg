@@ -1,0 +1,11 @@
+train,stations
+train_1,"['Amsterdam Sloterdijk', 'Zaandam', 'Castricum']"
+train_2,"['Amsterdam Centraal', 'Amsterdam Sloterdijk', 'Zaandam']"
+train_3,"['Amsterdam Amstel', 'Amsterdam Zuid', 'Schiphol Airport']"
+train_4,"['Dordrecht', 'Rotterdam Centraal', 'Schiedam Centrum']"
+train_5,"['Zaandam', 'Hoorn', 'Alkmaar']"
+train_6,"['Amsterdam Sloterdijk', 'Zaandam', 'Castricum']"
+train_7,"['Rotterdam Centraal', 'Schiedam Centrum', 'Delft']"
+Score,1370.8571428571427
+Connections Ridden,6
+Total Connections,28

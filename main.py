@@ -12,8 +12,8 @@ if __name__ == "__main__":
     # Input csv's
     data = Information("data/StationsHolland.csv", "data/ConnectionsHolland.csv")
 
-    iterations = 10
-    algorithm = "greedy"
+    iterations = 100
+    algorithm = "hillclimb"
     max_trains = 7
     max_time = 120  # 2 hours
 

@@ -1,0 +1,5 @@
+train,stations
+train_1,"['Zaandam', 'Hoorn', 'Alkmaar', 'Castricum', 'Alkmaar', 'Hoorn', 'Zaandam', 'Castricum', 'Alkmaar', 'Den Helder']"
+Score,1536.7142857142858
+Connections Ridden,5
+Total Connections,28
