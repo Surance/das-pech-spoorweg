@@ -41,9 +41,9 @@ python main.py
 
 ## Authors
 
-* Jimmy T
+* Jimmy Tebben
 * Josephine Woltering
-* Marieke 
+* Marieke Gelderloos
 
 ## Acknowledgments 
 
