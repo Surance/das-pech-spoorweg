@@ -56,4 +56,9 @@ class Information:
 
             csv_writer.writerow(["Maximum Score", max(score)])
 
+            csv_writer.writerow(["Score", score])
+
+            csv_writer.writerow(["Ridden", ridden])
+
+
 
