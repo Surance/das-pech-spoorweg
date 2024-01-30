@@ -51,8 +51,9 @@ class Greedy2Schedule:
 
         self.greedy_score()
 
+        
         # Take the stations with the least connections as starting stations
-        first_connections = list(sorted_possible_connections.keys())[:7]
+        first_connections = list(sorted_possible_connections.keys())[:self.schedule.max_trains]
         i = 0
 
         while len(self.schedule.ridden) < len(self.schedule.total_connections):
@@ -68,7 +69,7 @@ class Greedy2Schedule:
                 if len(current_possible_connections.keys()) == 0:
                     break
                     
-                least_score = 100
+                least_score = float('inf')
                 # Check which of the possible connections has the least next possible connections
                 for possible_connection in current_possible_connections.keys():
                     current_score = self.connections_score[possible_connection]
@@ -87,7 +88,6 @@ class Greedy2Schedule:
                 print("connection score:", score)
                 print("")
 
-                # TODO: check with jacob/luka cause this part is weird
                 self.connections_score[connection_with_least] = score + 40
 
             self.schedule.train.total_time += self.schedule.current_time
