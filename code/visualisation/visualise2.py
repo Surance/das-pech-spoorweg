@@ -5,8 +5,6 @@ import re
 
 from .visualise import get_coordinates
 
-coords_data= pd.read_csv("data/StationsNationaal.csv")
-
 def format_coordinates(train_data: list, station_data:str)-> list: 
     """
     Formats coordinates from station data based on train data.
@@ -16,7 +14,7 @@ def format_coordinates(train_data: list, station_data:str)-> list:
     station_data (str): A string containing station data in the format "station,y,x".
 
     Returns:
-    List[Dict[str, List[float]]]: A list of dictionaries where each dictionary contains 'x' and 'y' keys corresponding to lists of x and y coordinates.
+    List[Dict[str, List[float]]]: A list of dictionaries where each dictionary contains 'stations' 'x' and 'y' keys containing the station names and coordinaets.
     """
 
 
