@@ -15,6 +15,7 @@ class HillClimber_train:
         Delete a random train from the schedule. 
         """
         train = random.choice(schedule.trains)
+        print(train.connections_list)
         schedule.trains.remove(train)
       
         return schedule

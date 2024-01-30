@@ -1,78 +1,92 @@
 import random
+from copy import deepcopy
 from code.classes.quality import Quality
 from code.algorithms.random import Random_schedule
+from code.classes.schedule import Schedule
 
-class HillClimb_connection:
-    def __init__(self, schedule: classmethod) -> None:
-        random_scheduler = Random_schedule(schedule)
-        self.schedule = random_scheduler.create_random_schedule()
+class HillClimber_connections:
+    """
+
+    NOTES
+    
+    """
+    def __init__(self, schedule: Schedule) -> None:
+        self.schedule = Random_schedule(schedule).create_random_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
-        
 
-    def delete_connection(self) -> None:
+    def delete_connection(self, schedule: Schedule) -> Schedule:
         """
-        Delete a random connection from the schedule. Update time and used connections.
+        Delete a random connection from the schedule. 
         """
-        if len(self.schedule.trains) > 0:
-            train_to_edit = random.choice(self.schedule.trains)
 
-            if len(train_to_edit.connections_list) > 0:
-                # Copy the train before making changes
-                original_train = train_to_edit.copy_train()
-                
-                connection_to_remove = random.choice(train_to_edit.connections_list)
-                station_to_remove = train_to_edit.stations_names_list[-1]
+    
+        train = random.choice(schedule.trains)
+        if not train.connections_list:
+            return schedule
 
-                # Remove the connection and station
-                train_to_edit.connections_list.remove(connection_to_remove)
-                train_to_edit.stations_names_list.remove(station_to_remove)
-                self.schedule.current_time -= connection_to_remove.travel_time
-                self.schedule.ridden.remove(connection_to_remove)
+        connection = random.choice(train.connections_list)
+        station = train.stations_names_list[-1]
 
+        train.connections_list.remove(connection)
+        train.stations_names_list.remove(station)
 
-    def add_connection(self) -> classmethod:
+        schedule.current_time -= connection.travel_time
+        schedule.ridden.remove(connection)
+      
+        return schedule
+    
+    def add_connection(self, schedule) -> classmethod:
         """
         Add a random connection to the schedule. Update time and used connections
         """
-        possible_connections = self.schedule.check_possible_connections()
+             
+        possible_connections = schedule.check_possible_connections()
         if len(possible_connections.keys()) == 0:
-            return self.schedule
-
+            return schedule
+        
+        train = random.choice(schedule.trains)
+        print('add_function')
+        print(train.connections_list)
         connection = random.choice(list(possible_connections.keys()))
-        train_to_edit = random.choice(self.schedule.trains)
+        schedule.valid_connection(connection, possible_connections[connection])
 
-        # Create a copy of the train before making changes
-        original_train = train_to_edit.copy_train()
+        
+        train.connections_list.append(connection)
+        train.stations_names_list.append(possible_connections[connection])
+        schedule.current_time += connection.travel_time
+        schedule.ridden.add(connection)
 
-        # Make changes to the train
-        train_to_edit.connections_list.append(connection)
-        train_to_edit.stations_names_list.append(possible_connections[connection])
-        self.schedule.current_time += connection.travel_time
-        self.schedule.ridden.add(connection)
-
-        return self.schedule
+        return schedule
     
-    def get_best_train(self) -> tuple[list, set]:
+    def get_best_connections(self) -> tuple[list, set]:
         """
-        Try deleting and replacing a deleted connection if the quality is higher with the new trajectory.
+        Randomly choose to delete or add a connection. If the quality is higher after the change, keep the schedule
         """
-        for i in range(1000):
-            self.delete_connection()
-            self.add_connection()
-            current_score = self.calculate_schedule_score()
+        print("NEW TRIAL ------------------------")
+        for _ in range(10):
+            copy_schedule = deepcopy(self.schedule)
+            rand_int = random.randint(0, 1)
+            if rand_int == 0:
+                altered_schedule = self.delete_connection(copy_schedule)
+                print(rand_int)
+            else:
+                altered_schedule = self.add_connection(copy_schedule)
+                print(rand_int)
+            # altered_schedule = random.choice([self.delete_connection(copy_schedule), self.add_connection(copy_schedule)])
+            current_score = self.calculate_schedule_score(altered_schedule)
 
             if current_score > self.best_score:
                 self.best_score = current_score
-                self.best_schedule = self.schedule.copy_schedule()
+                self.best_schedule = altered_schedule
 
         # After the loop, set the schedule to the best_schedule
         self.schedule = self.best_schedule
 
         return self.schedule.trains, self.schedule.ridden
 
-    def calculate_schedule_score(self) -> float:
+    def calculate_schedule_score(self, schedule: Schedule) -> float:
         """
-        Calculate the quality score for the current schedule.
+        Calculate the quality score for the current schedule
         """
-        return Quality(self.schedule.ridden, self.schedule.trains, self.schedule.total_connections).calculate_quality()
+        return Quality(schedule.ridden, schedule.trains, schedule.total_connections).calculate_quality()

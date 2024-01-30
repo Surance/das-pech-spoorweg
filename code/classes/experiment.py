@@ -1,11 +1,9 @@
 from .information import Information
 from .schedule import Schedule
 from code.algorithms.random import Random_schedule
-from code.algorithms.greedy import GreedySchedule
 from code.algorithms.greedy2 import Greedy2Schedule
 from code.algorithms.HillClimb_Train import HillClimber_train
-from code.algorithms.HillClimb_Connection import HillClimb_connection
-from code.algorithms.HillClimb_ConnectionWIP import HillClimber_connection2
+from code.algorithms.HillClimb_Connection import HillClimber_connections
 
 import os
 
@@ -140,7 +138,7 @@ class Experiment:
                 schedule.ridden = greedy_schedule.ridden
 
             elif self.algorithm == "hillclimb":
-                hillclimber = HillClimber_connection2(schedule)
+                hillclimber = HillClimber_connections(schedule)
                 best_trains, best_ridden = hillclimber.get_best_connections()
                 schedule.trains = best_trains
                 schedule.ridden = best_ridden
