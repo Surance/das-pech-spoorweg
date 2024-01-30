@@ -2,11 +2,12 @@ import random
 from copy import deepcopy
 from code.classes.quality import Quality
 from code.algorithms.random import Random_schedule
+from code.algorithms.greedy import Greedy2Schedule
 from code.classes.schedule import Schedule
 
 class HillClimber_train:
     def __init__(self, schedule: Schedule) -> None:
-        self.schedule = Random_schedule(schedule).create_random_schedule()
+        self.schedule = Greedy2Schedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
 
@@ -15,6 +16,7 @@ class HillClimber_train:
         Delete a random train from the schedule. 
         """
         train = random.choice(schedule.trains)
+        print(train.connections_list)
         schedule.trains.remove(train)
       
         return schedule
@@ -58,7 +60,7 @@ class HillClimber_train:
             altered_schedule = random.choice([self.delete_train(copy_schedule), self.add_new_train(copy_schedule)])
             current_score = self.calculate_schedule_score(altered_schedule)
 
-            if current_score > self.best_score:
+            if current_score >= self.best_score:
                 self.best_score = current_score
                 self.best_schedule = altered_schedule
                 print(current_score)

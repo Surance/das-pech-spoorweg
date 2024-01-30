@@ -1,5 +1,5 @@
-import random 
 from code.classes.schedule import Schedule
+import random 
 
 class Random_schedule:
     def __init__(self, schedule: Schedule) -> None:

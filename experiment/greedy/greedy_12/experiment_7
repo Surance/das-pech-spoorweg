@@ -1,0 +1,11 @@
+train,stations
+train_1,"['Dordrecht', 'Rotterdam Centraal', 'Schiedam Centrum']"
+train_2,"['Amsterdam Zuid', 'Schiphol Airport', 'Leiden Centraal']"
+train_3,"['Amsterdam Zuid', 'Amsterdam Sloterdijk', 'Amsterdam Centraal']"
+train_4,"['Leiden Centraal', 'Schiphol Airport', 'Amsterdam Zuid']"
+train_5,"['Leiden Centraal', 'Alphen a/d Rijn', 'Gouda']"
+train_6,"['Amsterdam Amstel', 'Amsterdam Centraal', 'Amsterdam Sloterdijk']"
+train_7,"['Leiden Centraal', 'Alphen a/d Rijn', 'Gouda']"
+Score,1009.7142857142858
+Connections Ridden,5
+Total Connections,28

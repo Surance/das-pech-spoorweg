@@ -1,48 +1,94 @@
-from code.classes.connection import Connection
 from code.classes.schedule import Schedule
+from collections import OrderedDict
 import random
 
 class GreedySchedule:
     def __init__(self, schedule: Schedule) -> None:
         self.schedule = schedule
 
-    def create_greedy_schedule(self) -> Schedule:
-        """
-        Function creates a schedule using greedy choice
-        Returns a list of the trains in the greedy schedule and a set of the connections the schedule rides 
-        """
-        first_stations = set()
+        self.possible_connections = {}
+
+        self.connections_score = {}
+
+    def check_all_possible_connections(self):
+        # TODO: check if there is a nicer way to do this cause this is hideous
         
-        # Create set of max train number of stops to be the randomly chosen first stop for each train
-        while len(first_stations) < self.schedule.max_trains:
-            first_stations.add(random.choice(self.schedule.total_connections))
+        for connection_1 in self.schedule.total_connections:
+            
+            connections_list = []
+    
+            for connection_2 in self.schedule.total_connections:
+                if connection_1.arrival_station == connection_2.arrival_station:
+                    connections_list.append(connection_2)
+                
+                elif connection_1.departure_station == connection_2.departure_station:
+                    connections_list.append(connection_2)
+                
+                elif connection_1.arrival_station == connection_2.departure_station:
+                    connections_list.append(connection_2)
+                
+                elif connection_1.departure_station == connection_2.arrival_station:
+                    connections_list.append(connection_2)
+            
+            self.possible_connections[connection_1] = connections_list
+
+        return OrderedDict(sorted(self.possible_connections.items(), key=lambda x: len(x[1])))
+
+    def greedy_score(self):
+        """
+        Take into account:
+        - distance
+        - amount of times already ridden
+        - number of possible next connections
+        """
+
+        for connection in self.schedule.total_connections:
+            self.connections_score[connection] = connection.travel_time + len(self.possible_connections[connection])
+
+    def create_greedy_schedule(self):
+        sorted_possible_connections = self.check_all_possible_connections()
+
+        self.greedy_score()
+
         
+        # Take the stations with the least connections as starting stations
+        first_connections = list(sorted_possible_connections.keys())[:self.schedule.max_trains]
         i = 0
 
-        first_stations = list(first_stations)
-
         while len(self.schedule.ridden) < len(self.schedule.total_connections):
-            
-            first_station = first_stations[i]
+            first_train_connection = first_connections[i]
             
             # Add first stations from the set of randomly chosen stations
-            self.schedule.add_train(first_connection=first_station)
+            self.schedule.add_train(first_connection=first_train_connection)
 
             while self.schedule.current_time < self.schedule.max_time and len(self.schedule.ridden) < len(self.schedule.total_connections):
                 # Check which connections are possible with the previous arrival station
-                possible_connections = self.schedule.check_possible_connections()
+                current_possible_connections = self.schedule.check_possible_connections()
 
-                if len(possible_connections.keys()) == 0:
+                if len(current_possible_connections.keys()) == 0:
                     break
+                    
+                least_score = float('inf')
+                # Check which of the possible connections has the least next possible connections
+                for possible_connection in current_possible_connections.keys():
+                    current_score = self.connections_score[possible_connection]
+                    
+                    if current_score < least_score:
+                        least_score = current_score
+                        connection_with_least = possible_connection
+                
+                print("current_possible_connections:", current_possible_connections)
+                print("connection_with_least:", connection_with_least)
 
-                # Sort connections by distance in ascending order (greedy choice)
-                sorted_connections = sorted(possible_connections.keys(), key=lambda x: x.travel_time)
+                self.schedule.valid_connection(connection_with_least, current_possible_connections[connection_with_least])
+                
+                # Set double current score when already ridden
+                score = self.connections_score[connection_with_least]
+                print("connection score:", score)
+                print("")
 
-                # Select the first (shortest) connection
-                connection = sorted_connections[0]
+                self.connections_score[connection_with_least] = score + 40
 
-                self.schedule.valid_connection(connection, possible_connections[connection])
-            
             self.schedule.train.total_time += self.schedule.current_time
             self.schedule.trains.append(self.schedule.train)
 

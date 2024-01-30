@@ -1,0 +1,24 @@
+train,stations
+train_1,"['Eindhoven', 's-Hertogenbosch', 'Utrecht Centraal', 'Ede-Wageningen', 'Arnhem Centraal', 'Dieren', 'Zutphen', 'Apeldoorn', 'Zutphen', 'Deventer', 'Almelo', 'Zwolle']"
+train_2,"['Amsterdam Amstel', 'Amsterdam Centraal', 'Utrecht Centraal', 'Gouda', 'Den Haag Laan v NOI', 'Leiden Centraal', 'Schiphol Airport', 'Utrecht Centraal', 'Hilversum', 'Almere Centrum', 'Lelystad Centrum']"
+train_3,"['Sittard', 'Roermond', 'Weert', 'Eindhoven', 'Tilburg', 'Breda', 'Etten-Leur', 'Roosendaal', 'Dordrecht', 'Rotterdam Centraal', 'Schiedam Centrum', 'Rotterdam Blaak', 'Rotterdam Alexander', 'Gouda', 'Den Haag Laan v NOI']"
+train_4,"['Zaandam', 'Hoorn', 'Alkmaar', 'Castricum', 'Beverwijk', 'Haarlem', 'Beverwijk', 'Zaandam', 'Beverwijk', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Haarlem', 'Beverwijk']"
+train_5,"['Hilversum', 'Almere Centrum', 'Amsterdam Centraal', 'Amsterdam Sloterdijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Haarlem', 'Beverwijk', 'Castricum', 'Zaandam', 'Beverwijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Haarlem', 'Beverwijk', 'Castricum', 'Alkmaar']"
+train_6,"['Eindhoven', 's-Hertogenbosch', 'Oss', 'Nijmegen', 'Arnhem Centraal', 'Ede-Wageningen', 'Utrecht Centraal', 'Amsterdam Amstel', 'Amsterdam Zuid', 'Schiphol Airport', 'Leiden Centraal', 'Heemstede-Aerdenhout', 'Haarlem', 'Beverwijk', 'Zaandam']"
+train_7,"['Zwolle', 'Almelo', 'Hengelo', 'Enschede']"
+train_8,"['Heemstede-Aerdenhout', 'Haarlem', 'Beverwijk', 'Zaandam', 'Amsterdam Sloterdijk', 'Amsterdam Centraal', 'Amsterdam Amstel', 'Amsterdam Centraal', 'Utrecht Centraal', 'Hilversum', 'Almere Centrum', 'Amsterdam Centraal', 'Amsterdam Amstel', 'Amsterdam Zuid', 'Schiphol Airport']"
+train_9,"['Utrecht Centraal', 'Schiphol Airport', 'Amsterdam Zuid', 'Schiphol Airport', 'Utrecht Centraal', 'Ede-Wageningen', 'Arnhem Centraal', 'Dieren', 'Zutphen', 'Apeldoorn', 'Zutphen', 'Dieren', 'Arnhem Centraal', 'Dieren', 'Zutphen', 'Deventer']"
+train_10,"['Utrecht Centraal', 'Gouda', 'Rotterdam Alexander', 'Gouda', 'Den Haag Laan v NOI', 'Delft', 'Den Haag Centraal', 'Gouda', 'Den Haag HS', 'Delft', 'Den Haag Laan v NOI', 'Gouda', 'Alphen a/d Rijn', 'Leiden Centraal']"
+train_11,"['Breda', 'Etten-Leur', 'Roosendaal', 'Vlissingen']"
+train_12,"['Roosendaal', 'Dordrecht', 'Rotterdam Blaak', 'Schiedam Centrum', 'Delft', 'Den Haag Laan v NOI', 'Leiden Centraal', 'Den Haag Centraal', 'Delft', 'Den Haag HS', 'Gouda', 'Den Haag Laan v NOI', 'Delft', 'Den Haag Laan v NOI', 'Gouda']"
+train_13,"['Utrecht Centraal', 'Schiphol Airport', 'Leiden Centraal', 'Den Haag Laan v NOI', 'Leiden Centraal', 'Schiphol Airport', 'Utrecht Centraal', 'Amersfoort', 'Apeldoorn', 'Amersfoort', 'Zwolle', 'Steenwijk']"
+train_14,"['Den Haag Laan v NOI', 'Leiden Centraal', 'Schiphol Airport', 'Utrecht Centraal', 'Amersfoort', 'Apeldoorn', 'Zutphen', 'Deventer', 'Apeldoorn', 'Amersfoort', 'Utrecht Centraal', 'Ede-Wageningen']"
+train_15,"['Zwolle', 'Amersfoort', 'Utrecht Centraal', 'Amsterdam Amstel', 'Hilversum', 'Utrecht Centraal', 's-Hertogenbosch', 'Oss', 'Nijmegen', 'Arnhem Centraal', 'Ede-Wageningen', 'Utrecht Centraal', 'Hilversum']"
+train_16,"['Zwolle', 'Amersfoort', 'Utrecht Centraal', 's-Hertogenbosch', 'Oss', 'Nijmegen', 'Arnhem Centraal', 'Dieren', 'Zutphen', 'Deventer', 'Zutphen', 'Apeldoorn', 'Deventer', 'Zwolle', 'Amersfoort']"
+train_17,"['Amsterdam Amstel', 'Hilversum', 'Almere Centrum', 'Amsterdam Centraal', 'Almere Centrum', 'Hilversum', 'Amsterdam Amstel', 'Amsterdam Zuid', 'Amsterdam Sloterdijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Haarlem', 'Beverwijk']"
+train_18,"['Zaandam', 'Hoorn', 'Alkmaar', 'Castricum', 'Beverwijk', 'Castricum', 'Alkmaar', 'Hoorn', 'Zaandam', 'Hoorn', 'Alkmaar', 'Castricum', 'Zaandam']"
+train_19,"['Delft', 'Den Haag Centraal', 'Gouda', 'Rotterdam Alexander', 'Gouda', 'Den Haag Laan v NOI', 'Gouda', 'Den Haag HS', 'Delft', 'Den Haag Laan v NOI', 'Gouda', 'Den Haag Centraal']"
+train_20,"['Deventer', 'Almelo', 'Zwolle', 'Almelo', 'Hengelo', 'Enschede']"
+Score,2563.52808988764
+Connections Ridden,71
+Total Connections,89
