@@ -7,7 +7,6 @@ import os
 
 class Information:
     def __init__(self, station_data: csv, connection_data: csv) -> None:
-        
         self.station_data_df = pd.read_csv(station_data)
         self.connection_data_df = pd.read_csv(connection_data)
 

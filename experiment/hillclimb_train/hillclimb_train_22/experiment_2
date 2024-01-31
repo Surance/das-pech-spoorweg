@@ -1,0 +1,10 @@
+train,stations
+train_1,"['Utrecht Centraal', 'Gouda']"
+train_2,"['Rotterdam Alexander', 'Gouda']"
+train_3,"['Utrecht Centraal', 's-Hertogenbosch']"
+train_4,"['Leiden Centraal', 'Schiphol Airport']"
+train_5,"['Den Haag Centraal', 'Leiden Centraal']"
+Score,9500.0
+Connections Ridden,89
+Total Connections,89
+Connections not ridden,[]

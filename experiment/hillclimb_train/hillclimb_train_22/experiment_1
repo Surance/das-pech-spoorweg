@@ -1,0 +1,8 @@
+train,stations
+train_1,"['Leeuwarden', 'Heerenveen']"
+train_2,"['Amsterdam Amstel', 'Hilversum']"
+train_3,"['Steenwijk', 'Zwolle']"
+Score,9700.0
+Connections Ridden,89
+Total Connections,89
+Connections not ridden,[]
