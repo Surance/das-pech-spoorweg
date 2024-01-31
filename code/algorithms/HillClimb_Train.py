@@ -1,9 +1,11 @@
 import random
+
 from copy import deepcopy
+
 from code.classes.quality import calculate_quality
-from code.algorithms.greedy import GreedySchedule
-from code.algorithms.random import Random_schedule
 from code.classes.schedule import Schedule
+from code.algorithms.greedy import GreedySchedule
+
 
 class HillClimber_train:
     def __init__(self, schedule: Schedule) -> None:
