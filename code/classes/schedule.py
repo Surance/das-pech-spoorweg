@@ -8,7 +8,6 @@ from typing_extensions import Self
 import random
 import os
 import csv
-from copy import deepcopy
 
 class Schedule:
     def __init__(self, max_trains: int, max_time: int, total_connections: list) -> None:
@@ -36,7 +35,7 @@ class Schedule:
     
     def check_possible_connections(self) -> dict:
         """
-        Function checks which connections are possible and returns dict of valid connecctions
+        Function checks which connections are possible and returns dict of valid connections as key and its station to add to stations list as value
         """
         possible_connections = {}
     
@@ -80,14 +79,6 @@ class Schedule:
         for count, train in enumerate(self.trains): 
             train.train_name = f"train_{count + 1}"
 
-    def schedule_not_ridden(self):
-        not_ridden = []
-        for connection in self.total_connections:
-            if connection not in list(self.ridden):
-                not_ridden.append([connection.departure_station, connection.arrival_station])
-            
-        return not_ridden
-
     def save_outputs_csv(self, file_name: str, score: float) -> None:
         """
         Function saves each output per trial as a csv in the experiment folder
@@ -109,8 +100,6 @@ class Schedule:
             # Write connection information
             csv_writer.writerow(["Connections Ridden", len(self.ridden)])
             csv_writer.writerow(["Total Connections", len(self.total_connections)])
-
-            csv_writer.writerow(["Connections not ridden", self.schedule_not_ridden()])
 
     def display_schedule(self, file_name: str, save_each_output_as_csv: bool=False) -> tuple[list, float, int]:
         """
