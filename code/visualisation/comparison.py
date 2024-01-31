@@ -33,7 +33,8 @@ def plot_histogram(random_summary: list, greedy_summary: list, hillclimb_train_s
     # The scores for the algorithms
     Random = function_writer_df(random_summary, histogram=True)
     Hillclimb_train = function_writer_df(hillclimb_train_summary, histogram=True)
-    Hillclimb_connection = function_writer_df(hillclimb_connection_summary, histogram=True)
+    Hillclimb = (hillclimb_connection_summary.iloc[3][1])
+    hillclimb_connection= eval(Hillclimb)
     Hillclimb_combined = function_writer_df(hillclimb_combined_summary, histogram=True)
     Greedy = (greedy_summary.iloc[3][1])
     greedy_connections = eval(Greedy)
@@ -41,11 +42,13 @@ def plot_histogram(random_summary: list, greedy_summary: list, hillclimb_train_s
     # Plotting histograms
     plt.figure(figsize=(10, 6))
    
-    # plt.hist(Random, bins=bins, alpha=0.5, label='Random')
-    for algorithm in [Random, Hillclimb_train, Hillclimb_connection, Hillclimb_combined]:
-        plt.hist(algorithm, bins=10, alpha=0.5, label='algorithm')
+    plt.hist(Random, bins=bins, alpha=0.5, label='Random')
+    plt.hist(Hillclimb_train, bins=50, alpha=0.5, label='Hillclimb train')
+    plt.hist(Hillclimb_combined, bins=50, alpha=0.5, label='Hillclimb combined')
 
-    plt.axvline(x=greedy_connections, color='r', alpha=0.5, label='Greedy')
+    # Plot vertical line for Greedy and Hillclimb connection
+    plt.axvline(x=greedy_connections, color='g', linestyle='--', label='Greedy')
+    plt.axvline(x=hillclimb_connection, color='purple',linestyle=':', label='Hillclimb connection')
 
     plt.xlabel('Scores')
     plt.ylabel('Frequency')
@@ -62,17 +65,21 @@ def plot_kde(random_summary: pd.DataFrame, greedy_summary: pd.DataFrame, hillcli
 
     Random = function_writer_df(random_summary)
     Hillclimb_train = function_writer_df(hillclimb_train_summary)
-    Hillclimb_connection = function_writer_df(hillclimb_connection_summary)
     Hillclimb_combined = function_writer_df(hillclimb_combined_summary)
+    Hillclimb_connection = (hillclimb_connection_summary.iloc[2][1])
+    hillclimb_connection= eval(Hillclimb_connection)
     Greedy = (greedy_summary.iloc[2][1])
     greedy_connections = eval(Greedy)
 
+    
     # Create KDE plot using Seaborn
-    # sns.displot(data=Random, x='Ridden', kind='kde', fill=True, label ='Random')
-    for algorithm_df in [Random, Hillclimb_train, Hillclimb_connection, Hillclimb_combined]:
-        sns.displot(data=algorithm_df, x='Ridden', kind='kde', fill=True, label=algorithm_df.name)
-
-    plt.axvline(x=greedy_connections, color='r', alpha=0.5, label='Greedy')
+    sns.kdeplot(data=Random, x='Ridden', fill=True, label ='Random')
+    sns.kdeplot(data=Hillclimb_train, x='Ridden', fill=True, label='Hillclimb train', alpha=0.3)
+    sns.kdeplot(data=Hillclimb_combined, x='Ridden', fill=True, label='Hillclimb combined', alpha=0.3)
+  
+    # Plot vertical line for Greedy and Hillclimb connection
+    plt.axvline(x=greedy_connections, color='g', linestyle='--', label='Greedy')
+    plt.axvline(x=hillclimb_connection, color='purple',linestyle=':', label='Hillclimb connection')
 
     plt.xlabel('Connections ridden')
     plt.ylabel('Density')
@@ -81,12 +88,12 @@ def plot_kde(random_summary: pd.DataFrame, greedy_summary: pd.DataFrame, hillcli
     plt.show()
 
 # Getting the correct files of 1000 iterations
-random_summary = pd.read_csv("experiment/random/random_7575/EXPERIMENT_SUMMARY")
-greedy_summary = pd.read_csv("experiment/greedy/greedy_2/EXPERIMENT_SUMMARY")
-# hillclimb_train = pd.read_csv("experiment/hillclimb_train/hillclimb_train_7/EXPERIMENT_SUMMARY")
-# hillclimb_connection = pd.read_csv("experiment/hillclimb_connectionslist/hillclimb_train_7/EXPERIMENT_SUMMARY")
-# hillclimb_combined = pd.read_csv("experiment/hillclimb_combined/hillclimb_combined_7/EXPERIMENT_SUMMARY")
+random_summary = pd.read_csv("experiment/random/random_2/EXPERIMENT_SUMMARY")
+greedy_summary = pd.read_csv("experiment/greedy/greedy_1/EXPERIMENT_SUMMARY")
+hillclimb_train = pd.read_csv("experiment/hillclimb_train/hillclimb_train_1/EXPERIMENT_SUMMARY")
+hillclimb_connection = pd.read_csv("experiment/hillclimb_connection/hillclimb_connection_1/EXPERIMENT_SUMMARY")
+hillclimb_combined = pd.read_csv("experiment/hillclimb_combined/hillclimb_combined_1/EXPERIMENT_SUMMARY")
 
 # Running both plots
-plot_histogram(random_summary, greedy_summary)
-plot_kde(random_summary, greedy_summary)
+plot_histogram(random_summary, greedy_summary, hillclimb_train, hillclimb_connection, hillclimb_combined)
+plot_kde(random_summary, greedy_summary, hillclimb_train, hillclimb_connection, hillclimb_combined)
