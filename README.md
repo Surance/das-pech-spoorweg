@@ -25,12 +25,18 @@ The code is structures by the following folders:
 
 - **/code**: contains all code from this project
   - **/code/algorithms**: contains code for the algorithms
-    # TODO!
-    - **/code/algorithms/random.py**:
-    - **/code/algorithms/greedy.py**:
-    - **/code/algorithms/hillclimb_connection.py**:
-    - **/code/algorithms/hillclimb_train.py**:
-    - **/code/algorithms/hillclimb_combined.py**:
+    - **/code/algorithms/Random.py**: 
+        Implements a random algorithm that generates schedules by randomly assigning possible connections to trains. It serves as a baseline for evaluating more sophisticated algorithms.
+    - **/code/algorithms/Greedy.py**: 
+        Constructs schedules by iteratively selecting the best available connection for each train depending on an assigned score, aims to maximize the overall schedule quality.
+    - **/code/algorithms/Hillclimb_Connection.py**: 
+        Takes a created greedy schedule and iteratively explores random changes at the connection level, aiming to improve the overall schedule quality.
+    - **/code/algorithms/Hillclimb_ConnectionList.py**: 
+        Takes a created greedy schedule and iteratively explores changes at the connection level by removing a part of the connection list at a random index, aiming to improve the overall schedule quality.
+    - **/code/algorithms/Hillclimb_Train.py**:
+        Takes a created greedy schedule and iteratively explores random changes to trains, aiming to improve the overall schedule quality. 
+    - **/code/algorithms/Hillclimb_Combined.py**:
+        Takes a created greedy schedule and iteratively explores changes at both the train and connection level, aiming to improve the overall schedule quality.
   - **/code/classes**: contains the classes needed for the case
   - **/code/visualisation**: contains the code necessary for the visualisation of results
 - **/data**: contains the different datafiles needed
@@ -45,9 +51,11 @@ An experiment can be run by calling the following:
 python main.py
 ```
 
-# TODO: more explanation of argparse commands
-To conduct an experiment, you define your requirements within the main function. Additionally, you have the option to specify visualization preferences. In line INPUT LINE, you can choose between matplotlib and plotly visualizations (referred to as visualise_plot and visualise_map, respectively) by setting them to True or False, with the default being True. The advantages of the map/plotly visualisation are that you're able to single out a single traject by double clicking it on the legend. You can also manually remove trains by clicking on them once in the legend. The map visualisation also includes stations that are not written, where you can hover above the stations with your cursor to retrieve the station name. The advantages of the matplotlib/ plot visualisation are that you get to see all the station names in one glance.
+After running the above code, follow the instructions in the terminal. You have the option to run a standard experiment on one of the algorithms or decide yourself on the number of iterations, number of maximum trains possible, whether you want to visualise the plot with matplotlib and whether you want to visualise the map. 
 
+The advantages of the map/plotly visualisation are that you're able to single out a single traject by double clicking it on the legend. You can also manually remove trains by clicking on them once in the legend. The map visualisation also includes stations that are not written, where you can hover above the stations with your cursor to retrieve the station name. 
+
+The advantages of the plot visualisation are that you get to see all the station names in one glance.
 
 ## Authors
 

@@ -1,7 +1,7 @@
 import random
 from copy import deepcopy
 from code.functions.quality import calculate_quality
-from code.algorithms.greedy import GreedySchedule
+from code.algorithms.Greedy import GreedySchedule
 from code.classes.schedule import Schedule
 
 class HillClimber_connections:

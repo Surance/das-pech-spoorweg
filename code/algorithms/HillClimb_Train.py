@@ -2,7 +2,7 @@ import random
 from copy import deepcopy
 from code.functions.quality import calculate_quality
 from code.classes.schedule import Schedule
-from code.algorithms.greedy import GreedySchedule
+from code.algorithms.Greedy import GreedySchedule
 
 class HillClimber_train:
     """
