@@ -1,6 +1,6 @@
 import random
 from copy import deepcopy
-from code.classes.quality import Quality
+from code.classes.quality import calculate_quality
 from code.algorithms.random import Random_schedule
 from code.algorithms.greedy import GreedySchedule
 from code.classes.schedule import Schedule
@@ -10,6 +10,7 @@ class HillClimber_train:
         self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
+        self.iteration_count = 0
         self.iteration_count = 0
 
     def delete_train(self, schedule: Schedule) -> Schedule:
@@ -70,10 +71,10 @@ class HillClimber_train:
             if current_score > self.best_score:
                 self.best_score = current_score
                 self.best_schedule = altered_schedule
-                # Print key information about the current iteration
-                print(f"Iteration: {self.iteration_count} | Move: {move} | Current Score: {current_score} | Best Score: {self.best_score} |")
-
+                print(f"Iteration: {self.iteration_count} | Current Score: {current_score} | Best Score: {self.best_score} |")
+            
             self.iteration_count += 1
+
 
         # Because of removes and adds train names are no longer correct so we need to rename them in correct order 
         self.best_schedule.rename_trains()
@@ -87,4 +88,4 @@ class HillClimber_train:
         """
         Calculate the quality score for the current schedule
         """
-        return Quality(schedule.ridden, schedule.trains, schedule.total_connections).calculate_quality()
+        return calculate_quality(schedule.ridden, schedule.trains, schedule.total_connections)

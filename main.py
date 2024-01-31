@@ -12,14 +12,14 @@ if __name__ == "__main__":
     # Input csv's
     data = Information("data/StationsNationaal.csv", "data/ConnectiesNationaal.csv")
 
-    iterations = 10
-    algorithm = "hillclimbCombined"
+    iterations = 1000
+    algorithm = "hillclimb_combined"
     max_trains = 20
     max_time = 180  # 3 hours
 
     # Run an experiment with specified algorithm and specified number of iterations
     current_experiment = Experiment(data, iterations, algorithm, max_trains, max_time)
-    stations_trains, score_count, ridden_count = current_experiment.run_experiment()
+    stations_trains, score_list, ridden_count = current_experiment.run_experiment()
 
     #Calling both forms of visualise
     def visualize_data(stations_trains: str, coords_data: list, visualise_plot: bool=True, visualise_map: bool=True):
@@ -40,4 +40,4 @@ if __name__ == "__main__":
 
     pathname = current_experiment.path_name(summary=True)
 
-    data.summary_experiment(algorithm, pathname, iterations, score_count, ridden_count)
+    data.summary_experiment(algorithm, pathname, iterations, score_list, ridden_count)

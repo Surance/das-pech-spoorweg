@@ -1,7 +1,8 @@
 import random
 from copy import deepcopy
-from code.classes.quality import Quality
+from code.classes.quality import calculate_quality
 from code.algorithms.random import Random_schedule
+from code.algorithms.greedy import GreedySchedule
 from code.classes.schedule import Schedule
 
 class HillClimber_connections:
@@ -11,9 +12,10 @@ class HillClimber_connections:
     
     """
     def __init__(self, schedule: Schedule) -> None:
-        self.schedule = Random_schedule(schedule).create_random_schedule()
+        self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
+        self.iteration_count = 0
         self.iteration_count = 0
 
     def delete_connection(self, schedule: Schedule) -> Schedule:
@@ -47,6 +49,7 @@ class HillClimber_connections:
             return schedule
         
         train = random.choice(schedule.trains)
+
         connection = random.choice(list(possible_connections.keys()))
         schedule.valid_connection(connection, possible_connections[connection])
 
@@ -95,4 +98,4 @@ class HillClimber_connections:
         """
         Calculate the quality score for the current schedule
         """
-        return Quality(schedule.ridden, schedule.trains, schedule.total_connections).calculate_quality()
+        return calculate_quality(schedule.ridden, schedule.trains, schedule.total_connections)

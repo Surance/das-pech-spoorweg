@@ -5,18 +5,11 @@ class Random_schedule:
     def __init__(self, schedule: Schedule) -> None:
         self.schedule = schedule
 
-    def create_random_schedule(self) -> Schedule:
+    def fill_train(self) -> None:
         """
-        Function  creates a schedule of trains, taking in account the connections and the max time
+        Function fills initialised train until all connections are ridden. If train time is about to go over maximum time, end train.
         """
-
-        # Create a new train every iteration until all connections are passed 
         while len(self.schedule.ridden) < len(self.schedule.total_connections):
-            # Start train somewhere randomly
-            self.schedule.add_train()
-
-            # Add new stations to train if it connects to previous station until all connections are passed or max time is met
-            while len(self.schedule.ridden) < len(self.schedule.total_connections):
                 
                 # Check which connections are possible with the previous arrival station
                 possible_connections = self.schedule.check_possible_connections()
@@ -33,6 +26,20 @@ class Random_schedule:
 
                 self.schedule.valid_connection(connection, possible_connections[connection])
 
+    def create_random_schedule(self) -> Schedule:
+        """
+        Function  creates a schedule of trains, taking in account the connections and the max time
+        """
+
+        # Create a new train every iteration until all connections are passed 
+        while len(self.schedule.ridden) < len(self.schedule.total_connections):
+            # Start train somewhere randomly
+            self.schedule.add_train()
+
+            # Add new stations to train if it connects to previous station until all connections are passed or max time is met
+            self.fill_train()
+            
+            # Add time to train time and add train to schedule
             self.schedule.train.total_time += self.schedule.current_time
             self.schedule.trains.append(self.schedule.train)
             
@@ -40,5 +47,4 @@ class Random_schedule:
             if len(self.schedule.trains) >= self.schedule.max_trains:
                 break
         
-        # TODO: RETURN (self.schedule.)SCHEDULE INSTEAD OF TUPLE 
         return self.schedule

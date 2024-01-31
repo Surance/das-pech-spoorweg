@@ -4,7 +4,7 @@ from code.algorithms.random import Random_schedule
 from code.algorithms.greedy import GreedySchedule
 from code.algorithms.HillClimb_Train import HillClimber_train
 from code.algorithms.HillClimb_Connection import HillClimber_connections
-from code.algorithms.HillClimb_ConnectionList import HillClimber_connectionsUPDATE
+from code.algorithms.HillClimb_ConnectionList import HillClimber_connectionslist
 from code.algorithms.HillClimb_Combined import HillClimber_combined
 
 import os
@@ -145,8 +145,8 @@ class Experiment:
                 schedule.trains = best_trains
                 schedule.ridden = best_ridden
 
-            elif self.algorithm == "hillclimb2":
-                hillclimber = HillClimber_connectionsUPDATE(schedule)
+            elif self.algorithm == "hillclimb_connectionslist":
+                hillclimber = HillClimber_connectionslist(schedule)
                 best_trains, best_ridden = hillclimber.get_best_connections()
                 schedule.trains = best_trains
                 schedule.ridden = best_ridden
@@ -157,7 +157,7 @@ class Experiment:
                 schedule.trains = best_trains
                 schedule.ridden = best_ridden
             
-            elif self.algorithm == "hillclimbCombined":
+            elif self.algorithm == "hillclimb_combined":
                 hillclimber = HillClimber_combined(schedule)
                 best_trains, best_ridden = hillclimber.run()
                 schedule.trains = best_trains
