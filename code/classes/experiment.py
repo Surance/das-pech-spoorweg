@@ -1,5 +1,5 @@
-from .information import Information
 from .schedule import Schedule
+from .connection import Connection
 from code.algorithms.random import RandomSchedule
 from code.algorithms.greedy import GreedySchedule
 from code.algorithms.HillClimb_Train import HillClimber_train
@@ -10,17 +10,34 @@ from code.algorithms.HillClimb_Combined2 import HillClimber_combined2
 from code.algorithms.HillClimb_Combined3 import HillClimber_combined3
 
 import os
+import pandas as pd
+import csv
 
 class Experiment:
-    def __init__(self, data: classmethod, iterations: int, algorithm: str, max_trains: int, max_time: int) -> None:
-        self.data = data
+    """
+    Represents an experiment that runs multiple trials of a train schedule optimization algorithm.
+
+    Attributes:
+        iterations (int): The number of trials to run for the experiment.
+        algorithm (str): The algorithm to be used in each trial.
+        all_scores (list): The list of scores for each trial.
+        all_ridden (list): The list of number of ridden connections for each trial.
+        all_stations_trains (list): The list of stations ridden for each trial
+    """
+
+    def __init__(self, data: csv, iterations: int, algorithm: str) -> None:
+        """
+        Initializes a new Experiment object with the provided attributes.
+
+        Parameters:
+            data (csv): The data file containing all connection information.
+            iterations (int): The number of trials to run for the experiment.
+            algorithm (str): The optimization algorithm to be used in each trial.
+        """
+        self.data = pd.read_csv(data)
         self.iterations = iterations
         self.algorithm = algorithm
-        self.max_trains = max_trains
-        self.max_time = max_time
 
-        self.all_connections = Information.create_connection(self.data)
-        
         # Keep track of scores and connections ridden per experiment
         self.all_scores = []
         self.all_ridden = []
@@ -29,9 +46,28 @@ class Experiment:
         # Create a directory to save the csv outputs in
         self.directory_path = f"experiment/{self.algorithm}"
 
-    def find_most_recent_directory(self) -> int:
+    def create_connection_list(self) -> list[Connection]:
         """
-        Function finds most recent directory in parent directory by looking at largest number
+        Function creates list of all connections available in the Netherlands.
+        """
+        connections_list = []
+        for _, row in self.data.iterrows():
+            connections_list.append(Connection(row['station1'], row['station2'], row['distance']))
+
+        return connections_list
+
+    def find_file_number(self, summary_boolean: bool) -> int:
+        """
+        Function finds most recent directory number in parent directory and returns correct experiment number for new file 
+        depending on if the csv is an experiment summary or seperate experiment.
+        
+        Only want directory to change if it is a new experiment. Summaries should be in the same directory
+
+        Parameters:
+            summary_boolean (bool): A boolean indicating whether the CSV is an experiment summary.
+        
+        Returns:
+            int: The correct experiment number.
         """
         max_number = 0
 
@@ -40,12 +76,6 @@ class Experiment:
             number = int(directory.split('_')[-1])
             max_number = max(max_number, number)
 
-        return max_number
-    
-    def check_if_new_experiment(self, summary_boolean: bool) -> int:
-        """
-        Function returns the correct experment number depending on if the csv is an experiment summary or seperate experiment
-        """
         if summary_boolean == False:
             # New experiment number is one more than largest number in directory
             return self.max_number + 1
@@ -54,7 +84,13 @@ class Experiment:
 
     def path_name(self, summary: bool = False) -> str:
         """
-        Function creates a file name according to the algorithm and the nth experiment it is  
+        Function creates a file name according to the algorithm and the nth experiment it is. 
+
+        Parameters:
+            summary (bool, optional): A flag indicating whether the CSV is an experiment summary. Defaults to False.
+
+        Returns:
+            str: The path name for saving the CSV results.
         """
         # Create folder if it doesn't exist
         if not os.path.exists(self.directory_path):
@@ -63,18 +99,16 @@ class Experiment:
         # Get a list of existing directories in the parent directory
         self.existing_directories = [d for d in os.listdir(self.directory_path) if os.path.isdir(os.path.join(self.directory_path, d))]
 
-        self.max_number = self.find_most_recent_directory()
-
-        # Only want directory to change if it is a new experiment, summaries should be in the same directory
-        experiment_number = self.check_if_new_experiment(summary)
+        # Find experiment number depending on whether it is a summary file or not
+        experiment_number = self.find_file_number(summary)
 
         return f"experiment/{self.algorithm}/{self.algorithm}_{experiment_number}/"
     
-    def find_index_schedules_all_connections(self) -> list:
+    def find_index_schedules_all_connections(self) -> list[int]:
         """
-        Function finds indeces of the schedules that rode all the connections and adds them to a list
+        Function finds indeces of the schedules that rode all the connections and adds them to a list.
         """
-        all_ridden_list = []
+        self.all_ridden_list = []
 
         amount_total_connections = len(self.all_connections)
 
@@ -82,52 +116,67 @@ class Experiment:
         for index, trial_ridden in enumerate(self.all_ridden):
 
             if trial_ridden == amount_total_connections:
-                all_ridden_list.append(index)
+                self.all_ridden_list.append(index)
 
-        return all_ridden_list
-    
-    def find_scores_schedules_all_connections(self, all_ridden) -> dict:
+    def find_scores_schedules_all_connections(self) -> dict:
         """
         Function finds scores and indexes of the schedules that rode all connections and returns them in a dictionary
+
+        Returns:
+            dict: A dictionary mapping scores to indices of schedules that rode all connections.
         """
         all_ridden_scores = {}
 
         for index, score in enumerate(self.all_scores):
-            if index in all_ridden:
+            if index in self.all_ridden_list:
                 all_ridden_scores[score] = index
 
         return all_ridden_scores
     
-    def get_best_trial(self) -> float:
+    def get_best_trial(self) -> list:
         """
-        Function finds trial that rode all connections with best score and returns its train schedule
+        Function finds schedule that rode all connections with best score so that this schedule can be visualised later.
+
+        Returns: 
+            list: The list of station names from the best schedule.
         """
         # Add all indexes of schedules that rode all connections to list
-        all_ridden = self.find_index_schedules_all_connections()
+        self.find_index_schedules_all_connections()
         
         # If none of the schedules were able to ride all connections get the best score of all trials
-        if len(all_ridden) == 0:
+        if len(self.all_ridden_list) == 0:
             index_best_score = self.all_scores.index(max(self.all_scores))
             return self.all_stations_trains[index_best_score]
 
         # Find the scores of the schedules that rode all connections
-        all_ridden_scores = self.find_scores_schedules_all_connections(all_ridden)
+        all_ridden_scores = self.find_scores_schedules_all_connections()
 
         # Take index with max score and return its train schedule 
         index_best_score = all_ridden_scores[max(all_ridden_scores)]
         return self.all_stations_trains[index_best_score]
 
-    def run_experiment(self) -> tuple[float, list, list]:
+    def run_experiment(self, max_trains: int, max_time: int) -> tuple[list, list, list]:
         """
         Function runs an experiment of N trials that each create a schedule using the algorithm specified
+
+        Args:
+            max_trains (int): The maximum number of trains in the schedule.
+            max_time (int): The maximum time allowed for the schedule in minutes.
+
+        Returns:
+            tuple[list, list[list], list[list]]: 
+                A tuple containing the stations of the best schedule, a list of all scores per schedule of the experiment
+                and a list of all connections ridden per trial of the experiment .
         """
         # Create pathname to save trial csv outputs in
-        pathname = self.path_name()
+        self.pathname = self.path_name()
+
+        all_connections = self.create_connection_list(self.data)
         
         for trial in range(self.iterations):
-            file_name = f"{pathname}experiment_{trial + 1}"
+            file_name = f"{self.pathname}experiment_{trial + 1}"
 
-            schedule = Schedule(self.max_trains, self.max_time, self.all_connections)
+            schedule = Schedule(max_trains, max_time, all_connections)
 
             # Create a schedule depending on which algorithm is called
             if self.algorithm == "random":
@@ -174,3 +223,29 @@ class Experiment:
         best_stations_trains = self.get_best_trial()
 
         return best_stations_trains, self.all_scores, self.all_ridden
+    
+    def summary_experiment(self) -> None:
+        """
+        Function adds file inside experiment directory that shows summary of the experiment. 
+        """
+        file_name = f"{self.pathname}EXPERIMENT_SUMMARY"
+        
+        # Create folder if it doesn't exist
+        os.makedirs(os.path.dirname(file_name), exist_ok=True)
+
+        with open(file_name, 'w', newline='') as csvfile:
+            csv_writer = csv.writer(csvfile)
+
+            csv_writer.writerow(["Algorithm type", self.algorithm])
+            
+            csv_writer.writerow(["Number of Trials", self.iterations])
+
+            csv_writer.writerow(["Average Score", sum(self.all_scores)/self.iterations])
+
+            csv_writer.writerow(["Average Connections Ridden", sum(self.all_ridden)/self.iterations])
+
+            csv_writer.writerow(["Maximum Score", max(self.all_scores)])
+
+            csv_writer.writerow(["Score", self.all_scores])
+
+            csv_writer.writerow(["Connections ridden", self.all_ridden])

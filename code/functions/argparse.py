@@ -1,9 +1,12 @@
 import argparse
 
-def parse_arguments():
+def parse_arguments() -> argparse.Namespace:
     """
     Adds an argument parser to the main.py file, so that the user can specify the number of iterations, algorithm, 
     maximum number of trains, maximum time, and visualization options.
+
+    Returns:
+        argparse.Namespace: Parsed arguments from the command line.
     """
     parser = argparse.ArgumentParser(description="Run an experiment with specified parameters.")
     parser.add_argument("--iterations", type=int, help="Number of iterations for the experiment.")
@@ -15,10 +18,14 @@ def parse_arguments():
 
     return parser.parse_args()
 
-def get_user_input():
+def get_user_input() -> tuple[int, str, int, int, bool, bool]:
     """
     If the user does not specify the arguments in the command line, this function prompts the user to enter the
     arguments manually one by one.
+
+    Returns:
+        tuple: A tuple containing user-inputted values for iterations, algorithm, max_trains, max_time, 
+               visualise_plot, and visualise_map.
     """
     iterations = int(input("Enter the number of iterations: "))
     algorithm = input("Enter the algorithm (random, greedy, hillclimb_train, hillclimb_connection or hillclimb_combined): ")

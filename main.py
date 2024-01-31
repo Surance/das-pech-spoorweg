@@ -1,6 +1,5 @@
 import argparse
 
-from code.classes.information import Information
 from code.classes.experiment import Experiment
 
 from code.visualisation.visualise import process_input
@@ -57,7 +56,7 @@ def visualize_data(stations_trains: str, coords_data: list, visualise_plot: bool
 
     if visualise_map:
         coords_dict = format_coordinates(train_data, coords_data)
-        map_plot = create_map_plot(coords_dict, coords_data)
+        create_map_plot(coords_dict, coords_data)
 
 if __name__ == "__main__":
     args = parse_arguments()
@@ -75,16 +74,13 @@ if __name__ == "__main__":
         visualise_plot = args.visualise_plot
         visualise_map = args.visualise_map
 
-    # Input csv's
-    data = Information("data/StationsNationaal.csv", "data/ConnectiesNationaal.csv")
-
     # Run an experiment with specified algorithm and specified number of iterations
-    current_experiment = Experiment(data, iterations, algorithm, max_trains, max_time)
-    stations_trains, score_list, ridden_count = current_experiment.run_experiment()
+    current_experiment = Experiment("data/ConnectiesNationaal.csv", iterations, algorithm)
+    stations_trains, score_list, ridden_count = current_experiment.run_experiment(max_trains, max_time)
 
     # Visualize the data of the experiment
     visualize_data(stations_trains, coords_data, visualise_plot, visualise_map)
 
     pathname = current_experiment.path_name(summary=True)
 
-    data.summary_experiment(algorithm, pathname, iterations, score_list, ridden_count)
+    Experiment.summary_experiment(algorithm, pathname, iterations, score_list, ridden_count)
