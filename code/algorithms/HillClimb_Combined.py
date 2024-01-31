@@ -4,6 +4,7 @@ from copy import deepcopy
 from code.classes.quality import Quality
 from code.algorithms.HillClimb_ConnectionList import HillClimber_connectionsUPDATE
 from code.algorithms.HillClimb_Train import HillClimber_train
+from code.algorithms.HillClimb_Connection import HillClimber_connections
 from code.algorithms.greedy import GreedySchedule
 from code.classes.schedule import Schedule
 
@@ -22,7 +23,7 @@ class HillClimber_combined:
         self.schedule.trains = best_trains
         self.schedule.ridden = best_ridden
 
-        hillclimber = HillClimber_connectionsUPDATE(self.schedule)
+        hillclimber = HillClimber_connections(self.schedule)
         best_trains, best_ridden = hillclimber.get_best_connections()
 
         return best_trains, best_ridden
