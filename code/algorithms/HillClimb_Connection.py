@@ -59,7 +59,7 @@ class HillClimber_connections:
         Randomly choose to delete or add a connection. If the quality is higher after the change, keep the schedule
         """
         print("NEW TRIAL CONNECTION------------------------")
-        for _ in range(10000):
+        for _ in range(1000):
             copy_schedule = deepcopy(self.schedule)
 
             rand_int = random.randint(0, 1)
