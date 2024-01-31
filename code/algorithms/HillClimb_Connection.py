@@ -6,11 +6,19 @@ from code.classes.schedule import Schedule
 
 class HillClimber_connections:
     """
+    Class for the HillClimber algorithm that makes changes on the connection level.
 
-    NOTES
-    
+    Includes functions for deleting and adding connections to a train in the schedule, as well as a function that calculates
+    the quality score of the schedule.
+    The algorithm continues to initialize new schedules for a set number of iterations.
     """
     def __init__(self, schedule: Schedule) -> None:
+        """
+        Initializes the HillClimberConnections object.
+
+        Args:
+            schedule (Schedule): The schedule object to be modified using the HillClimber algorithm.
+        """
         self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
@@ -18,7 +26,13 @@ class HillClimber_connections:
 
     def delete_connection(self, schedule: Schedule) -> Schedule:
         """
-        Delete a random connection from the schedule. 
+        Deletes a random connection from the schedule.
+
+        Args:
+            schedule (Schedule): The schedule from which a connection will be deleted.
+
+        Returns:
+            Schedule: The modified schedule after deleting a connection.
         """
         train = random.choice(schedule.trains)
         if not train.connections_list:
@@ -37,7 +51,13 @@ class HillClimber_connections:
     
     def add_connection(self, schedule) -> classmethod:
         """
-        Add a random connection to the schedule. Update time and used connections
+        Adds a random connection to the schedule. Updates time and used connections.
+
+        Args:
+            schedule (Schedule): The schedule to which a connection will be added.
+
+        Returns:
+            Schedule: The modified schedule after adding a connection.
         """
         possible_connections = schedule.check_possible_connections()
         if len(possible_connections.keys()) == 0:
@@ -56,7 +76,10 @@ class HillClimber_connections:
     
     def get_best_connections(self) -> tuple[list, set]:
         """
-        Randomly choose to delete or add a connection. If the quality is higher after the change, keep the schedule
+        Randomly chooses to delete or add a connection. If the quality is higher after the change, keep the schedule.
+
+        Returns:
+            tuple[list, set]: A tuple containing the list of trains and the set of ridden connections in the best schedule.
         """
         print("NEW TRIAL CONNECTION------------------------")
         for _ in range(10000):
@@ -87,6 +110,12 @@ class HillClimber_connections:
 
     def calculate_schedule_score(self, schedule: Schedule) -> float:
         """
-        Calculate the quality score for the current schedule
+        Calculates the quality score for the current schedule.
+
+        Args:
+            schedule (Schedule): The schedule for which the quality score will be calculated.
+
+        Returns:
+            float: The quality score of the schedule.
         """
         return calculate_quality(schedule.ridden, schedule.trains, schedule.total_connections)

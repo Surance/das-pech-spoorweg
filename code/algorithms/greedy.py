@@ -2,26 +2,35 @@ from collections import OrderedDict
 from code.classes.schedule import Schedule
 from code.classes.connection import Connection
 
-
 class GreedySchedule:
     """
-    Creates a score for each connection depending on:
-    - the distance
-    - the number of possible future connections
-    - the number of times it has already been ridden
-    
-    Algorithm continues to initialise new trains and fill the trains until all stations are ridden or constraints are met. 
-    Algorithm has a greedy choice of next connection that has the lowest score compared to the other possible connections.
+    Generates a schedule using a greedy algorithm. 
+
+    The algorithm initializes trains and fills them with connections until all stations are ridden or constraints are met.
+    The choice of the next connection is greedy, based on a score calculated considering distance, the number of possible
+    future connections, and the number of times it has already been ridden.
     """
 
     def __init__(self, schedule: Schedule) -> None:
+        """
+        Initializes the GreedySchedule object.
+
+        Parameters:
+            schedule (Schedule): The schedule object to be filled with connections.
+        """
         self.schedule = schedule
         self.connections_score = {}
+
+        # The amount added to the connection score once it has been ridden
         self.ridden_score = 100
 
     def check_all_possible_connections(self) -> dict[Connection, list]:
         """
-        Creates a dictionary with each connection as key and a list of its possible connections as value
+        Function creates a dictionary with each connection as key and a list of its possible connections as value.
+
+        Returns:
+            dict[Connection, list]: A dictionary containing each connection and its possible next connections.
+      
         """
         total_possible_connections = {}
 
@@ -45,8 +54,8 @@ class GreedySchedule:
 
     def greedy_score(self) -> None:
         """
-        For each connection, calculate a score depending on its distance, amount of times already ridden
-        and number of possible next connections. 
+        Function calculates a score for each connection based on its distance, the number of times already ridden,
+        and the number of possible next connections.
         """
         all_possible_connections = self.check_all_possible_connections()
 
@@ -56,7 +65,14 @@ class GreedySchedule:
     
     def find_best_score(self, possible_connections: dict) -> Connection:
         """
-        Function finds the connection of possible connections with the lowest score and returns that connection
+        Function finds the connection of possible connections with the lowest score and returns that connection. 
+
+        Args:
+            possible_connections (dict): A dictionary of possible connections.
+
+        Returns:
+            Connection: The connection with the lowest score.
+        
         """
         least_score = float('inf')
         # Check which of the possible connections has the least next possible connections
@@ -96,9 +112,32 @@ class GreedySchedule:
             # Add ridden score to the connections score once it has been ridden
             self.connections_score[connection_with_least] += self.ridden_score
 
+    def get_first_train_connection(self) -> Connection:
+        """
+        Function gets the first connection in the train by finding the connection with the best score that has not been ridden yet. 
+
+        Returns: 
+            Connection: The connection with the best score that has not yet been ridden.
+        """
+        # Take connection with least score as first station
+        first_train_connection = self.find_best_score(self.connections_score)
+
+        # Take next best connection if connection has already been ridden
+        i = 0
+        for trial in range(self.schedule.max_trains):
+            if first_train_connection in self.schedule.ridden:
+                ordered_dict = OrderedDict(sorted(self.connections_score.items(), key=lambda x: x[1]))
+                first_train_connection, _ = list(ordered_dict.items())[i]
+                i += 1
+
+        return first_train_connection
+
     def create_greedy_schedule(self) -> Schedule:
         """
         Function creates a greedy schedule by filling schedule with trains built on connections through greedy choices.
+
+        Returns:
+            Schedule: The schedule object with the generated greedy schedule.
         """
         # Initialise greedy scores for all connections
         self.greedy_score()
@@ -106,16 +145,7 @@ class GreedySchedule:
         first_connections = []
 
         while len(self.schedule.ridden) < len(self.schedule.total_connections):
-            # Take connection with least score as first station
-            first_train_connection = self.find_best_score(self.connections_score)
-
-            # Take next best connection if connection has already been ridden
-            i = 0
-            for trial in range(100):
-                if first_train_connection in self.schedule.ridden:
-                    ordered_dict = OrderedDict(sorted(self.connections_score.items(), key=lambda x: x[1]))
-                    first_train_connection, _ = list(ordered_dict.items())[i]
-                    i += 1
+            first_train_connection = self.get_first_train_connection()
             
             # Add first station to train
             self.schedule.add_train(first_connection=first_train_connection)

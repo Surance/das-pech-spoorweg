@@ -6,7 +6,25 @@ from code.algorithms.greedy import GreedySchedule
 from code.classes.schedule import Schedule
 
 class HillClimberCombined:
+    """
+    Class for the HillClimber algorithm that combines changes on both the train and connection levels.
+
+    Includes functions for deleting and adding trains, deleting and adding connections, and a function that calculates
+    the quality score of the schedule.
+
+    The algorithm continues to initialize new schedules for a set number of iterations, considering changes at both
+    train and connection levels.
+    """
     def __init__(self, schedule: Schedule, initial_temperature: float = 100.0, cooling_rate: float = 0.95, convergence_threshold: float = 0.001) -> None:
+        """
+        Initializes the HillClimberCombined object.
+
+        Args:
+            schedule (Schedule): The schedule object to be modified using the HillClimber algorithm.
+            initial_temperature (float): The initial temperature for simulated annealing.
+            cooling_rate (float): The cooling rate for simulated annealing.
+            convergence_threshold (float): The convergence threshold for simulated annealing.
+        """
         self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
@@ -18,10 +36,17 @@ class HillClimberCombined:
         self.iteration_count_train = 0
         self.iteration_count_conn = 0
 
-    def delete_train(self, schedule: Schedule, trains_to_change) -> Schedule:
+    def delete_train(self, schedule: Schedule, trains_to_change: int) -> Schedule:
         """
-        Delete a random amount of trains from the schedule. Amount of trains to delete is given by trains_to_change.
+        Function deletes a random amount of trains from the schedule. Amount of trains to delete is given by trains_to_change.
         Also removes connections ridden by the train from the ridden set, so that score is calculated accurately.
+
+        Args:
+            schedule (Schedule): The schedule from which trains will be deleted.
+            trains_to_change (int): The number of trains to delete.
+
+        Returns:
+            Schedule: The modified schedule after deleting trains.
         """
         for _ in range(trains_to_change):
             train = random.choice(schedule.trains)
@@ -35,10 +60,17 @@ class HillClimberCombined:
 
         return schedule
     
-    def add_new_train(self, schedule: Schedule, trains_to_change) -> Schedule:
+    def add_new_train(self, schedule: Schedule, trains_to_change: int) -> Schedule:
         """
-        Add a random amount of trains back to the schedule. Update time and used connections.
+        Function adds a random amount of trains back to the schedule. Updates time and used connections.
         Amount of trains to add is given by parameter trains_to_change.
+
+        Args:
+            schedule (Schedule): The schedule to which trains will be added.
+            trains_to_change (int): The number of trains to add.
+
+        Returns:
+            Schedule: The modified schedule after adding trains.
         """
         # Don't add a new train if there are already a maximum of trains present in schedule 
         if len(schedule.trains) == schedule.max_trains: 
@@ -68,7 +100,13 @@ class HillClimberCombined:
     
     def delete_connections(self, schedule: Schedule) -> Schedule:
         """
-        Delete connections from a random index to the end of the list. 
+        Deletes connections from a random index to the end of the list.
+
+        Args:
+            schedule (Schedule): The schedule from which connections will be deleted.
+
+        Returns:
+            Schedule: The modified schedule after deleting connections.
         """
         train = random.choice(schedule.trains)
         if not train.connections_list:
@@ -89,9 +127,15 @@ class HillClimberCombined:
 
         return schedule
 
-    def add_connection(self, schedule) -> classmethod:
+    def add_connection(self, schedule: Schedule) -> Schedule:
         """
-        Add a random connection to the schedule. Update time and used connections
+        Adds a random connection to the schedule. Updates time and used connections.
+
+        Args:
+            schedule (Schedule): The schedule to which a connection will be added.
+
+        Returns:
+            Schedule: The modified schedule after adding a connection.
         """
         possible_connections = schedule.check_possible_connections()
         if len(possible_connections.keys()) == 0:
@@ -111,7 +155,11 @@ class HillClimberCombined:
  
     def get_best_combined_traject(self) -> tuple[list, set]:
         """
-        Randomly choose to delete or add a train. If the quality is higher after the change, keep the schedule
+        Randomly choose to delete or add a train. If the quality is higher after the change, keep the schedule.
+        Then, use temperature and cooling rates to explore changes in the connection level.
+       
+        Returns:
+            tuple[list, set]: The modified trains and ridden connections in the final schedule.
         """
         print("NEW TRIAL TRAINS ------------------------")
         for _ in range(10):
@@ -170,7 +218,13 @@ class HillClimberCombined:
 
     def calculate_schedule_score(self, schedule: Schedule) -> float:
         """
-        Calculate the quality score for the current schedule
+        Calculate the quality score for the current schedule.
+
+        Args:
+            schedule (Schedule): The schedule for which the quality score will be calculated.
+
+        Returns:
+            float: The quality score of the schedule.
         """
         return calculate_quality(schedule.ridden, schedule.trains, schedule.total_connections)
         

@@ -6,7 +6,25 @@ from code.algorithms.greedy import GreedySchedule
 from code.classes.schedule import Schedule
 
 class HillClimber_connectionslist:
+    """
+    Class for the HillClimber algorithm that focuses on modifying connections lists.
+
+    Includes functions for deleting and adding connections, and a function that calculates
+    the quality score of the schedule.
+
+    The algorithm continues to initialize new schedules for a set number of iterations,
+    considering changes in connection lists.
+    """
     def __init__(self, schedule: Schedule, initial_temperature: float = 100.0, cooling_rate: float = 0.95, convergence_threshold: float = 0.001) -> None:
+        """
+        Initialize the HillClimberConnectionsList object.
+
+        Parameters:
+            schedule (Schedule): The initial schedule.
+            initial_temperature (float): The initial temperature for simulated annealing.
+            cooling_rate (float): The cooling rate for simulated annealing.
+            convergence_threshold (float): The threshold for considering convergence.
+        """
         self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
@@ -19,6 +37,12 @@ class HillClimber_connectionslist:
     def delete_connections(self, schedule: Schedule) -> Schedule:
         """
         Delete connections from a random index to the end of the list. 
+        
+        Args:
+            schedule (Schedule): The schedule to be modified.
+
+        Returns:
+            Schedule: The modified schedule after deleting a part of the connection list.
         """
         train = random.choice(schedule.trains)
         if not train.connections_list:
@@ -39,9 +63,15 @@ class HillClimber_connectionslist:
 
         return schedule
 
-    def add_connection(self, schedule) -> classmethod:
+    def add_connection(self, schedule: Schedule) -> Schedule:
         """
-        Add a random connection to the schedule. Update time and used connections
+        Add a random connection to the schedule. Update time and used connections.
+
+        Args:
+            schedule (Schedule): The schedule to be modified.
+
+        Returns:
+            Schedule: The modified schedule after adding back part of the connection list.
         """
         possible_connections = schedule.check_possible_connections()
         if len(possible_connections.keys()) == 0:
@@ -59,6 +89,12 @@ class HillClimber_connectionslist:
         return schedule
 
     def get_best_connections(self) -> tuple[list, set]:
+        """
+        Optimize the schedule by randomly deleting or adding connections.
+
+        Returns:
+            tuple[list, set]: Tuple containing the list of trains and the set of ridden connections.
+        """
         print("NEW TRIAL CONNECTION ------------------------")
         while self.temperature > 1.0:
             copy_schedule = deepcopy(self.schedule)
@@ -96,4 +132,13 @@ class HillClimber_connectionslist:
         return self.schedule.trains, self.schedule.ridden
 
     def calculate_schedule_score(self, schedule: Schedule) -> float:
+        """
+        Calculate the quality score for the current schedule.
+
+        Args:
+            schedule (Schedule): The schedule for which the quality score is calculated.
+
+        Returns:
+            float: The quality score.
+        """
         return calculate_quality(schedule.ridden, schedule.trains, schedule.total_connections)

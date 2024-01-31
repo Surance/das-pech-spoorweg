@@ -6,6 +6,7 @@ from code.algorithms.HillClimb_Train import HillClimber_train
 from code.algorithms.HillClimb_Connection import HillClimber_connections
 from code.algorithms.HillClimb_ConnectionList import HillClimber_connectionslist
 from code.algorithms.HillClimb_Combined import HillClimberCombined
+from code.algorithms.hillclimb_combinedCopy import HillClimberCombinedCopy
 
 import os
 import pandas as pd

@@ -4,7 +4,6 @@ from code.functions.quality import calculate_quality
 from code.classes.schedule import Schedule
 from code.algorithms.greedy import GreedySchedule
 
-
 class HillClimber_train:
     """
     Class for HillClimber algorithm that makes changes on the train level.
@@ -15,16 +14,30 @@ class HillClimber_train:
     Algorithm continues to initialise new trains for set amount of iterations. 
     When trains are re-added, they are initialised randomly
     """
+
     def __init__(self, schedule: Schedule) -> None:
+        """
+        Initializes the HillClimberTrain object.
+
+        Args:
+            schedule (Schedule): The schedule object to be modified using the HillClimber algorithm.
+        """
         self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
         self.iteration_count = 0
 
-    def delete_train(self, schedule: Schedule, trains_to_change) -> Schedule:
+    def delete_train(self, schedule: Schedule, trains_to_change: int) -> Schedule:
         """
-        Delete a random amount of trains from the schedule. Amount of trains to delete is given by trains_to_change.
+        Function deletes a random amount of trains from the schedule depending on argument given.
         Also removes connections ridden by the train from the ridden set, so that score is calculated accurately.
+
+        Args:
+            schedule (Schedule): The schedule from which trains will be deleted.
+            trains_to_change (int): The number of trains to delete.
+
+        Returns:
+            Schedule: The modified schedule after deleting trains.
         """
         for _ in range(trains_to_change):
             train = random.choice(schedule.trains)
@@ -38,10 +51,18 @@ class HillClimber_train:
 
         return schedule
     
-    def add_new_train(self, schedule: Schedule, trains_to_change) -> Schedule:
+    def add_new_train(self, schedule: Schedule, trains_to_change: int) -> Schedule:
         """
-        Add a random amount of trains back to the schedule. Update time and used connections.
+        Function adds a random amount of trains back to the schedule. Update time and used connections.
         Amount of trains to add is given by parameter trains_to_change.
+
+        Args:
+            schedule (Schedule): The schedule to which new trains will be added.
+            trains_to_change (int): The number of trains to add.
+
+        Returns:
+            Schedule: The modified schedule after adding new trains.
+
         """
         # Don't add a new train if there are already a maximum of trains present in schedule 
         if len(schedule.trains) == schedule.max_trains: 
@@ -71,9 +92,12 @@ class HillClimber_train:
     
     def get_best_train(self) -> tuple[list, set]:
         """
-        Randomly choose amount of trains to delete between 1 and 10 and then re-add. If the quality (score, denoted by K) 
+        Function randomly chooses amount of trains to delete between 1 and 10 and then re-add. If the quality (score, denoted by K) 
         is higher after the change, keep the schedule. Otherwise return to deepcopy of original schedule. Displays information
         about the current iteration and the best score so far, when best score is updated
+
+        Returns:
+            tuple[list, set]: A tuple containing the list of trains and the set of ridden connections in the best schedule.
         """
         print("NEW TRIAL TRAINS ------------------------")
         for _ in range(1000):
