@@ -33,7 +33,7 @@ def format_coordinates(train_data: list, station_data:str)-> list:
 
     return result_list
 
-def create_map_plot(train_data: list, mapbox_style="carto-positron")-> None: 
+def create_map_plot(train_data: list,  coords_data, mapbox_style="carto-positron")-> None: 
     """
     Create a scatter plot on Mapbox for train rails and stations.
 
@@ -63,9 +63,19 @@ def create_map_plot(train_data: list, mapbox_style="carto-positron")-> None:
     stations_df = pd.concat(train_dfs, ignore_index=True)
 
     # Create scatter plot on Mapbox
-    fig = px.scatter_mapbox(stations_df, lat='x', lon='y',
+    fig = px.scatter_mapbox(coords_data, lat='y', lon='x', 
                             mapbox_style=mapbox_style, title='Train Rails and Stations')
     
+    # Plot all stations that are not ridden in blue
+    fig.add_trace(go.Scattermapbox(
+        lat=coords_data['y'],
+        lon=coords_data['x'],
+        mode='markers',
+        marker=dict(size=5, color='blue'),  
+        name='Train Stations not ridden',  
+        hoverinfo='text',  
+        text=coords_data['station'] 
+    ))
    
     # Create separate Line plots for each train
     for i, train_df in enumerate(train_dfs, start=1):
@@ -86,7 +96,7 @@ def create_map_plot(train_data: list, mapbox_style="carto-positron")-> None:
         ))
 
 
-    # Plot the train stations
+    # Plot the train stations that are ridden
     fig.add_trace(go.Scattermapbox(
         lat=stations_df['x'],
         lon=stations_df['y'],
