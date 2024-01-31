@@ -114,7 +114,7 @@ class HillClimberCombined:
         Randomly choose to delete or add a train. If the quality is higher after the change, keep the schedule
         """
         print("NEW TRIAL TRAINS ------------------------")
-        for _ in range(10):
+        for _ in range(1000):
             copy_schedule = deepcopy(self.schedule)
             
             trains_to_change = random.randint(1, 10) 
