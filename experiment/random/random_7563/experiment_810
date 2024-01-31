@@ -1,0 +1,25 @@
+train,stations
+train_1,"['Schiedam Centrum', 'Delft', 'Den Haag Laan v NOI', 'Gouda', 'Rotterdam Alexander', 'Rotterdam Centraal', 'Schiedam Centrum', 'Rotterdam Blaak', 'Schiedam Centrum', 'Delft', 'Den Haag Laan v NOI', 'Leiden Centraal', 'Schiphol Airport', 'Utrecht Centraal', 'Gouda']"
+train_2,"['Heemstede-Aerdenhout', 'Haarlem', 'Beverwijk', 'Zaandam', 'Hoorn', 'Alkmaar', 'Castricum', 'Beverwijk', 'Haarlem', 'Amsterdam Sloterdijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Haarlem', 'Amsterdam Sloterdijk']"
+train_3,"['Sittard', 'Roermond', 'Weert', 'Eindhoven', 'Tilburg', 's-Hertogenbosch', 'Eindhoven', 'Weert', 'Roermond', 'Weert', 'Eindhoven', 's-Hertogenbosch', 'Tilburg']"
+train_4,"['Amsterdam Centraal', 'Almere Centrum', 'Hilversum', 'Amsterdam Amstel', 'Amsterdam Zuid', 'Schiphol Airport', 'Utrecht Centraal', 'Gouda', 'Den Haag HS', 'Gouda']"
+train_5,"['Zutphen', 'Dieren', 'Arnhem Centraal', 'Ede-Wageningen', 'Utrecht Centraal', 'Amsterdam Amstel', 'Amsterdam Zuid', 'Schiphol Airport', 'Utrecht Centraal', 'Alphen a/d Rijn', 'Leiden Centraal', 'Heemstede-Aerdenhout', 'Haarlem']"
+train_6,"['Roermond', 'Weert', 'Eindhoven', 'Helmond', 'Venlo']"
+train_7,"['Breda', 'Etten-Leur', 'Roosendaal', 'Vlissingen']"
+train_8,"['Den Haag Centraal', 'Leiden Centraal', 'Den Haag HS', 'Leiden Centraal', 'Den Haag Centraal', 'Gouda', 'Alphen a/d Rijn', 'Utrecht Centraal', 's-Hertogenbosch', 'Eindhoven', 's-Hertogenbosch', 'Tilburg']"
+train_9,"['Breda', 'Etten-Leur', 'Roosendaal', 'Vlissingen']"
+train_10,"['Sittard', 'Roermond', 'Weert', 'Eindhoven', 'Tilburg', 's-Hertogenbosch', 'Oss', 'Nijmegen', 'Arnhem Centraal', 'Dieren', 'Zutphen', 'Dieren', 'Arnhem Centraal', 'Dieren', 'Zutphen', 'Dieren']"
+train_11,"['Assen', 'Zwolle', 'Steenwijk', 'Heerenveen', 'Steenwijk', 'Zwolle', 'Deventer', 'Apeldoorn', 'Amersfoort', 'Zwolle']"
+train_12,"['Rotterdam Centraal', 'Schiedam Centrum', 'Rotterdam Blaak', 'Dordrecht', 'Rotterdam Centraal', 'Rotterdam Alexander', 'Gouda', 'Den Haag Centraal', 'Leiden Centraal', 'Schiphol Airport', 'Utrecht Centraal', 'Gouda', 'Den Haag HS']"
+train_13,"['Eindhoven', 'Helmond', 'Venlo']"
+train_14,"['Den Haag HS', 'Leiden Centraal', 'Alphen a/d Rijn', 'Gouda', 'Den Haag Centraal', 'Gouda', 'Alphen a/d Rijn', 'Leiden Centraal', 'Alphen a/d Rijn', 'Utrecht Centraal', 's-Hertogenbosch']"
+train_15,"['Delft', 'Den Haag Centraal', 'Leiden Centraal', 'Alphen a/d Rijn', 'Gouda', 'Rotterdam Alexander', 'Rotterdam Blaak', 'Schiedam Centrum', 'Delft', 'Den Haag Centraal', 'Gouda', 'Rotterdam Alexander', 'Rotterdam Centraal', 'Dordrecht', 'Roosendaal']"
+train_16,"['Rotterdam Centraal', 'Rotterdam Alexander', 'Gouda', 'Den Haag HS', 'Leiden Centraal', 'Heemstede-Aerdenhout', 'Haarlem', 'Amsterdam Sloterdijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Leiden Centraal', 'Schiphol Airport', 'Utrecht Centraal', 'Amsterdam Amstel', 'Amsterdam Zuid']"
+train_17,"['Rotterdam Blaak', 'Schiedam Centrum', 'Delft', 'Den Haag Centraal', 'Gouda', 'Den Haag HS', 'Leiden Centraal', 'Heemstede-Aerdenhout', 'Haarlem', 'Amsterdam Sloterdijk', 'Amsterdam Zuid', 'Amsterdam Sloterdijk', 'Amsterdam Centraal', 'Utrecht Centraal']"
+train_18,"['Steenwijk', 'Zwolle', 'Amersfoort', 'Apeldoorn', 'Zutphen', 'Deventer', 'Zwolle', 'Almelo', 'Hengelo', 'Enschede']"
+train_19,"['Hengelo', 'Enschede']"
+train_20,"['Haarlem', 'Beverwijk', 'Castricum', 'Alkmaar', 'Den Helder']"
+Score,3029.8089887640454
+Connections Ridden,69
+Total Connections,89
+Connections not ridden,"[['Almere Centrum', 'Lelystad Centrum'], ['Amsterdam Amstel', 'Almere Centrum'], ['Amsterdam Amstel', 'Amsterdam Centraal'], ['Amsterdam Centraal', 'Almere Centrum'], ['Amsterdam Sloterdijk', 'Zaandam'], ['Assen', 'Zwolle'], ['Breda', 'Etten-Leur'], ['Breda', 'Dordrecht'], ['Delft', 'Den Haag HS'], ['Deventer', 'Almelo'], ['Groningen', 'Assen'], ['Leeuwarden', 'Heerenveen'], ['Leeuwarden', 'Groningen'], ['Maastricht', 'Sittard'], ['Sittard', 'Heerlen'], ['Sittard', 'Roermond'], ['Tilburg', 'Breda'], ['Utrecht Centraal', 'Hilversum'], ['Utrecht Centraal', 'Amersfoort'], ['Zaandam', 'Castricum']]"

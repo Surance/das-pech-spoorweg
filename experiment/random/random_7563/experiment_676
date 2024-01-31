@@ -1,0 +1,25 @@
+train,stations
+train_1,"['Amsterdam Sloterdijk', 'Haarlem', 'Beverwijk', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Amsterdam Zuid', 'Amsterdam Amstel', 'Amsterdam Centraal', 'Utrecht Centraal', 'Gouda', 'Den Haag Laan v NOI', 'Delft', 'Schiedam Centrum']"
+train_2,"['Assen', 'Zwolle', 'Deventer', 'Zutphen', 'Dieren', 'Arnhem Centraal', 'Dieren', 'Zutphen', 'Apeldoorn', 'Amersfoort', 'Utrecht Centraal', 'Amersfoort']"
+train_3,"['Breda', 'Dordrecht', 'Rotterdam Centraal', 'Rotterdam Alexander', 'Gouda', 'Utrecht Centraal', 'Amsterdam Centraal', 'Almere Centrum', 'Lelystad Centrum']"
+train_4,"['Rotterdam Blaak', 'Schiedam Centrum', 'Delft', 'Den Haag HS', 'Leiden Centraal', 'Alphen a/d Rijn', 'Gouda', 'Rotterdam Alexander', 'Gouda', 'Den Haag HS', 'Gouda', 'Den Haag Centraal', 'Delft', 'Den Haag HS']"
+train_5,"['Roosendaal', 'Dordrecht', 'Rotterdam Blaak', 'Schiedam Centrum', 'Rotterdam Centraal', 'Rotterdam Alexander', 'Gouda', 'Utrecht Centraal', 'Schiphol Airport', 'Leiden Centraal', 'Schiphol Airport', 'Utrecht Centraal']"
+train_6,"['Zwolle', 'Amersfoort', 'Apeldoorn', 'Deventer', 'Apeldoorn', 'Amersfoort', 'Utrecht Centraal', 'Amsterdam Centraal', 'Almere Centrum', 'Lelystad Centrum']"
+train_7,"['Maastricht', 'Sittard', 'Roermond', 'Weert', 'Eindhoven', 's-Hertogenbosch', 'Oss', 'Nijmegen', 'Arnhem Centraal', 'Dieren', 'Zutphen', 'Apeldoorn', 'Amersfoort']"
+train_8,"['Den Haag Centraal', 'Leiden Centraal', 'Den Haag Laan v NOI', 'Leiden Centraal', 'Den Haag Centraal', 'Gouda', 'Den Haag HS', 'Gouda', 'Den Haag Laan v NOI', 'Leiden Centraal', 'Den Haag HS', 'Gouda', 'Utrecht Centraal']"
+train_9,"['Leiden Centraal', 'Heemstede-Aerdenhout', 'Haarlem', 'Beverwijk', 'Castricum', 'Zaandam', 'Beverwijk', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Haarlem', 'Heemstede-Aerdenhout', 'Haarlem', 'Beverwijk', 'Zaandam', 'Castricum']"
+train_10,"['Leeuwarden', 'Heerenveen', 'Steenwijk', 'Zwolle', 'Deventer', 'Almelo', 'Zwolle', 'Assen']"
+train_11,"['Apeldoorn', 'Zutphen', 'Dieren', 'Arnhem Centraal', 'Dieren', 'Zutphen', 'Apeldoorn', 'Deventer', 'Apeldoorn', 'Zutphen', 'Dieren', 'Arnhem Centraal', 'Ede-Wageningen', 'Utrecht Centraal', 'Amersfoort']"
+train_12,"['Amsterdam Zuid', 'Schiphol Airport', 'Utrecht Centraal', 'Hilversum', 'Amsterdam Amstel', 'Hilversum', 'Almere Centrum', 'Lelystad Centrum']"
+train_13,"['Amsterdam Sloterdijk', 'Haarlem', 'Beverwijk', 'Castricum', 'Zaandam', 'Beverwijk', 'Castricum', 'Zaandam', 'Amsterdam Sloterdijk', 'Amsterdam Centraal', 'Almere Centrum', 'Amsterdam Amstel', 'Almere Centrum']"
+train_14,"['Utrecht Centraal', 'Amsterdam Amstel', 'Hilversum', 'Utrecht Centraal', 'Hilversum', 'Amsterdam Amstel', 'Hilversum', 'Utrecht Centraal', 'Gouda', 'Rotterdam Alexander', 'Rotterdam Centraal', 'Rotterdam Alexander']"
+train_15,"['Amsterdam Amstel', 'Amsterdam Zuid', 'Amsterdam Sloterdijk', 'Amsterdam Centraal', 'Amsterdam Sloterdijk', 'Haarlem', 'Beverwijk', 'Castricum', 'Alkmaar', 'Den Helder']"
+train_16,"['Sittard', 'Heerlen']"
+train_17,"['Deventer', 'Almelo', 'Hengelo', 'Enschede']"
+train_18,"['Sittard', 'Heerlen']"
+train_19,"['Alkmaar', 'Hoorn', 'Zaandam', 'Hoorn', 'Alkmaar', 'Hoorn', 'Zaandam', 'Beverwijk', 'Haarlem']"
+train_20,"['Steenwijk', 'Zwolle', 'Assen', 'Groningen', 'Leeuwarden', 'Groningen', 'Assen']"
+Score,3056.8089887640454
+Connections Ridden,69
+Total Connections,89
+Connections not ridden,"[['Amsterdam Zuid', 'Schiphol Airport'], ['Breda', 'Etten-Leur'], ['Breda', 'Dordrecht'], ['Eindhoven', 'Helmond'], ['Eindhoven', 'Tilburg'], ['Etten-Leur', 'Roosendaal'], ['Helmond', 'Venlo'], ['Leeuwarden', 'Heerenveen'], ['Leiden Centraal', 'Heemstede-Aerdenhout'], ['Maastricht', 'Sittard'], ['Roosendaal', 'Vlissingen'], ['Roosendaal', 'Dordrecht'], ['Rotterdam Blaak', 'Rotterdam Alexander'], ['Sittard', 'Heerlen'], ['Tilburg', 'Breda'], ['Utrecht Centraal', 'Amsterdam Amstel'], ['Utrecht Centraal', 'Alphen a/d Rijn'], ['Utrecht Centraal', 's-Hertogenbosch'], ['Zwolle', 'Amersfoort'], ['s-Hertogenbosch', 'Tilburg']]"
