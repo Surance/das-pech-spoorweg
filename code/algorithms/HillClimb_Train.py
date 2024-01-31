@@ -6,10 +6,20 @@ from code.algorithms.greedy import GreedySchedule
 
 
 class HillClimber_train:
+    """
+    Class for HillClimber algorithm that makes changes on the train level.
+
+    Includes a delete and add function that randomly deletes and adds trains to the schedule, 
+    as well as a function that calculates the quality score of the schedule.
+    
+    Algorithm continues to initialise new trains for set amount of iterations. 
+    When trains are re-added, they are initialised randomly
+    """
     def __init__(self, schedule: Schedule) -> None:
         self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
+        self.iteration_count = 0
 
     def delete_train(self, schedule: Schedule, trains_to_change) -> Schedule:
         """
@@ -62,7 +72,8 @@ class HillClimber_train:
     def get_best_train(self) -> tuple[list, set]:
         """
         Randomly choose amount of trains to delete between 1 and 10 and then re-add. If the quality (score, denoted by K) 
-        is higher after the change, keep the schedule. Otherwise return to deepcopy of original schedule.
+        is higher after the change, keep the schedule. Otherwise return to deepcopy of original schedule. Displays information
+        about the current iteration and the best score so far, when best score is updated
         """
         print("NEW TRIAL TRAINS ------------------------")
         for _ in range(1000):
@@ -79,7 +90,9 @@ class HillClimber_train:
             if current_score > self.best_score:
                 self.best_score = current_score
                 self.best_schedule = altered_schedule
-                print(current_score)
+                print(f"Iteration: {self.iteration_count} | Trains changed: {trains_to_change} | Current Score: {current_score} | Best Score: {self.best_score} |")
+
+            self.iteration_count += 1
 
         # Because of removes and adds train names are no longer correct so we need to rename them in correct order 
         self.best_schedule.rename_trains()

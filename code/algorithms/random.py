@@ -3,7 +3,7 @@ from code.classes.schedule import Schedule
 
 class RandomSchedule:
     """
-    Picka a random connection from a random starting point for a certain train
+    Pick a random connection from a random starting point for a certain train
     
     Algorithm continues to initialise new trains and fill the trains until all stations are ridden or constraints are met. 
     Algorithm has a random choice of next connection chosen from all possible connections.

@@ -33,7 +33,7 @@ def get_user_input():
     standard_experiment = input("Do you want to run a standard experiment? (y/n): ").lower() == 'y'
     if standard_experiment:
         algorithm = input("Enter the algorithm (random, greedy, hillclimb_train, hillclimb_connection or hillclimb_combined): ")
-        return True, algorithm, 10, 20, 240, False, True
+        return True, algorithm, 10, 20, 180, False, True
     else:
         iterations = int(input("Enter the number of iterations: "))
         algorithm = input("Enter the algorithm (random, greedy, hillclimb_train, hillclimb_connection or hillclimb_combined): ")
