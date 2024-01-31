@@ -3,11 +3,11 @@ import argparse
 from code.classes.information import Information
 from code.classes.experiment import Experiment
 
-from code.visualisation.visualise import process_input
-from code.visualisation.visualise import plot_trains
-from code.visualisation.visualise import coords_data
-from code.visualisation.visualise2 import create_map_plot
-from code.visualisation.visualise2 import format_coordinates
+from code.visualisation.visualise_plot import process_input
+from code.visualisation.visualise_plot import plot_trains
+from code.visualisation.visualise_plot import coords_data
+from code.visualisation.visualise_map import create_map_plot
+from code.visualisation.visualise_map import format_coordinates
 
 def parse_arguments():
     """

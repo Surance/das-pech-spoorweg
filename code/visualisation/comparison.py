@@ -5,7 +5,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-def function_writer_df(algorithm_summary:str,  histogram: bool= False)-> pd.DataFrame:
+def function_writer_df(algorithm_summary:str,  histogram: bool= False)-> list or pd.DataFrame:
     """
     Functiom that makes a dataframe for a specific algorithm, histogram has a default setting of false
     """
@@ -21,7 +21,6 @@ def function_writer_df(algorithm_summary:str,  histogram: bool= False)-> pd.Data
         algorithm = (algorithm_summary.iloc[5][1])
         algorithm_connections = eval(algorithm)
         algorithm_df = pd.DataFrame({'Ridden': algorithm_connections})
-        print(algorithm_df)
         
         return algorithm_df
 
