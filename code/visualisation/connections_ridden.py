@@ -1,3 +1,6 @@
+# This file is for the plots used in the presentation and not for the experiment
+# It uses specific files fromj expqeriment containing 1000 iterations
+
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt

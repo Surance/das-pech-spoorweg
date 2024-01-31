@@ -11,7 +11,7 @@ Several algorithms have been developed to maximize the K value, and each algorit
 
 ## Getting Started
 
-To conduct an experiment, you define your requirements within the main function. Additionally, you have the option to specify visualization preferences. In line 39, you can choose between matplotlib and plotly visualizations (referred to as visualise_plot and visualise_map, respectively) by setting them to True or False, with the default being True.
+To conduct an experiment, you define your requirements within the main function. Additionally, you have the option to specify visualization preferences. In line INPUT LINE, you can choose between matplotlib and plotly visualizations (referred to as visualise_plot and visualise_map, respectively) by setting them to True or False, with the default being True. The advantages of the map/plotly visualisation are that you're able to single out a single traject by double clicking it on the legend. You can also manually remove trains by clicking on them once in the legend. The map visualisation also includes stations that are not written, where you can hover above the stations with your cursor to retrieve the station name. The advantages of the matplotlib/ plot visualisation are that you get to see all the station names in one glance.
 
 ### Prerequisites
 

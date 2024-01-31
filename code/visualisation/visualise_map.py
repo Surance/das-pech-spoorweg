@@ -3,7 +3,7 @@ import plotly.graph_objects as go
 import pandas as pd
 import re
 
-from .visualise import get_coordinates
+from .visualise_plot import get_coordinates
 
 def format_coordinates(train_data: list, station_data:str)-> list: 
     """
