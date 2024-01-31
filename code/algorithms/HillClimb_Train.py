@@ -30,7 +30,9 @@ class HillClimber_train:
         if len(schedule.trains) == schedule.max_trains: 
             return schedule 
         
-        schedule.add_train()
+        trains_to_add = random.randint(len(schedule.max_trains) - len(schedule.trains))
+        for _ in range(trains_to_add):
+            schedule.add_train()
 
         # Add new stations to train if it connects to previous station until all connections are passed or max time is met
         while schedule.current_time < schedule.max_time and len(schedule.ridden) < len(schedule.total_connections):
