@@ -1,0 +1,9 @@
+train,stations
+train_1,"['Leiden Centraal', 'Heemstede-Aerdenhout']"
+train_2,"['Eindhoven', 'Helmond']"
+train_3,"['Sittard', 'Roermond']"
+train_4,"['Zwolle', 'Almelo']"
+Score,9600.0
+Connections Ridden,89
+Total Connections,89
+Connections not ridden,[]

@@ -1,0 +1,10 @@
+train,stations
+train_1,"['Utrecht Centraal', 'Amsterdam Amstel']"
+train_2,"['Steenwijk', 'Zwolle']"
+train_3,"['Den Haag Centraal', 'Gouda']"
+train_4,"['Arnhem Centraal', 'Ede-Wageningen']"
+train_5,"['s-Hertogenbosch', 'Oss']"
+Score,9500.0
+Connections Ridden,89
+Total Connections,89
+Connections not ridden,[]

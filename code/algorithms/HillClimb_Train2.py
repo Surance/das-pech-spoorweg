@@ -5,23 +5,29 @@ from code.algorithms.greedy import GreedySchedule
 from code.algorithms.random import Random_schedule
 from code.classes.schedule import Schedule
 
-class HillClimber_train:
+class HillClimber_train2:
     def __init__(self, schedule: Schedule) -> None:
         self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
 
-    def delete_train(self, schedule: Schedule) -> Schedule:
+    def delete_train(self, schedule: Schedule, trains_to_change) -> Schedule:
         """
         Delete a random train from the schedule. 
         """
-        train = random.choice(schedule.trains)
-        print('deleting train')
-        schedule.trains.remove(train)
-      
+        for _ in range(trains_to_change):
+            train = random.choice(schedule.trains)
+            
+            # Remove connections ridden by the train from the ridden set
+            for connection in train.connections_list:
+                if connection in schedule.ridden:
+                    schedule.ridden.remove(connection)
+            
+            schedule.trains.remove(train)
+
         return schedule
     
-    def add_new_train(self, schedule: Schedule) -> Schedule:
+    def add_new_train(self, schedule: Schedule, trains_to_change) -> Schedule:
         """
         Add a random train to the schedule. Update time and used connections
         """
@@ -29,8 +35,8 @@ class HillClimber_train:
         if len(schedule.trains) == schedule.max_trains: 
             return schedule 
         
-        print('adding new train')
-        schedule.add_train()
+        for _ in range(trains_to_change):
+            schedule.add_train()
 
         # Add new stations to train if it connects to previous station until all connections are passed or max time is met
         while schedule.current_time < schedule.max_time and len(schedule.ridden) < len(schedule.total_connections):
@@ -56,9 +62,15 @@ class HillClimber_train:
         Randomly choose to delete or add a train. If the quality is higher after the change, keep the schedule
         """
         print("NEW TRIAL ------------------------")
-        for i in range(100):
+        for _ in range(1000):
             copy_schedule = deepcopy(self.schedule)
-            altered_schedule = random.choice([self.delete_train(copy_schedule), self.add_new_train(copy_schedule)])
+            
+            trains_to_change = random.randint(1, 10) 
+
+            altered_schedule = self.delete_train(copy_schedule, trains_to_change)
+            
+            altered_schedule = self.add_new_train(altered_schedule, trains_to_change)
+
             current_score = self.calculate_schedule_score(altered_schedule)
 
             if current_score > self.best_score:
