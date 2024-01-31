@@ -1,5 +1,5 @@
 # This file is for the plots used in the presentation and not for the experiment
-# It uses specific files from expqeriment containing 1000 iterations
+# It uses specific files from experiment containing 1000 iterations
 
 import pandas as pd
 import seaborn as sns
@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 
 def function_writer_df(algorithm_summary:str,  histogram: bool= False)-> pd.DataFrame:
     """
-    Functiom that makes a dataframe for a specific algorithm
+    Functiom that makes a dataframe for a specific algorithm, histogram has a default setting of false
     """
     # Gives the output for the histogram function
     if histogram:
