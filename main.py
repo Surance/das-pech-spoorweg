@@ -13,7 +13,7 @@ if __name__ == "__main__":
     data = Information("data/StationsNationaal.csv", "data/ConnectiesNationaal.csv")
 
     iterations = 10
-    algorithm = "hillclimb_combined"
+    algorithm = "random"
     max_trains = 20
     max_time = 180  # 3 hours
 
@@ -33,7 +33,7 @@ if __name__ == "__main__":
 
         if visualise_map:
             coords_dict = format_coordinates(train_data, coords_data)
-            map_plot = create_map_plot(coords_dict)
+            map_plot = create_map_plot(coords_dict, coords_data)
 
     # Example usage running experiment
     visualize_data(stations_trains, coords_data, visualise_plot=False, visualise_map=True)
