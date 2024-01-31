@@ -25,19 +25,26 @@ def function_writer_df(algorithm_summary:str,  histogram: bool= False)-> list or
         return algorithm_df
 
 
-def plot_histogram(random_summary: pd.DataFrame, greedy_summary: pd.DataFrame, bins: int = 100):
+def plot_histogram(random_summary: list, greedy_summary: list, hillclimb_train_summary: list, hillclimb_connection_summary: list, hillclimb_combined_summary: list, bins: int = 100):
     """
     Plot histograms for Random ,Greedy and Hillclimber algorithms.
     """
 
     # The scores for the algorithms
     Random = function_writer_df(random_summary, histogram=True)
+    Hillclimb_train = function_writer_df(hillclimb_train_summary, histogram=True)
+    Hillclimb_connection = function_writer_df(hillclimb_connection_summary, histogram=True)
+    Hillclimb_combined = function_writer_df(hillclimb_combined_summary, histogram=True)
     Greedy = (greedy_summary.iloc[3][1])
     greedy_connections = eval(Greedy)
 
     # Plotting histograms
     plt.figure(figsize=(10, 6))
-    plt.hist(Random, bins=bins, alpha=0.5, label='Random')
+   
+    # plt.hist(Random, bins=bins, alpha=0.5, label='Random')
+    for algorithm in [Random, Hillclimb_train, Hillclimb_connection, Hillclimb_combined]:
+        plt.hist(algorithm, bins=10, alpha=0.5, label='algorithm')
+
     plt.axvline(x=greedy_connections, color='r', alpha=0.5, label='Greedy')
 
     plt.xlabel('Scores')
@@ -48,17 +55,23 @@ def plot_histogram(random_summary: pd.DataFrame, greedy_summary: pd.DataFrame, b
     plt.show()
 
 
-def plot_kde(random_summary: pd.DataFrame, greedy_summary: pd.DataFrame):
+def plot_kde(random_summary: pd.DataFrame, greedy_summary: pd.DataFrame, hillclimb_train_summary: pd.DataFrame, hillclimb_connection_summary: pd.DataFrame, hillclimb_combined_summary: pd.DataFrame):
     """
     Plot Kernel Density Estimate of connections ridden for Random, Greedy and Hillclimber algorithms.
     """
 
     Random = function_writer_df(random_summary)
+    Hillclimb_train = function_writer_df(hillclimb_train_summary)
+    Hillclimb_connection = function_writer_df(hillclimb_connection_summary)
+    Hillclimb_combined = function_writer_df(hillclimb_combined_summary)
     Greedy = (greedy_summary.iloc[2][1])
     greedy_connections = eval(Greedy)
 
     # Create KDE plot using Seaborn
-    sns.displot(data=Random, x='Ridden', kind='kde', fill=True, label ='Random')
+    # sns.displot(data=Random, x='Ridden', kind='kde', fill=True, label ='Random')
+    for algorithm_df in [Random, Hillclimb_train, Hillclimb_connection, Hillclimb_combined]:
+        sns.displot(data=algorithm_df, x='Ridden', kind='kde', fill=True, label=algorithm_df.name)
+
     plt.axvline(x=greedy_connections, color='r', alpha=0.5, label='Greedy')
 
     plt.xlabel('Connections ridden')
