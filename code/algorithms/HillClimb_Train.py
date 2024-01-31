@@ -10,6 +10,7 @@ class HillClimber_train:
         self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
+        self.iteration_count = 0
 
     def delete_train(self, schedule: Schedule) -> Schedule:
         """
@@ -59,10 +60,13 @@ class HillClimber_train:
             altered_schedule = random.choice([self.delete_train(copy_schedule), self.add_new_train(copy_schedule)])
             current_score = self.calculate_schedule_score(altered_schedule)
 
-            if current_score >= self.best_score:
+            if current_score > self.best_score:
                 self.best_score = current_score
                 self.best_schedule = altered_schedule
-                print(current_score)
+                print(f"Iteration: {self.iteration_count} | Current Score: {current_score} | Best Score: {self.best_score} |")
+            
+            self.iteration_count += 1
+
 
         # Because of removes and adds train names are no longer correct so we need to rename them in correct order 
         self.best_schedule.rename_trains()

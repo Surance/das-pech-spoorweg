@@ -2,6 +2,7 @@ import random
 from copy import deepcopy
 from code.classes.quality import calculate_quality
 from code.algorithms.random import Random_schedule
+from code.algorithms.greedy import GreedySchedule
 from code.classes.schedule import Schedule
 
 class HillClimber_connections:
@@ -11,9 +12,10 @@ class HillClimber_connections:
     
     """
     def __init__(self, schedule: Schedule) -> None:
-        self.schedule = Random_schedule(schedule).create_random_schedule()
+        self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
+        self.iteration_count = 0
 
     def delete_connection(self, schedule: Schedule) -> Schedule:
         """
@@ -46,8 +48,7 @@ class HillClimber_connections:
             return schedule
         
         train = random.choice(schedule.trains)
-        print('add_function')
-        print(train.connections_list)
+
         connection = random.choice(list(possible_connections.keys()))
         schedule.valid_connection(connection, possible_connections[connection])
 
@@ -64,21 +65,25 @@ class HillClimber_connections:
         Randomly choose to delete or add a connection. If the quality is higher after the change, keep the schedule
         """
         print("NEW TRIAL ------------------------")
-        for _ in range(10):
+        for _ in range(1000):
             copy_schedule = deepcopy(self.schedule)
             rand_int = random.randint(0, 1)
             if rand_int == 0:
                 altered_schedule = self.delete_connection(copy_schedule)
-                print(rand_int)
+                move = "deletion"
             else:
                 altered_schedule = self.add_connection(copy_schedule)
-                print(rand_int)
-            # altered_schedule = random.choice([self.delete_connection(copy_schedule), self.add_connection(copy_schedule)])
+                move = "addition"
+
             current_score = self.calculate_schedule_score(altered_schedule)
 
             if current_score > self.best_score:
                 self.best_score = current_score
                 self.best_schedule = altered_schedule
+                # Print key information about the current iteration
+                print(f"Iteration: {self.iteration_count} | Move: {move} | Current Score: {current_score} | Best Score: {self.best_score} |")
+            
+            self.iteration_count += 1
 
         # After the loop, set the schedule to the best_schedule
         self.schedule = self.best_schedule

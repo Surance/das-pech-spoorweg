@@ -6,7 +6,7 @@ from code.algorithms.random import Random_schedule
 from code.algorithms.greedy import GreedySchedule
 from code.classes.schedule import Schedule
 
-class HillClimber_connectionsUPDATE:
+class HillClimber_connectionslist:
     def __init__(self, schedule: Schedule, initial_temperature: float = 100.0, cooling_rate: float = 0.95, convergence_threshold: float = 0.001) -> None:
         self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
