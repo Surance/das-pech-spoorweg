@@ -3,7 +3,7 @@ import math
 from copy import deepcopy
 from code.classes.quality import calculate_quality
 from code.algorithms.HillClimb_ConnectionList import HillClimber_connectionsUPDATE
-from code.algorithms.HillClimb_Train import HillClimber_train2
+from code.algorithms.HillClimb_Train import HillClimber_train
 from code.algorithms.HillClimb_Connection import HillClimber_connections
 from code.algorithms.greedy import GreedySchedule
 from code.classes.schedule import Schedule
