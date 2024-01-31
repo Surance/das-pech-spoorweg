@@ -33,13 +33,13 @@ def format_coordinates(train_data: list, station_data:str)-> list:
 
     return result_list
 
-def create_map_plot(train_data: list,  coords_data, mapbox_style="carto-positron")-> None: 
+def create_map_plot(train_data: list,  coords_data:str , mapbox_style="carto-positron")-> None: 
     """
     Create a scatter plot on Mapbox for train rails and stations.
 
     Parameters:
         train_data (list): List of dictionaries, each containing keys 'x' and 'y' for coordinates.
-        station_names (list): List of station names corresponding to the coordinates in train_data.
+        coords_data(str):A string containing station data in the format "station,y,x".
         mapbox_style (str): Style of the Mapbox map. Default is "carto-positron".
 
     Returns:
