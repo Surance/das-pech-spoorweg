@@ -2,7 +2,6 @@ import random
 import math
 from copy import deepcopy
 from code.classes.quality import calculate_quality
-from code.algorithms.random import Random_schedule
 from code.algorithms.greedy import GreedySchedule
 from code.classes.schedule import Schedule
 

@@ -1,13 +1,20 @@
-from code.classes.schedule import Schedule
 import random 
+from code.classes.schedule import Schedule
 
 class RandomSchedule:
+    """
+    Picka a random connection from a random starting point for a certain train
+    
+    Algorithm continues to initialise new trains and fill the trains until all stations are ridden or constraints are met. 
+    Algorithm has a random choice of next connection chosen from all possible connections.
+    """
     def __init__(self, schedule: Schedule) -> None:
         self.schedule = schedule
 
     def fill_train(self) -> None:
         """
-        Function fills initialised train until all connections are ridden. If train time is about to go over maximum time, end train.
+        Function fills initialised train until all connections are ridden. If train time is about to 
+        go over maximum time, end train.
         """
         while len(self.schedule.ridden) < len(self.schedule.total_connections):
                 
@@ -30,7 +37,6 @@ class RandomSchedule:
         """
         Function  creates a schedule of trains, taking in account the connections and the max time
         """
-
         # Create a new train every iteration until all connections are passed 
         while len(self.schedule.ridden) < len(self.schedule.total_connections):
             # Start train somewhere randomly

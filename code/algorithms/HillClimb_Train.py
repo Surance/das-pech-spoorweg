@@ -1,7 +1,5 @@
 import random
-
 from copy import deepcopy
-
 from code.classes.quality import calculate_quality
 from code.classes.schedule import Schedule
 from code.algorithms.greedy import GreedySchedule
@@ -15,7 +13,8 @@ class HillClimber_train:
 
     def delete_train(self, schedule: Schedule, trains_to_change) -> Schedule:
         """
-        Delete a random train from the schedule. 
+        Delete a random amount of trains from the schedule. Amount of trains to delete is given by trains_to_change.
+        Also removes connections ridden by the train from the ridden set, so that score is calculated accurately.
         """
         for _ in range(trains_to_change):
             train = random.choice(schedule.trains)
@@ -31,7 +30,8 @@ class HillClimber_train:
     
     def add_new_train(self, schedule: Schedule, trains_to_change) -> Schedule:
         """
-        Add a random train to the schedule. Update time and used connections
+        Add a random amount of trains back to the schedule. Update time and used connections.
+        Amount of trains to add is given by parameter trains_to_change.
         """
         # Don't add a new train if there are already a maximum of trains present in schedule 
         if len(schedule.trains) == schedule.max_trains: 
@@ -61,9 +61,10 @@ class HillClimber_train:
     
     def get_best_train(self) -> tuple[list, set]:
         """
-        Randomly choose to delete or add a train. If the quality is higher after the change, keep the schedule
+        Randomly choose amount of trains to delete between 1 and 10 and then re-add. If the quality (score, denoted by K) 
+        is higher after the change, keep the schedule. Otherwise return to deepcopy of original schedule.
         """
-        print("NEW TRIAL ------------------------")
+        print("NEW TRIAL TRAINS ------------------------")
         for _ in range(1000):
             copy_schedule = deepcopy(self.schedule)
             

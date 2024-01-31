@@ -1,6 +1,7 @@
+from collections import OrderedDict
 from code.classes.schedule import Schedule
 from code.classes.connection import Connection
-from collections import OrderedDict
+
 
 class GreedySchedule:
     """

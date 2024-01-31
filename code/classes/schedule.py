@@ -35,7 +35,8 @@ class Schedule:
     
     def check_possible_connections(self) -> dict:
         """
-        Function checks which connections are possible and returns dict of valid connections as key and its station to add to stations list as value
+        Function checks which connections are possible and returns dict of valid connections as 
+        key and its station to add to stations list as value
         """
         possible_connections = {}
     
@@ -60,9 +61,9 @@ class Schedule:
 
     def add_train(self, first_connection: Union[None, Connection]=None) -> None:
         """
-        Adds a new train to the list of trains
+        Adds a new train to the list of trains, if there is no first connection given, 
+        pick a random one
         """
-        # If there is no first connection given, pick a random connection 
         if first_connection == None:
             first_connection = random.choice(self.total_connections)
         
@@ -105,7 +106,6 @@ class Schedule:
         """
         Displays the schedule and score in the format as provided on ah.proglab.nl
         """
-
         stations_per_train = []
         for train in self.trains:
             stations = train.stations_names_list
