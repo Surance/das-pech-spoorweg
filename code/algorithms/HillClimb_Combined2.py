@@ -22,7 +22,7 @@ class HillClimber_combined2:
         """
         train = random.choice(schedule.trains)
         schedule.trains.remove(train)
-      
+    
         return schedule
     
     def add_new_train(self, schedule: Schedule) -> Schedule:
@@ -96,7 +96,6 @@ class HillClimber_combined2:
         schedule.ridden.add(connection)
 
         return schedule
-    
  
     def get_best_combined_traject(self) -> tuple[list, set]:
         """
@@ -119,7 +118,7 @@ class HillClimber_combined2:
             altered_schedule = random.choice([self.delete_train(copy_schedule), self.add_new_train(copy_schedule)])
             current_score = self.calculate_schedule_score(altered_schedule)
 
-            if current_score > self.best_score:
+            if current_score >= self.best_score:
                 self.best_score = current_score
                 self.best_schedule = altered_schedule
                 print(f"Iteration: {self.iteration_count_train} | Move: {move} | Current Score: {current_score} | Best Score: {self.best_score} |")

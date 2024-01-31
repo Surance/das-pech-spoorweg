@@ -153,7 +153,7 @@ class Experiment:
                 schedule.ridden = best_ridden
             
             elif self.algorithm == "hillclimb_combined":
-                hillclimber = HillClimber_combined3(schedule)
+                hillclimber = HillClimber_combined2(schedule)
                 best_trains, best_ridden = hillclimber.get_best_combined_traject()
                 schedule.trains = best_trains
                 schedule.ridden = best_ridden

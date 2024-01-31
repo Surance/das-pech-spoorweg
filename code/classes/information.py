@@ -60,6 +60,8 @@ class Information:
 
             csv_writer.writerow(["Score", score])
 
+            csv_writer.writerow(["Connections ridden", ridden])
+
 
 
 
