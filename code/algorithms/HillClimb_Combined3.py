@@ -25,8 +25,10 @@ class HillClimber_combined3:
         """
         Delete a random train from the schedule. 
         """
-        train = random.choice(schedule.trains)
-        schedule.trains.remove(train)
+        rand_int = random.randint(0, 5)
+        for _ in range(rand_int):
+            train = random.choice(schedule.trains)
+            schedule.trains.remove(train)
       
         return schedule
     
@@ -156,9 +158,6 @@ class HillClimber_combined3:
                     print(f"Iteration: {self.iteration_count} | Move: {move} | Current Score: {current_score} | Best Score: {self.best_score} | Temperature: {self.temperature}")
 
                 self.iteration_count += 1
-
-                # Print key information about the current iteration
-                
 
                 # Update temperature
                 self.temperature *= self.cooling_rate

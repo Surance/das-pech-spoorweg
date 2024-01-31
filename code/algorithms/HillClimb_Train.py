@@ -15,8 +15,10 @@ class HillClimber_train:
         """
         Delete a random train from the schedule. 
         """
-        train = random.choice(schedule.trains)
-        schedule.trains.remove(train)
+        rand_int = random.randint(0, 5)
+        for _ in range(rand_int):
+            train = random.choice(schedule.trains)
+            schedule.trains.remove(train)
       
         return schedule
     
