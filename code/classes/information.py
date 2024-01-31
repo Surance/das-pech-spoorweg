@@ -7,7 +7,6 @@ import os
 
 class Information:
     def __init__(self, station_data: csv, connection_data: csv) -> None:
-        
         self.station_data_df = pd.read_csv(station_data)
         self.connection_data_df = pd.read_csv(connection_data)
 
@@ -57,6 +56,8 @@ class Information:
             csv_writer.writerow(["Maximum Score", max(score)])
 
             csv_writer.writerow(["Score", score])
+
+            csv_writer.writerow(["Connections ridden", ridden])
 
 
 

@@ -1,7 +1,7 @@
 from code.classes.schedule import Schedule
 import random 
 
-class Random_schedule:
+class RandomSchedule:
     def __init__(self, schedule: Schedule) -> None:
         self.schedule = schedule
 

@@ -1,9 +1,8 @@
 from .information import Information
 from .schedule import Schedule
-from code.algorithms.random import Random_schedule
+from code.algorithms.random import RandomSchedule
 from code.algorithms.greedy import GreedySchedule
 from code.algorithms.HillClimb_Train import HillClimber_train
-from code.algorithms.HillClimb_Train2 import HillClimber_train2
 from code.algorithms.HillClimb_Connection import HillClimber_connections
 from code.algorithms.HillClimb_ConnectionList import HillClimber_connectionsUPDATE
 from code.algorithms.HillClimb_Combined import HillClimber_combined
@@ -27,6 +26,7 @@ class Experiment:
         self.all_ridden = []
         self.all_stations_trains = []
 
+        # Create a directory to save the csv outputs in
         self.directory_path = f"experiment/{self.algorithm}"
 
     def find_most_recent_directory(self) -> int:
@@ -56,7 +56,6 @@ class Experiment:
         """
         Function creates a file name according to the algorithm and the nth experiment it is  
         """
-
         # Create folder if it doesn't exist
         if not os.path.exists(self.directory_path):
             os.makedirs(self.directory_path)
@@ -92,6 +91,7 @@ class Experiment:
         Function finds scores and indexes of the schedules that rode all connections and returns them in a dictionary
         """
         all_ridden_scores = {}
+
         for index, score in enumerate(self.all_scores):
             if index in all_ridden:
                 all_ridden_scores[score] = index
@@ -102,7 +102,6 @@ class Experiment:
         """
         Function finds trial that rode all connections with best score and returns its train schedule
         """
-
         # Add all indexes of schedules that rode all connections to list
         all_ridden = self.find_index_schedules_all_connections()
         
@@ -122,7 +121,6 @@ class Experiment:
         """
         Function runs an experiment of N trials that each create a schedule using the algorithm specified
         """
-
         # Create pathname to save trial csv outputs in
         pathname = self.path_name()
         
@@ -133,7 +131,7 @@ class Experiment:
 
             # Create a schedule depending on which algorithm is called
             if self.algorithm == "random":
-                random_schedule = Random_schedule(schedule).create_random_schedule()
+                random_schedule = RandomSchedule(schedule).create_random_schedule()
                 schedule.trains = random_schedule.trains
                 schedule.ridden = random_schedule.ridden
 
@@ -142,21 +140,15 @@ class Experiment:
                 schedule.trains = greedy_schedule.trains
                 schedule.ridden = greedy_schedule.ridden
 
-            elif self.algorithm == "hillclimb":
+            elif self.algorithm == "hillclimb_train":
+                hillclimber = HillClimber_train(schedule)
+                best_trains, best_ridden = hillclimber.get_best_train()
+                schedule.trains = best_trains
+                schedule.ridden = best_ridden
+
+            elif self.algorithm == "hillclimb_connection":
                 hillclimber = HillClimber_connections(schedule)
                 best_trains, best_ridden = hillclimber.get_best_connections()
-                schedule.trains = best_trains
-                schedule.ridden = best_ridden
-
-            elif self.algorithm == "hillclimb_connectionslist":
-                hillclimber = HillClimber_connectionsUPDATE(schedule)
-                best_trains, best_ridden = hillclimber.get_best_connections()
-                schedule.trains = best_trains
-                schedule.ridden = best_ridden
-
-            elif self.algorithm == "hillclimb_train":
-                train_climber = HillClimber_train2(schedule)
-                best_trains, best_ridden = train_climber.get_best_train() 
                 schedule.trains = best_trains
                 schedule.ridden = best_ridden
             
@@ -166,14 +158,9 @@ class Experiment:
                 schedule.trains = best_trains
                 schedule.ridden = best_ridden
 
-            elif self.algorithm == "greedy2":
-                greedy_schedule = GreedySchedule(schedule).create_greedy_schedule()
-                schedule.trains = greedy_schedule.trains
-                schedule.ridden = greedy_schedule.ridden
-
             else: 
                 print("No valid algorithm was called. Please call one of the following algorithms in main.py:")
-                print("'random', 'greedy', 'hillclimb', 'hillclimb_train'")
+                print("'random', 'greedy', 'hillclimb_connection', 'hillclimb_train', or 'hillclimb_combined'")
                 break
 
             trial_stations_trains, trial_score, trial_ridden = schedule.display_schedule(file_name, save_each_output_as_csv=True)
