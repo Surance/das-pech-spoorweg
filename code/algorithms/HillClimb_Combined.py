@@ -1,8 +1,8 @@
 import random
 import math
 from copy import deepcopy
-from code.algorithms.HillClimb_ConnectionList import HillClimber_connectionslist
-from code.algorithms.HillClimb_Connection import HillClimber_connections
+from code.classes.quality import calculate_quality
+from code.algorithms.HillClimb_ConnectionList import HillClimber_connectionsUPDATE
 from code.algorithms.HillClimb_Train import HillClimber_train
 from code.algorithms.HillClimb_Connection import HillClimber_connections
 from code.algorithms.greedy import GreedySchedule
@@ -23,10 +23,11 @@ class HillClimber_combined:
         self.schedule.trains = best_trains
         self.schedule.ridden = best_ridden
 
-        hillclimber = HillClimber_connections(self.schedule)
-        best_trains, best_ridden = hillclimber.get_best_connections()
+        print(len(self.schedule.trains))
+
+        connection_climber = HillClimber_connectionsUPDATE(self.schedule)
+        best_trains, best_ridden = connection_climber.get_best_connections()
+
+        print(len(self.schedule.trains))
 
         return best_trains, best_ridden
-
-
-

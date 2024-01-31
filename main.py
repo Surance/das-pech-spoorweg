@@ -12,7 +12,7 @@ if __name__ == "__main__":
     # Input csv's
     data = Information("data/StationsNationaal.csv", "data/ConnectiesNationaal.csv")
 
-    iterations = 1000
+    iterations = 10
     algorithm = "hillclimb_combined"
     max_trains = 20
     max_time = 180  # 3 hours
