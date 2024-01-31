@@ -11,6 +11,8 @@ Several algorithms have been developed to maximize the K value, and each algorit
 
 ## Getting Started
 
+To conduct an experiment, you define your requirements within the main function. Additionally, you have the option to specify visualization preferences. In line 39, you can choose between matplotlib and plotly visualizations (referred to as visualise_plot and visualise_map, respectively) by setting them to True or False, with the default being True.
+
 ### Prerequisites
 
 This code has been fully written in [Python3.9.18](https://www.python.org/downloads/). All neccessary packages to run the code successfully can be found in requirements.txt. These are easy to download using pip dmv. using the following instructions:
