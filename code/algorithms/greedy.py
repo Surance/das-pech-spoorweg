@@ -127,9 +127,6 @@ class GreedySchedule:
             self.schedule.train.total_time += self.schedule.current_time
             self.schedule.trains.append(self.schedule.train)
 
-            # For the next train, take the next one out of the list of first stations 
-            i+=1
-
             # Break out of loop once the max number of trains has been met
             if len(self.schedule.trains) >= self.schedule.max_trains:
                 break
