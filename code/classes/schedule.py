@@ -1,7 +1,7 @@
 from code.classes.connection import Connection
 from code.classes.station import Station
+from code.functions.quality import calculate_quality
 from .train import Train
-from .quality import calculate_quality
 from typing import Union
 from typing_extensions import Self
 
