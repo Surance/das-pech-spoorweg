@@ -108,11 +108,14 @@ class GreedySchedule:
             # Take connection with least score as first station
             first_train_connection = self.find_best_score(self.connections_score)
 
-            # Take next best connection if connection has already been used to initialise train 
-            if first_train_connection in first_connections:
-                ordered_dict = OrderedDict(sorted(self.connections_score.items(), key=lambda x: x[1]))
-                first_train_connection, _ = list(ordered_dict.items())[1]
-                
+            # Take next best connection if connection has already been ridden
+            i = 0
+            for trial in range(100):
+                if first_train_connection in self.schedule.ridden:
+                    ordered_dict = OrderedDict(sorted(self.connections_score.items(), key=lambda x: x[1]))
+                    first_train_connection, _ = list(ordered_dict.items())[i]
+                    i += 1
+            
             # Add first station to train
             self.schedule.add_train(first_connection=first_train_connection)
             first_connections.append(first_train_connection)
