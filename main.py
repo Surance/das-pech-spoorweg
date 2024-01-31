@@ -83,4 +83,4 @@ if __name__ == "__main__":
 
     pathname = current_experiment.path_name(summary=True)
 
-    Experiment.summary_experiment(algorithm, pathname, iterations, score_list, ridden_count)
+    current_experiment.summary_experiment()

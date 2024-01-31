@@ -76,9 +76,9 @@ class Experiment:
 
         if summary_boolean == False:
             # New experiment number is one more than largest number in directory
-            return self.max_number + 1
+            return max_number + 1
         else: 
-            return self.max_number
+            return max_number
 
     def path_name(self, summary: bool = False) -> str:
         """
@@ -169,12 +169,12 @@ class Experiment:
         # Create pathname to save trial csv outputs in
         self.pathname = self.path_name()
 
-        all_connections = self.create_connection_list(self.data)
+        self.all_connections = self.create_connection_list()
         
         for trial in range(self.iterations):
             file_name = f"{self.pathname}experiment_{trial + 1}"
 
-            schedule = Schedule(max_trains, max_time, all_connections)
+            schedule = Schedule(max_trains, max_time, self.all_connections)
 
             # Create a schedule depending on which algorithm is called
             if self.algorithm == "random":
