@@ -82,7 +82,7 @@ class HillClimber_connections:
             tuple[list, set]: A tuple containing the list of trains and the set of ridden connections in the best schedule.
         """
         print("NEW TRIAL CONNECTION------------------------")
-        for _ in range(10000):
+        for _ in range(1000):
             copy_schedule = deepcopy(self.schedule)
 
             rand_int = random.randint(0, 1)

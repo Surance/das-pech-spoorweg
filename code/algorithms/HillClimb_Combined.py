@@ -162,7 +162,7 @@ class HillClimberCombined:
             tuple[list, set]: The modified trains and ridden connections in the final schedule.
         """
         print("NEW TRIAL TRAINS ------------------------")
-        for _ in range(10):
+        for _ in range(1000):
             copy_schedule = deepcopy(self.schedule)
             
             trains_to_change = random.randint(1, 10) 

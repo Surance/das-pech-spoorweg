@@ -17,9 +17,8 @@ train_15,"['Gouda', 'Alphen a/d Rijn', 'Leiden Centraal', 'Den Haag Centraal', '
 train_16,"['Amsterdam Amstel', 'Hilversum', 'Utrecht Centraal', 'Amersfoort', 'Apeldoorn', 'Zutphen', 'Dieren', 'Arnhem Centraal', 'Nijmegen', 'Oss', 's-Hertogenbosch', 'Tilburg', 'Eindhoven', 'Helmond']"
 train_17,"['Leeuwarden', 'Groningen', 'Assen', 'Zwolle', 'Deventer', 'Zutphen', 'Dieren', 'Arnhem Centraal', 'Ede-Wageningen', 'Utrecht Centraal', 'Amsterdam Amstel', 'Amsterdam Centraal', 'Amsterdam Sloterdijk']"
 train_18,"['Almelo', 'Hengelo', 'Enschede']"
-train_19,"['Amsterdam Amstel', 'Amsterdam Zuid', 'Amsterdam Sloterdijk', 'Haarlem', 'Beverwijk', 'Zaandam', 'Hoorn', 'Alkmaar', 'Den Helder']"
-train_20,"['Almere Centrum', 'Lelystad Centrum']"
-Score,4914.483146067416
-Connections Ridden,82
+train_19,"['Maastricht', 'Sittard', 'Heerlen']"
+train_20,"['Sittard', 'Roermond', 'Weert', 'Eindhoven', 's-Hertogenbosch', 'Utrecht Centraal', 'Gouda', 'Alphen a/d Rijn', 'Utrecht Centraal', 'Amsterdam Centraal']"
+Score,4997.842696629214
+Connections Ridden,83
 Total Connections,89
-Connections not ridden,"[['Almelo', 'Hengelo'], ['Amsterdam Amstel', 'Hilversum'], ['Gouda', 'Alphen a/d Rijn'], ['Leeuwarden', 'Groningen'], ['Leiden Centraal', 'Heemstede-Aerdenhout'], ['Maastricht', 'Sittard'], ['Sittard', 'Roermond']]"
