@@ -6,7 +6,7 @@ from code.algorithms.random import Random_schedule
 from code.algorithms.greedy import GreedySchedule
 from code.classes.schedule import Schedule
 
-class HillClimber_connectionslist:
+class HillClimber_connectionsUPDATE:
     def __init__(self, schedule: Schedule, initial_temperature: float = 100.0, cooling_rate: float = 0.95, convergence_threshold: float = 0.001) -> None:
         self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
@@ -60,7 +60,7 @@ class HillClimber_connectionslist:
         return schedule
 
     def get_best_connections(self) -> tuple[list, set]:
-            print("NEW TRIAL ------------------------")
+            print("NEW TRIAL CONNECTION ------------------------")
             while self.temperature > 1.0:
                 copy_schedule = deepcopy(self.schedule)
                 rand_int = random.randint(0, 1)
@@ -77,11 +77,12 @@ class HillClimber_connectionslist:
                 if current_score > self.best_score or random.uniform(0, 1) < math.exp((current_score - self.best_score) / self.temperature):
                     self.best_score = current_score
                     self.best_schedule = altered_schedule
+                    print(f"Iteration: {self.iteration_count} | Move: {move} | Current Score: {current_score} | Best Score: {self.best_score} | Temperature: {self.temperature}")
 
                 self.iteration_count += 1
 
                 # Print key information about the current iteration
-                print(f"Iteration: {self.iteration_count} | Move: {move} | Current Score: {current_score} | Best Score: {self.best_score} | Temperature: {self.temperature}")
+                
 
                 # Update temperature
                 self.temperature *= self.cooling_rate

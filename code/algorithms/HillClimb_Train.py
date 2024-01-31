@@ -10,15 +10,15 @@ class HillClimber_train:
         self.schedule = GreedySchedule(schedule).create_greedy_schedule()
         self.best_score = float('-inf')
         self.best_schedule = None
-        self.iteration_count = 0
-        self.iteration_count = 0
 
     def delete_train(self, schedule: Schedule) -> Schedule:
         """
         Delete a random train from the schedule. 
         """
-        train = random.choice(schedule.trains)
-        schedule.trains.remove(train)
+        rand_int = random.randint(0, 5)
+        for _ in range(rand_int):
+            train = random.choice(schedule.trains)
+            schedule.trains.remove(train)
       
         return schedule
     
@@ -30,7 +30,9 @@ class HillClimber_train:
         if len(schedule.trains) == schedule.max_trains: 
             return schedule 
         
-        schedule.add_train()
+        trains_to_add = random.randint(len(schedule.max_trains) - len(schedule.trains))
+        for _ in range(trains_to_add):
+            schedule.add_train()
 
         # Add new stations to train if it connects to previous station until all connections are passed or max time is met
         while schedule.current_time < schedule.max_time and len(schedule.ridden) < len(schedule.total_connections):
@@ -55,26 +57,25 @@ class HillClimber_train:
         """
         Randomly choose to delete or add a train. If the quality is higher after the change, keep the schedule
         """
-        print("NEW TRIAL TRAINS ------------------------")
-        for i in range(10000):
+        print("NEW TRIAL ------------------------")
+        for _ in range(10):
             copy_schedule = deepcopy(self.schedule)
+
             rand_int = random.randint(0, 1)
+
             if rand_int == 0:
                 altered_schedule = self.delete_train(copy_schedule)
-                move = "Deletion"
+                move = 'deletion'
             else:
                 altered_schedule = self.add_new_train(copy_schedule)
-                move = "Addition"
-        
+                move = 'addition'
+
             current_score = self.calculate_schedule_score(altered_schedule)
 
             if current_score > self.best_score:
                 self.best_score = current_score
                 self.best_schedule = altered_schedule
-                print(f"Iteration: {self.iteration_count} | Current Score: {current_score} | Best Score: {self.best_score} |")
-            
-            self.iteration_count += 1
-
+                print(current_score)
 
         # Because of removes and adds train names are no longer correct so we need to rename them in correct order 
         self.best_schedule.rename_trains()

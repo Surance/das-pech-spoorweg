@@ -1,5 +1,4 @@
 from code.classes.schedule import Schedule
-from code.classes.connection import Connection
 from collections import OrderedDict
 
 class GreedySchedule:
@@ -126,6 +125,9 @@ class GreedySchedule:
             # Add current time to train time and add train to schedule
             self.schedule.train.total_time += self.schedule.current_time
             self.schedule.trains.append(self.schedule.train)
+
+            # For the next train, take the next one out of the list of first stations 
+            i+=1
 
             # Break out of loop once the max number of trains has been met
             if len(self.schedule.trains) >= self.schedule.max_trains:
