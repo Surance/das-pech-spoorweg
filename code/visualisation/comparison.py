@@ -88,7 +88,7 @@ def plot_kde(random_summary: pd.DataFrame, greedy_summary: pd.DataFrame, hillcli
     plt.show()
 
 # Getting the correct files of 1000 iterations
-random_summary = pd.read_csv("experiment/random/random_2/EXPERIMENT_SUMMARY")
+random_summary = pd.read_csv("experiment/random/random_1/EXPERIMENT_SUMMARY")
 greedy_summary = pd.read_csv("experiment/greedy/greedy_1/EXPERIMENT_SUMMARY")
 hillclimb_train = pd.read_csv("experiment/hillclimb_train/hillclimb_train_1/EXPERIMENT_SUMMARY")
 hillclimb_connection = pd.read_csv("experiment/hillclimb_connection/hillclimb_connection_1/EXPERIMENT_SUMMARY")
