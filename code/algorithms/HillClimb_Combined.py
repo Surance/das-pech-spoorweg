@@ -14,6 +14,10 @@ class HillClimberCombined:
 
     The algorithm continues to initialize new schedules for a set number of iterations, considering changes at both
     train and connection levels.
+
+    The code is made up of a lot of double code from HillClimb_Connection and HillClimb_Train. 
+    We had several attempts to try to combine the code by calling these classes and functions but these were unsucessful due to 
+    faults resulting from the code structure and deepcopies we create. 
     """
     def __init__(self, schedule: Schedule, initial_temperature: float = 100.0, cooling_rate: float = 0.95, convergence_threshold: float = 0.001) -> None:
         """
