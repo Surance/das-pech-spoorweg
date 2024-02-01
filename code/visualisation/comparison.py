@@ -43,11 +43,11 @@ def plot_histogram(random_summary: list, greedy_summary: list, hillclimb_train_s
     plt.figure(figsize=(10, 6))
    
     plt.hist(Random, bins=bins, alpha=0.5, label='Random')
-    plt.hist(Hillclimb_train, bins=50, alpha=0.5, label='Hillclimb train')
-    plt.hist(Hillclimb_combined, bins=50, alpha=0.5, label='Hillclimb combined')
+    plt.hist(Hillclimb_train, color= 'orange', bins=bins, alpha=0.5, label='Hillclimb train')
+    plt.hist(Hillclimb_combined, color= 'green', bins=bins, alpha=0.5, label='Hillclimb combined')
 
     # Plot vertical line for Greedy and Hillclimb connection
-    plt.axvline(x=greedy_connections, color='g', linestyle='--', label='Greedy')
+    plt.axvline(x=greedy_connections, color='r', linestyle='--', label='Greedy')
     plt.axvline(x=hillclimb_connection, color='purple',linestyle=':', label='Hillclimb connection')
 
     plt.xlabel('Scores')
@@ -74,11 +74,11 @@ def plot_kde(random_summary: pd.DataFrame, greedy_summary: pd.DataFrame, hillcli
     
     # Create KDE plot using Seaborn
     sns.kdeplot(data=Random, x='Ridden', fill=True, label ='Random')
-    sns.kdeplot(data=Hillclimb_train, x='Ridden', fill=True, label='Hillclimb train', alpha=0.3)
-    sns.kdeplot(data=Hillclimb_combined, x='Ridden', fill=True, label='Hillclimb combined', alpha=0.3)
+    sns.kdeplot(data=Hillclimb_train, x='Ridden', fill=True, label='Hillclimb train', alpha=0.5)
+    sns.kdeplot(data=Hillclimb_combined, color = 'g', x='Ridden', fill=True, label='Hillclimb combined', alpha=0.2)
   
     # Plot vertical line for Greedy and Hillclimb connection
-    plt.axvline(x=greedy_connections, color='g', linestyle='--', label='Greedy')
+    plt.axvline(x=greedy_connections, color='r', linestyle='--', label='Greedy')
     plt.axvline(x=hillclimb_connection, color='purple',linestyle=':', label='Hillclimb connection')
 
     plt.xlabel('Connections ridden')
